@@ -1,7 +1,7 @@
-import { liatrioDoraPlugin } from './plugin';
+import { EntityDORAChangeLeadTimeCard } from './plugin';
 
 describe('liatrio-dora', () => {
   it('should export plugin', () => {
-    expect(liatrioDoraPlugin).toBeDefined();
+    expect(EntityDORAChangeLeadTimeCard).toBeDefined();
   });
 });
