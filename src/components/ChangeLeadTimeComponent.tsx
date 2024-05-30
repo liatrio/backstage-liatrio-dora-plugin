@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Content,
-  Header,
   InfoCard,
-  Page,
-  StructuredMetadataTable,
 } from '@backstage/core-components';
-import { Box, CircularProgress, Typography } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import { ChangeLeadTime } from 'liatrio-react-dora';
 
 export const ChangeLeadTimeComponent = () => {
