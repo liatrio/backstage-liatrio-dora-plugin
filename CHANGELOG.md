@@ -2,6 +2,13 @@
 
 
 
+## v0.0.8 (2024-05-30)
+
+### Fix
+
+* fix: updating workflow to use yarn tsc ([`89ddf91`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/89ddf91391ee4ca5cd3d12e63b76b58742511193))
+
+
 ## v0.0.7 (2024-05-30)
 
 ### Fix
