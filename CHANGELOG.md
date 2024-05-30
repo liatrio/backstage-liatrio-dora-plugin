@@ -2,6 +2,13 @@
 
 
 
+## v0.0.6 (2024-05-30)
+
+### Fix
+
+* fix: updating deps and cleaning up package.json ([`263763b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/263763bc0a9b20a93e97b7a8c1ec33c38b7630a9))
+
+
 ## v0.0.5 (2024-05-30)
 
 ### Fix
