@@ -2,6 +2,13 @@
 
 
 
+## v0.0.10 (2024-05-30)
+
+### Fix
+
+* fix: updating the output zip name and path ([`447d99a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/447d99ade16a937190a49d9b9d35902f55a0876a))
+
+
 ## v0.0.9 (2024-05-30)
 
 ### Fix
