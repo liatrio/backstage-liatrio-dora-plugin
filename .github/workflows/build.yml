@@ -37,7 +37,7 @@ jobs:
         run: yarn version --new-version ${{ steps.clean_tag.outputs.tag_name_clean }} --no-git-tag-version
 
       - name: Build Typescript Definitions
-        run: yarn tcs
+        run: yarn tsc
 
       - name: Build
         run: yarn run build
