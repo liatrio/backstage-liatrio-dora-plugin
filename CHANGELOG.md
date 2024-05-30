@@ -2,6 +2,13 @@
 
 
 
+## v0.0.7 (2024-05-30)
+
+### Fix
+
+* fix: change build workflow to use npm (#2) ([`2b77fbf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/2b77fbfd6d52722f6c0ab92f0f5b68239119a39e))
+
+
 ## v0.0.6 (2024-05-30)
 
 ### Fix
