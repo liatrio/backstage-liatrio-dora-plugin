@@ -2,6 +2,34 @@
 
 
 
+## v0.0.10 (2024-05-30)
+
+### Fix
+
+* fix: updating the output zip name and path ([`447d99a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/447d99ade16a937190a49d9b9d35902f55a0876a))
+
+
+## v0.0.9 (2024-05-30)
+
+### Fix
+
+* fix: updating the output zip name ([`f40472c`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/f40472cb598a11d2286b35b9a843adb9c5688b2f))
+
+
+## v0.0.8 (2024-05-30)
+
+### Fix
+
+* fix: updating workflow to use yarn tsc ([`89ddf91`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/89ddf91391ee4ca5cd3d12e63b76b58742511193))
+
+
+## v0.0.7 (2024-05-30)
+
+### Fix
+
+* fix: change build workflow to use npm (#2) ([`2b77fbf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/2b77fbfd6d52722f6c0ab92f0f5b68239119a39e))
+
+
 ## v0.0.6 (2024-05-30)
 
 ### Fix
