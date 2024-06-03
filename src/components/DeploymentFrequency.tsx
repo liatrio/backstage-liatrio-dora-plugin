@@ -5,6 +5,10 @@ import { DeploymentFrequency as DF } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef, identityApiRef } from '@backstage/core-plugin-api';
 
+const getRepoName = (e: any) => {
+  return e.entity.metadata.annotations['github.com/project-slug'].split('/')[1]
+}
+
 export const DeploymentFrequency = () => {
   const entity = useEntity();
   const configApi = useApi(configApiRef)
@@ -23,6 +27,7 @@ export const DeploymentFrequency = () => {
   }
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
+  const repoName = getRepoName(entity)
 
   return (
     <InfoCard title="Deployment Frequency">
@@ -32,7 +37,7 @@ export const DeploymentFrequency = () => {
             <DF
               api={apiUrl}
               getAuthHeaderValue={getAuthHeaderValue}
-              repositories={[entity.entity.metadata.name]}
+              repositories={[repoName]}
             />
           </div>
         </Box>
