@@ -20,8 +20,8 @@ export const EntityDORAChangeLeadTimeCard = DORAMetricsPlugin.provide(
     name: 'EntityDORAChangeLeadTimeCard',
     component: {
       lazy: () =>
-        import('./components/ChangeLeadTimeComponent').then(
-          m => m.ChangeLeadTimeComponent,
+        import('./components/ChangeLeadTime').then(
+          m => m.ChangeLeadTime,
         ),
     },
   }),
@@ -32,8 +32,8 @@ export const EntityDORADeploymentFrequency = DORAMetricsPlugin.provide(
     name: 'EntityDORADeploymentFrequency',
     component: {
       lazy: () =>
-        import('./components/DeploymentFrequencyComponent').then(
-          m => m.DeploymentFrequencyComponent,
+        import('./components/DeploymentFrequency').then(
+          m => m.DeploymentFrequency,
         ),
     },
   }),
