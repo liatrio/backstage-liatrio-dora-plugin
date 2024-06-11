@@ -2,6 +2,38 @@
 
 
 
+## v0.0.12 (2024-06-11)
+
+### Fix
+
+* fix: handle missing github annotation (#11)
+
+Co-authored-by: Eliot Eikenberry &lt;wolftousen@Tundria.local&gt; ([`05c28ec`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/05c28ec4990ea3407fe9f1eb8d82580617e2b9ed))
+
+
+## v0.0.11 (2024-06-10)
+
+### Unknown
+
+* Entity info (#9)
+
+* fix: change build workflow to use npm
+
+* fix: Streamline code, explore Entity
+
+* fix: use the actual API instead of dummy data
+
+* fix: get repo name correctly?
+
+* fix: update react component version
+
+---------
+
+Co-authored-by: Eliot Eikenberry &lt;wolftousen@Tundria.local&gt; ([`d85539d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d85539deae7bb2af9243d1aa763eb63207b4064d))
+
+* Add catalog-info.yaml config file (#10) ([`379efba`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/379efba524600be5196020cceae59cf66b2c8501))
+
+
 ## v0.0.10 (2024-05-30)
 
 ### Fix
