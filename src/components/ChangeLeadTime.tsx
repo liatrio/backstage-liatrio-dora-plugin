@@ -8,7 +8,11 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef, identityApiRef } from '@backstage/core-plugin-api';
 
 const getRepoName = (e: any) => {
-  return e.entity.metadata.annotations['github.com/project-slug'].split('/')[1]
+  if ('github.com/project-slug' in e.entity.metadata.annotations) {
+    return e.entity.metadata.annotations['github.com/project-slug'].split('/')[1]
+  } else {
+    return ""
+  }
 }
 
 export const ChangeLeadTime = () => {
@@ -36,11 +40,15 @@ export const ChangeLeadTime = () => {
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
           <div style={{ width: '800px', height: '400px' }}>
-            <CLT
-              api={apiUrl}
-              getAuthHeaderValue={getAuthHeaderValue}
-              repositories={[repoName]}
-            />
+            { repoName === "" ?
+              <div>DORA Metrics are not available for Non-GitHub repos currently</div>
+            : 
+              <CLT
+                api={apiUrl}
+                getAuthHeaderValue={getAuthHeaderValue}
+                repositories={[repoName]}
+              />
+            }
           </div>
         </Box>
       </Box>
