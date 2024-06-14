@@ -2,6 +2,15 @@
 
 
 
+## v0.1.1 (2024-06-14)
+
+### Fix
+
+* fix: package version (#15)
+
+Co-authored-by: Eliot Eikenberry &lt;wolftousen@Tundria.local&gt; ([`c8f7fa7`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c8f7fa7d53eb14e96adbc81a167385686c6bd6f3))
+
+
 ## v0.1.0 (2024-06-14)
 
 ### Feature
