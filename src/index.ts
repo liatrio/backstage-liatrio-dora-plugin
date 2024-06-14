@@ -2,4 +2,6 @@
 export {
   EntityDORAChangeLeadTimeCard,
   EntityDORADeploymentFrequency,
+  EntityDORAChangeFailureRate,
+  EntityDORARecoverTime,
 } from './plugin';
