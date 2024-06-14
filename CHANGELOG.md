@@ -2,6 +2,15 @@
 
 
 
+## v0.1.0 (2024-06-14)
+
+### Feature
+
+* feat: Add CFR and RT (#14)
+
+Co-authored-by: Eliot Eikenberry &lt;wolftousen@Tundria.local&gt; ([`4ebf510`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4ebf51034f34b7885d5459300ace1ecbc77d4f35))
+
+
 ## v0.0.12 (2024-06-11)
 
 ### Fix
