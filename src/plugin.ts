@@ -38,3 +38,27 @@ export const EntityDORADeploymentFrequency = DORAMetricsPlugin.provide(
     },
   }),
 );
+
+export const EntityDORAChangeFailureRate = DORAMetricsPlugin.provide(
+  createComponentExtension({
+    name: 'EntityDORAChangeFailureRate',
+    component: {
+      lazy: () =>
+        import('./components/ChangeFailureRate').then(
+          m => m.ChangeFailureRate,
+        ),
+    },
+  }),
+);
+
+export const EntityDORARecoverTime = DORAMetricsPlugin.provide(
+  createComponentExtension({
+    name: 'EntityDORARecoverTime',
+    component: {
+      lazy: () =>
+        import('./components/RecoverTime').then(
+          m => m.RecoverTime,
+        ),
+    },
+  }),
+);
