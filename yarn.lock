@@ -8853,9 +8853,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v0.0.7/liatrio-react-dora-0.0.7.tgz":
-  version "0.0.7"
-  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v0.0.7/liatrio-react-dora-0.0.7.tgz#17d93022dab42d5cac0e743f6dd7b357b6a3ea38"
+"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v0.1.1/liatrio-react-dora-0.1.1.tgz":
+  version "0.1.1"
+  uid fef380e41e6e748d8e18aa5f9a99a09f85a6fffb
+  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v0.1.1/liatrio-react-dora-0.1.1.tgz#fef380e41e6e748d8e18aa5f9a99a09f85a6fffb"
   dependencies:
     recharts "^2.12.7"
 
@@ -13292,9 +13293,9 @@ write-file-atomic@^4.0.2:
     signal-exit "^3.0.7"
 
 ws@^8.11.0, ws@^8.16.0:
-  version "8.17.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.0.tgz#d145d18eca2ed25aaf791a183903f7be5e295fea"
-  integrity sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==
+  version "8.17.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
+  integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==
 
 xml-name-validator@^4.0.0:
   version "4.0.0"
