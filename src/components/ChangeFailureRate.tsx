@@ -5,32 +5,16 @@ import {
 import { Box } from '@material-ui/core';
 import { ChangeFailureRate as CFR } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { useApi, configApiRef, identityApiRef } from '@backstage/core-plugin-api';
-
-const getRepoName = (e: any) => {
-  if ('github.com/project-slug' in e.entity.metadata.annotations) {
-    return e.entity.metadata.annotations['github.com/project-slug'].split('/')[1]
-  } else {
-    return ""
-  }
-}
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
+import { genAuthHeaderValueLookup, getRepoName } from '../helper';
 
 export const ChangeFailureRate = () => {
   const entity = useEntity();
   const configApi = useApi(configApiRef);
-  const identityApi = useApi(identityApiRef)
   const backendUrl = configApi.getString('backend.baseUrl');
   const endpoint = configApi.getString("dora.changeFailureRateEndpoint");
 
-  const getAuthHeaderValue = async() => {
-    const obj = await identityApi.getCredentials()
-
-    if(obj.token) {
-      return `Bearer ${obj.token}`
-    } else {
-      return undefined
-    }
-  }
+  const getAuthHeaderValue = genAuthHeaderValueLookup()
   
   const repoName = getRepoName(entity)
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
