@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.4 (2024-06-26)
+
+### Fix
+
+* fix: Fix chart titles (#20) ([`8e4fee2`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8e4fee2ea6d7b35c34f6357dfbf48a7b6f6f8b09))
+
 ## v0.1.3 (2024-06-26)
 
 ### Fix
