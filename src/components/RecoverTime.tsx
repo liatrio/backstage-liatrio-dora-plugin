@@ -20,7 +20,7 @@ export const RecoverTime = () => {
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
 
   return (
-    <InfoCard title="Change Lead Time">
+    <InfoCard title="Recover Time">
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
           <div style={{ width: '800px', height: '400px' }}>
