@@ -20,7 +20,7 @@ export const ScoreBoard = () => {
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
 
   return (
-    <InfoCard title="DORA At a Glance">
+    <InfoCard title="DORA: 30 Days At a Glance">
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
           <div style={{ width: '100%', height: '100px' }}>
