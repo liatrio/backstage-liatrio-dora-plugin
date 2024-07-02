@@ -23,7 +23,7 @@ export const ScoreBoard = () => {
     <InfoCard title="DORA At a Glance">
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
-          <div style={{ width: '800px', height: '400px' }}>
+          <div style={{ width: '100%', height: '100px' }}>
             { repoName === "" ?
               <div>DORA Metrics are not available for Non-GitHub repos currently</div>
             : 
