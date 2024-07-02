@@ -65,7 +65,7 @@ export const Charts = () => {
                   editableDateInputs={true}
                   onChange={updateDateRange}
                   moveRangeOnFirstSelection={false}
-                  ranges={dateRange}
+                  ranges={[dateRange]}
                 />
               </div>
             </Box>
