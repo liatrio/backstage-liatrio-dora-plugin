@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   InfoCard,
 } from '@backstage/core-components';
@@ -22,12 +22,12 @@ export const Charts = () => {
 
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
-  const [startDate, setStartDate] = useState<Date>(new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000))
-  const [endDate, setEndDate] = useState<Date>(new Date())
+  const startDate = useRef<Date>(new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000))
+  const endDate = useRef<Date>(new Date())
 
   const updateDateRange = (start: Date, end: Date) => {
-    setStartDate(start)
-    setEndDate(end)
+    startDate.current = start
+    endDate.current = end
   }
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export const Charts = () => {
       api: apiUrl,
       getAuthHeaderValue: getAuthHeaderValue,
       repositories: [repoName],
-      start: startDate,
-      end: endDate,
+      start: startDate.current,
+      end: endDate.current,
     }, (data: any) => {
       setData(data)
     })
@@ -58,8 +58,8 @@ export const Charts = () => {
               <div style={{ width: '100%', height: '380px' }}>
                 <DateRangePicker
                   onChange={updateDateRange}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={startDate.current}
+                  endDate={endDate.current}
                 />
               </div>
             </Box>
