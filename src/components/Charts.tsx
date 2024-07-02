@@ -28,6 +28,16 @@ export const Charts = () => {
   const updateDateRange = (start: Date, end: Date) => {
     startDate.current = start
     endDate.current = end
+
+    fetchData({
+      api: apiUrl,
+      getAuthHeaderValue: getAuthHeaderValue,
+      repositories: [repoName],
+      start: start,
+      end: end,
+    }, (data: any) => {
+      setData(data)
+    })
   }
 
   useEffect(() => {
@@ -43,7 +53,7 @@ export const Charts = () => {
     }, (data: any) => {
       setData(data)
     })
-  }, [startDate, endDate])
+  }, [])
 
   if(repoName === "") {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
@@ -55,7 +65,7 @@ export const Charts = () => {
         <InfoCard title="Options">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%', height: '380px' }}>
+              <div style={{ width: '100%', height: '100px' }}>
                 <DateRangePicker
                   onChange={updateDateRange}
                   startDate={startDate.current}

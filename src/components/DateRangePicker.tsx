@@ -33,7 +33,7 @@ const DateRangePicker = (props: DateRangePickerProps) => {
   };
 
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column", justifyContent: "space-around"}}>
       <div>
         <label htmlFor="start-date">Start Date:</label>
         <input
@@ -52,7 +52,7 @@ const DateRangePicker = (props: DateRangePickerProps) => {
           onChange={handleEndDateChange}
         />
       </div>
-    </>
+    </div>
   );
 };
 
