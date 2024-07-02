@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   InfoCard,
 } from '@backstage/core-components';
-import { Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
@@ -38,45 +38,65 @@ export const Charts = () => {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  return (
-    <div>
-      <ScoreBoard data={data} />
-      <InfoCard title="Deployment Frequency">
-        <Box position="relative">
-          <Box display="flex" justifyContent="flex-end">
-            <div style={{ width: '800px', height: '400px' }}>
-              <DeploymentFrequency data={data}/>
-            </div>
+  return (<>
+    <Grid container spacing={3} alignItems="stretch">
+      <Grid item md={6} style={{justifyContent: "center", paddingBottom: "25px"}}>
+        <InfoCard title="DORA: At a Glance">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '100%', height: '100px' }}>
+                <ScoreBoard data={data} />
+              </div>
+            </Box>
           </Box>
-        </Box>
-      </InfoCard>
-      <InfoCard title="Change Lead Time">
-        <Box position="relative">
-          <Box display="flex" justifyContent="flex-end">
-            <div style={{ width: '800px', height: '400px' }}>
-              <ChangeLeadTime data={data}/>
-            </div>
+        </InfoCard>
+      </Grid>
+    </Grid>
+    <Grid container spacing={3} alignItems="stretch">
+      <Grid item md={6}>
+        <InfoCard title="Deployment Frequency">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '800px', height: '400px' }}>
+                <DeploymentFrequency data={data}/>
+              </div>
+            </Box>
           </Box>
-        </Box>
-      </InfoCard>
-      <InfoCard title="Change Failure Rate">
-        <Box position="relative">
-          <Box display="flex" justifyContent="flex-end">
-            <div style={{ width: '800px', height: '400px' }}>
-              <ChangeFailureRate data={data}/>
-            </div>
+        </InfoCard>
+      </Grid>
+      <Grid item md={6}>
+        <InfoCard title="Change Lead Time">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '800px', height: '400px' }}>
+                <ChangeLeadTime data={data}/>
+              </div>
+            </Box>
           </Box>
-        </Box>
-      </InfoCard>
-      <InfoCard title="Recover Time">
-        <Box position="relative">
-          <Box display="flex" justifyContent="flex-end">
-            <div style={{ width: '800px', height: '400px' }}>
-              <RecoverTime data={data}/>
-            </div>
+        </InfoCard>
+      </Grid>
+      <Grid item md={6}>
+        <InfoCard title="Change Failure Rate">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '800px', height: '400px' }}>
+                <ChangeFailureRate data={data}/>
+              </div>
+            </Box>
           </Box>
-        </Box>
-      </InfoCard>
-    </div>
-  )
+        </InfoCard>
+      </Grid>
+      <Grid item md={6}>
+        <InfoCard title="Recover Time">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '800px', height: '400px' }}>
+                <RecoverTime data={data}/>
+              </div>
+            </Box>
+          </Box>
+        </InfoCard>
+      </Grid>
+    </Grid>
+  </>)
 }
