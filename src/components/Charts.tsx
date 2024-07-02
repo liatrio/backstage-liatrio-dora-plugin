@@ -4,14 +4,11 @@ import {
 } from '@backstage/core-components';
 import { Box, Grid } from '@material-ui/core';
 
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import { genAuthHeaderValueLookup, getRepoName } from '../helper';
+import DateRangePicker from './DateRangePicker';
 
 export const Charts = () => {
   const entity = useEntity();
@@ -25,14 +22,12 @@ export const Charts = () => {
 
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
-  const [dateRange, setDateRange] = useState<any>({
-    startDate: new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000),
-    endDate: new Date(),
-    key: 'selection',
-  })
+  const [startDate, setStartDate] = useState<Date>(new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000))
+  const [endDate, setEndDate] = useState<Date>(new Date())
 
-  const updateDateRange = (range: any) => {
-    setDateRange(range.selection)
+  const updateDateRange = (start: Date, end: Date) => {
+    setStartDate(start)
+    setEndDate(end)
   }
 
   useEffect(() => {
@@ -43,12 +38,12 @@ export const Charts = () => {
       api: apiUrl,
       getAuthHeaderValue: getAuthHeaderValue,
       repositories: [repoName],
-      start: dateRange.startDate,
-      end: dateRange.endDate,
+      start: startDate,
+      end: endDate,
     }, (data: any) => {
       setData(data)
     })
-  }, [dateRange])
+  }, [startDate, endDate])
 
   if(repoName === "") {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
@@ -60,17 +55,18 @@ export const Charts = () => {
         <InfoCard title="Options">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%', height: '100px' }}>
-                <DateRange
-                  editableDateInputs={true}
+              <div style={{ width: '100%', height: '380px' }}>
+                <DateRangePicker
                   onChange={updateDateRange}
-                  moveRangeOnFirstSelection={false}
-                  ranges={[dateRange]}
+                  startDate={startDate}
+                  endDate={endDate}
                 />
               </div>
             </Box>
           </Box>
         </InfoCard>
+      </Grid>
+      <Grid item md={6}>
         <InfoCard title="DORA: At a Glance">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
