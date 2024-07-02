@@ -3,6 +3,11 @@ import {
   InfoCard,
 } from '@backstage/core-components';
 import { Box, Grid } from '@material-ui/core';
+
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
@@ -20,6 +25,19 @@ export const Charts = () => {
 
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
+  const [dateRange, setDateRange] = useState<any>({
+    startDate: new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000),
+    endDate: new Date(),
+    key: 'selection',
+  })
+
+  const updateDateRange = (range: any) => {
+    setDateRange({
+      startDate: range.startDate,
+      endDate: range.endDate,
+      key: 'selection'
+    })
+  }
 
   useEffect(() => {
     const repoName = getRepoName(entity)
@@ -28,11 +46,13 @@ export const Charts = () => {
     fetchData({
       api: apiUrl,
       getAuthHeaderValue: getAuthHeaderValue,
-      repositories: [repoName]
+      repositories: [repoName],
+      start: dateRange.startDate,
+      end: dateRange.endDate,
     }, (data: any) => {
       setData(data)
     })
-  }, [])
+  }, [dateRange])
 
   if(repoName === "") {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
@@ -41,6 +61,18 @@ export const Charts = () => {
   return (<>
     <Grid container spacing={3} alignItems="stretch">
       <Grid item md={6} style={{justifyContent: "center", paddingBottom: "25px"}}>
+        <InfoCard title="Options">
+          <Box position="relative">
+            <Box display="flex" justifyContent="flex-end">
+              <div style={{ width: '100%', height: '100px' }}>
+                <DateRangePicker
+                  ranges={[dateRange]}
+                  onChange={updateDateRange}
+                />
+              </div>
+            </Box>
+          </Box>
+        </InfoCard>
         <InfoCard title="DORA: At a Glance">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
