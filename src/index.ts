@@ -4,4 +4,6 @@ export {
   EntityDORADeploymentFrequency,
   EntityDORAChangeFailureRate,
   EntityDORARecoverTime,
+  EntityDORAScoreBoard,
+  EntityDORACharts
 } from './plugin';

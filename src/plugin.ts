@@ -62,3 +62,27 @@ export const EntityDORARecoverTime = DORAMetricsPlugin.provide(
     },
   }),
 );
+
+export const EntityDORAScoreBoard = DORAMetricsPlugin.provide(
+  createComponentExtension({
+    name: 'EntityDORAScoreBoard',
+    component: {
+      lazy: () =>
+        import('./components/ScoreBoard').then(
+          m => m.ScoreBoard,
+        ),
+    },
+  }),
+);
+
+export const EntityDORACharts = DORAMetricsPlugin.provide(
+  createComponentExtension({
+    name: 'EntityDORACharts',
+    component: {
+      lazy: () =>
+        import('./components/Charts').then(
+          m => m.Charts,
+        ),
+    },
+  }),
+);
