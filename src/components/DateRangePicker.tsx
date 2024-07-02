@@ -33,7 +33,7 @@ const DateRangePicker = (props: DateRangePickerProps) => {
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "column", justifyContent: "space-around"}}>
+    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around", verticalAlign: "middle", height: "100%"}}>
       <div>
         <label htmlFor="start-date">Start Date:</label>
         <input

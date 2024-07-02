@@ -26,18 +26,20 @@ export const Charts = () => {
   const endDate = useRef<Date>(new Date())
 
   const updateDateRange = (start: Date, end: Date) => {
+    if(start !== startDate.current || end !== endDate.current) {
+      fetchData({
+        api: apiUrl,
+        getAuthHeaderValue: getAuthHeaderValue,
+        repositories: [repoName],
+        start: start,
+        end: end,
+      }, (data: any) => {
+        setData(data)
+      })
+    }
+    
     startDate.current = start
     endDate.current = end
-
-    fetchData({
-      api: apiUrl,
-      getAuthHeaderValue: getAuthHeaderValue,
-      repositories: [repoName],
-      start: start,
-      end: end,
-    }, (data: any) => {
-      setData(data)
-    })
   }
 
   useEffect(() => {
