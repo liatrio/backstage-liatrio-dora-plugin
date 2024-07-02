@@ -4,7 +4,7 @@ import {
 } from '@backstage/core-components';
 import { Box, Grid } from '@material-ui/core';
 
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
@@ -32,11 +32,7 @@ export const Charts = () => {
   })
 
   const updateDateRange = (range: any) => {
-    setDateRange({
-      startDate: range.startDate,
-      endDate: range.endDate,
-      key: 'selection'
-    })
+    setDateRange(range.selection)
   }
 
   useEffect(() => {
@@ -60,14 +56,16 @@ export const Charts = () => {
 
   return (<>
     <Grid container spacing={3} alignItems="stretch">
-      <Grid item md={6} style={{justifyContent: "center", paddingBottom: "25px"}}>
+      <Grid item md={6} style={{paddingBottom: "25px"}}>
         <InfoCard title="Options">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '100%', height: '100px' }}>
-                <DateRangePicker
-                  ranges={[dateRange]}
+                <DateRange
+                  editableDateInputs={true}
                   onChange={updateDateRange}
+                  moveRangeOnFirstSelection={false}
+                  ranges={dateRange}
                 />
               </div>
             </Box>
