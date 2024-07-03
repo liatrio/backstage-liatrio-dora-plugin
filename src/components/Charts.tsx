@@ -25,9 +25,9 @@ export const Charts = () => {
   const startDate = useRef<Date>(new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000))
   const endDate = useRef<Date>(new Date())
 
-  const updateDateRange = (start: Date, end: Date) => {
-    if(start !== startDate.current || end !== endDate.current) {
-      fetchData({
+  const updateDateRange = async (start: Date, end: Date) => {
+    if(start.getTime() !== startDate.current.getTime() || end.getTime() !== endDate.current.getTime()) {
+      await fetchData({
         api: apiUrl,
         getAuthHeaderValue: getAuthHeaderValue,
         repositories: [repoName],
@@ -46,15 +46,19 @@ export const Charts = () => {
     const repoName = getRepoName(entity)
     setRepoName(repoName)
 
-    fetchData({
-      api: apiUrl,
-      getAuthHeaderValue: getAuthHeaderValue,
-      repositories: [repoName],
-      start: startDate.current,
-      end: endDate.current,
-    }, (data: any) => {
-      setData(data)
-    })
+    let fetch = async () => {
+      fetchData({
+        api: apiUrl,
+        getAuthHeaderValue: getAuthHeaderValue,
+        repositories: [repoName],
+        start: startDate.current,
+        end: endDate.current,
+      }, (data: any) => {
+        setData(data)
+      })
+    }
+
+    fetch()
   }, [])
 
   if(repoName === "") {
