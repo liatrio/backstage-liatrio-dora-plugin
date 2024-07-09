@@ -1,5 +1,75 @@
 # CHANGELOG
 
+## v0.2.0 (2024-07-09)
+
+### Feature
+
+* feat: add date range picker ([`9251ede`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/9251ede660b4999bec45d559b7be63fafedfddd7))
+
+* feat: add scoreboard and charts components ([`46d46e2`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/46d46e2a7a86f2d18cbf96e7feba25a9049b3f8c))
+
+### Fix
+
+* fix: version bump ([`6ccb6df`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/6ccb6df27f854bfe654ef6a6a95e0d082998352d))
+
+* fix: version bump ([`c7e62a9`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c7e62a981bd4b25fd8fd41a70a8f5e087f9b7cba))
+
+* fix: version bump ([`405ce04`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/405ce04186beeb06a089a82e7158aef4975d471e))
+
+* fix: version bump ([`5225df4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5225df49ea67247889701cd1f01460f2fba9443f))
+
+* fix: version bump ([`4dcbf4f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4dcbf4f6a6b80aaf50528e39a8c12a041073ef4f))
+
+* fix: make fetch async ([`7a86560`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7a865607b64370358dec52321b668e407bba09fc))
+
+* fix: bump version ([`fe188fb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fe188fb33bfec548a34b6c67949c2ca1eb266b8c))
+
+* fix: bump version ([`c855584`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c8555849b3637fe9b64313aa4e086c5f86ae297f))
+
+* fix: bump version ([`ba0bbba`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/ba0bbbac48ae065cddce89b1560a174318701de8))
+
+* fix: styling ([`b728b37`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b728b37a1d0b217d0676b1a2c0f36a3283b7bbb0))
+
+* fix: styling ([`ccea873`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/ccea8734c785370815ac0d13e4d508830ba12269))
+
+* fix: styling, don&#39;t fetch if no change ([`264227e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/264227e1ca66f978bff2d472e2b557b7326016c9))
+
+* fix: upgrade component vers ([`bc0f446`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bc0f446006f276c2eb28745220d016686cdcf433))
+
+* fix: spacing, not fetching ([`a3595fd`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/a3595fd68359f3733f0ea04d17623321702b6674))
+
+* fix: prevent recursive render ([`dea56f5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dea56f5a91ecc9c286ad07b044aceca721120e4c))
+
+* fix: use html date picker... ([`d6e0cad`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d6e0cad95c5af71c2a878343620feeb92f3dad9d))
+
+* fix: use array... ([`4486ec7`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4486ec7e9bef36d21ee9d302c19c0229084f2be1))
+
+* fix: add missing dependency ([`bc348cb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bc348cbf3ef2e23540b0e24e2cbac3d14fd4c601))
+
+* fix: change picker ([`fcf760d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fcf760d60d065b793b753729761dfff2586dc5f6))
+
+* fix: use new components ([`760a815`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/760a815ba0fdb8166c82ac143a8a71b2c8c2d4de))
+
+* fix: update component vers ([`7739f71`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7739f710354aa35fbf2c04b48c51ced6616eff28))
+
+* fix: Update title of scoreboard for overview ([`2911d59`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/2911d595cdf592268f3e6b016534d556463ac4e7))
+
+* fix: alter scoreboard container dims ([`9e0ad31`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/9e0ad31761d0501ce07dc98e1b90fcef8a470ae7))
+
+* fix: update component vers ([`374b20a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/374b20a732dc91dcdd26ff21f4f960382b346b19))
+
+* fix: update component vers ([`88db6e5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/88db6e5b8099af0500e2f14eb5285007ab468bc5))
+
+* fix: update component vers ([`7f53c10`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7f53c102d41a101e5580470e56e818437356c9c8))
+
+* fix: add new components to exports ([`61fe94a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/61fe94a27402571a73cc44372b173456246f9195))
+
+### Unknown
+
+* Merge pull request #21 from liatrio/ScoreBoard
+
+feat: Score Board ([`0a0fdaf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/0a0fdaf0ef440f368719bdbc2dbcf46fdc01f7e4))
+
 ## v0.1.4 (2024-06-26)
 
 ### Fix

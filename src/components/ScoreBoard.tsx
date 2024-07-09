@@ -3,16 +3,16 @@ import {
   InfoCard,
 } from '@backstage/core-components';
 import { Box } from '@material-ui/core';
-import { RecoverTime as RT } from 'liatrio-react-dora';
+import { ScoreBoard as SB } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import { genAuthHeaderValueLookup, getRepoName } from '../helper';
 
-export const RecoverTime = () => {
+export const ScoreBoard = () => {
   const entity = useEntity();
   const configApi = useApi(configApiRef);
   const backendUrl = configApi.getString('backend.baseUrl');
-  const endpoint = configApi.getString("dora.recoverTimeEndpoint");
+  const endpoint = configApi.getString("dora.endpoint");
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
   
@@ -20,14 +20,14 @@ export const RecoverTime = () => {
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
 
   return (
-    <InfoCard title="Recover Time">
+    <InfoCard title="DORA: 30 Days At a Glance">
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
-          <div style={{ width: '800px', height: '400px' }}>
+          <div style={{ width: '100%', height: '100px' }}>
             { repoName === "" ?
               <div>DORA Metrics are not available for Non-GitHub repos currently</div>
             : 
-              <RT
+              <SB
                 api={apiUrl}
                 getAuthHeaderValue={getAuthHeaderValue}
                 repositories={[repoName]}

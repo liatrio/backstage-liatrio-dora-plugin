@@ -15,49 +15,25 @@ export const DORAMetricsPlugin = createPlugin({
   },
 });
 
-export const EntityDORAChangeLeadTimeCard = DORAMetricsPlugin.provide(
+export const EntityDORAScoreBoard = DORAMetricsPlugin.provide(
   createComponentExtension({
-    name: 'EntityDORAChangeLeadTimeCard',
+    name: 'EntityDORAScoreBoard',
     component: {
       lazy: () =>
-        import('./components/ChangeLeadTime').then(
-          m => m.ChangeLeadTime,
+        import('./components/ScoreBoard').then(
+          m => m.ScoreBoard,
         ),
     },
   }),
 );
 
-export const EntityDORADeploymentFrequency = DORAMetricsPlugin.provide(
+export const EntityDORACharts = DORAMetricsPlugin.provide(
   createComponentExtension({
-    name: 'EntityDORADeploymentFrequency',
+    name: 'EntityDORACharts',
     component: {
       lazy: () =>
-        import('./components/DeploymentFrequency').then(
-          m => m.DeploymentFrequency,
-        ),
-    },
-  }),
-);
-
-export const EntityDORAChangeFailureRate = DORAMetricsPlugin.provide(
-  createComponentExtension({
-    name: 'EntityDORAChangeFailureRate',
-    component: {
-      lazy: () =>
-        import('./components/ChangeFailureRate').then(
-          m => m.ChangeFailureRate,
-        ),
-    },
-  }),
-);
-
-export const EntityDORARecoverTime = DORAMetricsPlugin.provide(
-  createComponentExtension({
-    name: 'EntityDORARecoverTime',
-    component: {
-      lazy: () =>
-        import('./components/RecoverTime').then(
-          m => m.RecoverTime,
+        import('./components/Charts').then(
+          m => m.Charts,
         ),
     },
   }),
