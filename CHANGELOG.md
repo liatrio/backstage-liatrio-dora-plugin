@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.1 (2024-07-10)
+
+### Unknown
+
+* Merge pull request #23 from liatrio/FixTest
+
+fix: fix test ([`fd3e44d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fd3e44d5c46c9635c29585f9af201790df0b0708))
+
+* Merge branch &#39;main&#39; into FixTest ([`22a3091`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/22a30915a12d32796213ed995362d86d5be1b0e9))
+
 ## v0.2.0 (2024-07-09)
 
 ### Feature
@@ -63,6 +73,8 @@
 * fix: update component vers ([`7f53c10`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7f53c102d41a101e5580470e56e818437356c9c8))
 
 * fix: add new components to exports ([`61fe94a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/61fe94a27402571a73cc44372b173456246f9195))
+
+* fix: fix test ([`55b9d3d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/55b9d3d94e2d3aae699cb1a6c06293bc80bb36d8))
 
 ### Unknown
 
