@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.2.2 (2024-07-10)
+
+### Fix
+
+* fix: bump version of react component ([`d29154e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d29154edb332a5fe37aee6dcc077e315c7b7ed8c))
+
+### Unknown
+
+* Merge pull request #25 from liatrio/ReactCompVerBump
+
+fix: bump version of react component ([`36b52b1`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/36b52b17a158fe6b2dbef8b15b25e45a7ccc3426))
+
 ## v0.2.1 (2024-07-10)
 
 ### Unknown
