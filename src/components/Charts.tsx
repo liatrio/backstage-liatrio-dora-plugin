@@ -8,7 +8,9 @@ import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, Sc
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import { genAuthHeaderValueLookup, getRepoName } from '../helper';
-import DateRangePicker from './DateRangePicker';
+import DateRangePicker from 'rsuite/DateRangePicker';
+import { DateRange } from 'rsuite/DateRangePicker';
+import { startOfDay, endOfDay, addDays } from 'date-fns';
 
 export const Charts = () => {
   const entity = useEntity();
@@ -25,7 +27,33 @@ export const Charts = () => {
   const startDate = useRef<Date>(new Date((new Date()).getTime() - 30 * 24 * 60 * 60 * 1000))
   const endDate = useRef<Date>(new Date())
 
-  const updateDateRange = async (start: Date, end: Date) => {
+  const ranges: any = [
+    {
+      label: '30 days',
+      value: [startOfDay(addDays(new Date(), -31)), endOfDay(addDays(new Date(), -1))]
+    },
+    {
+      label: '60 days',
+      value: [startOfDay(addDays(new Date(), -61)), endOfDay(addDays(new Date(), -1))]
+    },
+    {
+      label: '90 days',
+      value: [startOfDay(addDays(new Date(), -91)), endOfDay(addDays(new Date(), -1))]
+    },
+    {
+      label: '180 days',
+      value: [startOfDay(addDays(new Date(), -181)), endOfDay(addDays(new Date(), -1))]
+    },
+    {
+      label: '365 days',
+      value: [startOfDay(addDays(new Date(), -366)), endOfDay(addDays(new Date(), -1))]
+    }
+  ]
+
+  const updateDateRange = async ( value: DateRange ) => {
+    const start = value[0]
+    const end = value[1]
+
     if(start.getTime() !== startDate.current.getTime() || end.getTime() !== endDate.current.getTime()) {
       await fetchData({
         api: apiUrl,
@@ -71,24 +99,7 @@ export const Charts = () => {
         <InfoCard title="Options">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%', height: '100px' }}>
-                <DateRangePicker
-                  onChange={updateDateRange}
-                  startDate={startDate.current}
-                  endDate={endDate.current}
-                />
-              </div>
-            </Box>
-          </Box>
-        </InfoCard>
-      </Grid>
-      <Grid item md={6}>
-        <InfoCard title="DORA: At a Glance">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%', height: '100px' }}>
-                <ScoreBoard data={data} />
-              </div>
+              <DateRangePicker onOk={updateDateRange} ranges={ranges} value={ranges[0].value}/>
             </Box>
           </Box>
         </InfoCard>
