@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## v0.2.3 (2024-07-16)
+
+### Chore
+
+* chore: update yarn lock ([`e207860`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e20786045ec5ffe7b590edbbe2f15b86393d7c70))
+
+* chore: fix typo ([`d318490`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d318490623bc1172ceee6d31bd17feba83851a65))
+
+* chore: missed these changes undoing ([`9165172`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/9165172662d0e451ad0ca08b3bdfc0d6cc3aa203))
+
+* chore: remove unused dependencies ([`8689290`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8689290dc2226625af7c1dacf46fd4eb23bec5ac))
+
+* chore: revert version number change that is only local ([`a71b37d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/a71b37d9486825997c86b9b41cbaf1475b9d918c))
+
+* chore: remove unused code ([`7feda1e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7feda1ec85e36311f0c8aa5a4efcbbeed8ffb06c))
+
+### Fix
+
+* fix: force dynamic css since BS doesn&#39;t like loading our css ([`b51b512`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b51b5120ed1df840160e8b7bccfd4f24a4750402))
+
+* fix: trim config ([`e877a94`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e877a941d6163c850182d1ca5155e0f826823bd3))
+
+* fix: ver bump for react comp ([`8d3156b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8d3156b5debe4815a4ca6395636c223f7b17d467))
+
+* fix: swap out calendar component ([`1c6963b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/1c6963be71d9ff0d46f94175394e4294726e4134))
+
+### Unknown
+
+* Merge pull request #26 from liatrio/NewCalendar
+
+fix: Change Calendar, Loading icon, No Data Icon ([`1fc4fb4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/1fc4fb4296b7f444b9e116db07a20ad57c910ed1))
+
 ## v0.2.2 (2024-07-10)
 
 ### Fix
