@@ -5,9 +5,6 @@ export interface Config {
    * @deepVisibility frontend
    */
   dora: {
-    deploymentFrequencyEndpoint: string
-    changeLeadTimeEndpoint: string
-    changeFailureRateEndpoint: string
-    recoverTimeEndpoint: string
+    endpoint: string
   };
 }
