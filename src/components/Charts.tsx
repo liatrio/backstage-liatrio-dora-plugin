@@ -4,7 +4,7 @@ import {
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
 
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData } from 'liatrio-react-dora'
+import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDate } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { genAuthHeaderValueLookup, getRepoName } from '../helper'
@@ -17,14 +17,6 @@ const addDynamicStyles = (className: string, styles: string) => {
   styleElement.innerHTML = `.${className} { ${styles} }`;
   document.head.appendChild(styleElement);
 };
-
-const getDate = (daysInPast: number) : Date => {
-  let date = new Date()
-
-  date.setDate(date.getDate() - daysInPast)
-
-  return date
-}
 
 export const Charts = () => {
   const entity = useEntity()
