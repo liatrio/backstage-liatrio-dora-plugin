@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.5 (2024-07-22)
+
+### Fix
+
+* fix: version bump plugin, use &#39;standard&#39; getDate functionality ([`40d3751`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/40d3751dc3edf54eba2b80a426b7df1629d0bdb5))
+
 ## v0.2.4 (2024-07-19)
 
 ### Fix
