@@ -39,7 +39,7 @@ export const Charts = () => {
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
 
-  const updateDateRange = async ( dates: [Date, Date] ) => {
+  const updateDateRange = async ( dates: any ) => {
     const [newStartDate, newEndDate] = dates;
 
     setStartDate(newStartDate)
