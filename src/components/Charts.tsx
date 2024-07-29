@@ -4,7 +4,7 @@ import {
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
 
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDate } from 'liatrio-react-dora'
+import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { genAuthHeaderValueLookup, getRepoName } from '../helper'
@@ -28,15 +28,15 @@ export const Charts = () => {
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
-  
+
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
 
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
-  const [startDate, setStartDate] = useState<Date>(getDate(31))
-  const [endDate, setEndDate] = useState<Date>(getDate(1))
-  const [chartStartDate, setChartStartDate] = useState<Date>(getDate(31))
-  const [chartEndDate, setChartEndDate] = useState<Date>(getDate(1))
+  const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
+  const [endDate, setEndDate] = useState<Date>(getDateDaysInPast(1))
+  const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(31))
+  const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
 
   const updateDateRange = async ( dates: [Date, Date] ) => {
@@ -44,13 +44,13 @@ export const Charts = () => {
 
     setStartDate(newStartDate)
     setEndDate(newEndDate)
-    
+
     if(!newStartDate || !newEndDate) {
       return
     }
 
     setLoading(true)
-    
+
     await fetchData({
         api: apiUrl,
         getAuthHeaderValue: getAuthHeaderValue,
@@ -59,8 +59,8 @@ export const Charts = () => {
         end: newEndDate,
       }, (data: any) => {
         setData(data)
-        setChartStartDate(new Date(Date.UTC(newStartDate.getUTCFullYear(), newStartDate.getUTCMonth(), newStartDate.getUTCDate())))
-        setChartEndDate(new Date(Date.UTC(newEndDate.getUTCFullYear(), newEndDate.getUTCMonth(), newEndDate.getUTCDate())))
+        setChartStartDate(newStartDate)
+        setChartEndDate(newEndDate)
         setLoading(false)
       }, (_) => {
         setLoading(false)
