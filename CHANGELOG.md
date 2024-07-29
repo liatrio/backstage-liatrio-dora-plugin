@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.2.6 (2024-07-29)
+
+### Fix
+
+* fix: clear version number ([`f27f2b4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/f27f2b4ea8287954f27753f11d78e8c967848af1))
+
+* fix: update version, don&#39;t send UTC to charts ([`29db14e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/29db14ee125c985787718f01bff2884086ecf310))
+
+* fix: Update calendar ([`dcfddc8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dcfddc80466a04042622cf6100463ea3de7a8c34))
+
+### Unknown
+
+* Merge pull request #29 from liatrio/CalendarUpdate
+
+fix: calendar update ([`aced76f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/aced76f8f18d2b43592faf11f64ae28167a84af3))
+
 ## v0.2.5 (2024-07-22)
 
 ### Fix
