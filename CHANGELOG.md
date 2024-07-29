@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.2.7 (2024-07-29)
+
+### Fix
+
+* fix: typescript doesn&#39;t like this type ([`6720c11`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/6720c11e45ff802dd7ebcf7dc35f6240cd83d786))
+
+### Unknown
+
+* Merge pull request #30 from liatrio/CalendarUpdate
+
+fix: typescript doesn&#39;t like this type ([`6b52dea`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/6b52dead6594e8687c1cc5fad444cd878149d34b))
+
 ## v0.2.6 (2024-07-29)
 
 ### Fix
