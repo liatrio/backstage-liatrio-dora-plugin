@@ -13,6 +13,8 @@ export const ScoreBoard = () => {
   const configApi = useApi(configApiRef);
   const backendUrl = configApi.getString('backend.baseUrl');
   const endpoint = configApi.getString("dora.endpoint");
+  const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
+  const showDetails = configApi.getOptionalBoolean("dora.showDetails")
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
   
@@ -23,7 +25,7 @@ export const ScoreBoard = () => {
     <InfoCard title="DORA: 30 Days At a Glance">
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
-          <div style={{ width: '100%', height: '100px' }}>
+          <div style={{ width: '100%' }}>
             { repoName === "" ?
               <div>DORA Metrics are not available for Non-GitHub repos currently</div>
             : 
@@ -31,6 +33,8 @@ export const ScoreBoard = () => {
                 api={apiUrl}
                 getAuthHeaderValue={getAuthHeaderValue}
                 repositories={[repoName]}
+                showDetails={showDetails}
+                includeWeekends={includeWeekends}
               />
             }
           </div>

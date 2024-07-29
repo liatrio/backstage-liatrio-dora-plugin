@@ -6,5 +6,8 @@ export interface Config {
    */
   dora: {
     endpoint: string
+    showWeekends: boolean
+    includeWeekends: boolean
+    showDetails: boolean
   };
 }
