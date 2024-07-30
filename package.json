@@ -31,7 +31,7 @@
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.61",
-    "liatrio-react-dora": "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.1/liatrio-react-dora-1.0.1.tgz",
+    "liatrio-react-dora": "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.2/liatrio-react-dora-1.0.2.tgz",
     "react-datepicker": "^7.3.0",
     "react-use": "^17.2.4",
     "recharts": "^2.12.7"
