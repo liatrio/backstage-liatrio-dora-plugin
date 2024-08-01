@@ -38,3 +38,15 @@ export const EntityDORACharts = DORAMetricsPlugin.provide(
     },
   }),
 );
+
+export const DoraPage = DORAMetricsPlugin.provide(
+  createComponentExtension({
+    name: 'DoraPage',
+    component: {
+      lazy: () =>
+        import('./components/TeamView').then(
+          m => m.TeamView,
+        ),
+    },
+  }),
+);

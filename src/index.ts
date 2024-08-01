@@ -1,5 +1,6 @@
 // This is our entry point
 export {
   EntityDORAScoreBoard,
-  EntityDORACharts
+  EntityDORACharts,
+  DoraPage
 } from './plugin';
