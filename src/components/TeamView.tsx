@@ -7,10 +7,13 @@ import { Box, Grid } from '@material-ui/core'
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
-import { genAuthHeaderValueLookup, getRepoName } from '../helper'
+import { fetchTeams, genAuthHeaderValueLookup } from '../helper'
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
@@ -18,20 +21,25 @@ const addDynamicStyles = (className: string, styles: string) => {
   document.head.appendChild(styleElement);
 };
 
-export const Charts = () => {
+export const TeamView = () => {
   const entity = useEntity()
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
-  const endpoint = configApi.getString("dora.endpoint")
+  const dataEndpoint = configApi.getString("dora.dataEndpoint")
+  const teamListEndpoint = configApi.getString("dora.teamListEndpoint")
   const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
-  const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
+  const dataUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
+  const teamListUrl = `${backendUrl}/api/proxy/dora/api/${teamListEndpoint}`
 
-  const [repoName, setRepoName] = useState<string>("")
+  const [teamIndex, setTeamIndex] = useState<number>(0)
+  const [teams, setTeams] = useState<any[]>([{
+      value: "", label: "Select a Team"
+    }])
   const [data, setData] = useState<any>()
   const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
   const [endDate, setEndDate] = useState<Date>(getDateDaysInPast(1))
@@ -39,22 +47,47 @@ export const Charts = () => {
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
 
-  const updateDateRange = async ( dates: any ) => {
-    const [newStartDate, newEndDate] = dates;
+  const updateTeam = async ( value: any) => {
+    const newIndex = teams.findIndex((range: { value: string; label: string }) => range.value === value.value)
 
-    setStartDate(newStartDate)
-    setEndDate(newEndDate)
+    setTeamIndex(newIndex)
 
-    if(!newStartDate || !newEndDate) {
+    if(!startDate || !endDate || newIndex === 0) {
       return
     }
 
     setLoading(true)
 
     await fetchData({
-        api: apiUrl,
+        api: dataUrl,
         getAuthHeaderValue: getAuthHeaderValue,
-        repositories: [repoName],
+        team: teams[newIndex].value,
+        start: startDate,
+        end: endDate,
+      }, (data: any) => {
+        setData(data)
+        setLoading(false)
+      }, (_) => {
+        setLoading(false)
+      })
+  }
+
+  const updateDateRange = async ( dates: any ) => {
+    const [newStartDate, newEndDate] = dates;
+
+    setStartDate(newStartDate)
+    setEndDate(newEndDate)
+
+    if(!newStartDate || !newEndDate || teamIndex === 0) {
+      return
+    }
+
+    setLoading(true)
+
+    await fetchData({
+        api: dataUrl,
+        getAuthHeaderValue: getAuthHeaderValue,
+        team: teams[teamIndex].value,
         start: newStartDate,
         end: newEndDate,
       }, (data: any) => {
@@ -68,28 +101,6 @@ export const Charts = () => {
   }
 
   useEffect(() => {
-    const repoName = getRepoName(entity)
-    setRepoName(repoName)
-    setLoading(true)
-    let fetch = async () => {
-      fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: [repoName],
-        start: startDate,
-        end: endDate,
-      }, (data: any) => {
-        setData(data)
-        setLoading(false)
-      }, (_) => {
-        setLoading(false)
-      })
-    }
-
-    fetch()
-  }, [])
-
-  useEffect(() => {
     // Define your styles as a string
     const styles = `
       overflow: visible;
@@ -97,10 +108,23 @@ export const Charts = () => {
 
     // Add the styles to the document
     addDynamicStyles('doraOptions', styles);
+
+    setLoading(true)
+
+    fetchTeams(teamListUrl, getAuthHeaderValue,
+      (data: any) => {
+        let newList: any[] = []
+
+        setTeams(newList)
+        setLoading(false)
+      },(_) => {
+        setLoading(false)
+      }
+    )
   }, []);
 
-  if(repoName === "") {
-    return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
+  if(teamIndex === 0) {
+    return (<div>Please select a team</div>)
   }
 
   return (<>
@@ -109,14 +133,20 @@ export const Charts = () => {
         <InfoCard title="Options" className="doraOptions">
           <Box overflow="visible" position="relative">
             <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
-              <label style={{paddingRight: "10px"}}>Select Date Range:</label>
-              <DatePicker
-                selected={startDate}
-                onChange={updateDateRange}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-              />
+              <div>
+                <label style={{paddingRight: "10px"}}>Select Date Range:</label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={updateDateRange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                />
+              </div>
+              <div>
+                <label style={{paddingRight: "10px"}}>Select Team:</label>
+                <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
+              </div>
             </Box>
           </Box>
         </InfoCard>

@@ -21,3 +21,40 @@ export const genAuthHeaderValueLookup = () => {
     }
   }
 }
+
+export const fetchTeams = async (url: string, getAuthHeaderValue: () => Promise<string | undefined>, onSuccess: (data: any) => void, onFailure?: (data: any) => void) => {
+  if(!url) {
+    return
+  }
+
+  let headers = {}
+
+  if(getAuthHeaderValue) {
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': await getAuthHeaderValue()
+    }
+  } else {
+    headers = {
+      'Content-Type': 'application/json',
+    }
+  }
+
+  const options = {
+      method: 'GET',
+      headers: headers
+  }
+
+  try {
+      const response = await fetch(url, options)
+      const json = await response.text()
+
+      let parsedData = JSON.parse(json)
+
+      onSuccess(parsedData)
+  } catch (error) {
+      if(onFailure) {
+        onFailure(error)
+      }
+  }
+}
