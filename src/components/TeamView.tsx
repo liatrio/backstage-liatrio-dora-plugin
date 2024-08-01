@@ -48,7 +48,7 @@ export const TeamView = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   const updateTeam = async ( value: any) => {
-    const newIndex = teams.findIndex((range: { value: string; label: string }) => range.value === value.value)
+    const newIndex = teams.findIndex((range: { value: string; label: string }) => range.label === value.label)
 
     setTeamIndex(newIndex)
 
@@ -111,16 +111,29 @@ export const TeamView = () => {
 
     setLoading(true)
 
-    fetchTeams(teamListUrl, getAuthHeaderValue,
-      (data: any) => {
-        let newList: any[] = []
+    let fetch = async () => {
+      fetchTeams(teamListUrl, getAuthHeaderValue,
+        (data: any) => {
+          let newList: any[] = []
+  
+          for(var entry of data) {
+            let newEntry = {
+              label: entry.name,
+              value: entry.repositories
+            }
 
-        setTeams(newList)
-        setLoading(false)
-      },(_) => {
-        setLoading(false)
-      }
-    )
+            newList.push(newEntry)
+          }
+
+          setTeams(newList)
+          setLoading(false)
+        },(_) => {
+          setLoading(false)
+        }
+      )
+    }
+
+    fetch()
   }, []);
 
   if(teamIndex === 0) {
