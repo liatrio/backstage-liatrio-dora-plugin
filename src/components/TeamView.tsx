@@ -14,8 +14,6 @@ import "react-datepicker/dist/react-datepicker.css"
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
-import './styles.css'
-
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
   styleElement.innerHTML = `.${className} { ${styles} }`;
@@ -132,127 +130,129 @@ export const TeamView = () => {
     fetch()
   }, []);
 
-  return (<>
-    <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
-      <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
-        <InfoCard title="Options" className="doraOptions">
-          <Box overflow="visible" position="relative">
-            <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
-              <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <label style={{paddingRight: "10px"}}>Select Date Range:</label>
-                <DatePicker
-                  selected={startDate}
-                  onChange={updateDateRange}
-                  startDate={startDate}
-                  endDate={endDate}
-                  selectsRange
-                />
-              </div>
-              <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <label style={{paddingRight: "10px"}}>Select Team:</label>
-                <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
-              </div>
-            </Box>
-          </Box>
-        </InfoCard>
-      </Grid>
-      <Grid item md={6}>
-        <InfoCard title="DORA: At a Glance">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%' }}>
-                <ScoreBoard
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                />
-              </div>
-            </Box>
-          </Box>
-        </InfoCard>
-      </Grid>
-    </Grid>
+  return (
     <Grid container spacing={3} alignItems="stretch">
-      <Grid item md={6}>
-        <InfoCard title="Deployment Frequency">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
-                <DeploymentFrequency
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                />
-              </div>
+      <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
+        <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
+          <InfoCard title="Options" className="doraOptions">
+            <Box overflow="visible" position="relative">
+              <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
+                <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                  <label style={{paddingRight: "10px"}}>Select Date Range:</label>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={updateDateRange}
+                    startDate={startDate}
+                    endDate={endDate}
+                    selectsRange
+                  />
+                </div>
+                <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                  <label style={{paddingRight: "10px"}}>Select Team:</label>
+                  <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
+                </div>
+              </Box>
             </Box>
-          </Box>
-        </InfoCard>
+          </InfoCard>
+        </Grid>
+        <Grid item md={6}>
+          <InfoCard title="DORA: At a Glance">
+            <Box position="relative">
+              <Box display="flex" justifyContent="flex-end">
+                <div style={{ width: '100%' }}>
+                  <ScoreBoard
+                    data={data}
+                    loading={loading}
+                    showDetails={showDetails}
+                    showWeekends={showWeekends}
+                    includeWeekends={includeWeekends}
+                    start={chartStartDate}
+                    end={chartEndDate}
+                  />
+                </div>
+              </Box>
+            </Box>
+          </InfoCard>
+        </Grid>
       </Grid>
-      <Grid item md={6}>
-        <InfoCard title="Change Lead Time">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
-                <ChangeLeadTime
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                />
-              </div>
+      <Grid container spacing={3} alignItems="stretch">
+        <Grid item md={6}>
+          <InfoCard title="Deployment Frequency">
+            <Box position="relative">
+              <Box display="flex" justifyContent="flex-end">
+                <div style={{ width: '800px', height: '400px' }}>
+                  <DeploymentFrequency
+                    data={data}
+                    loading={loading}
+                    showDetails={showDetails}
+                    showWeekends={showWeekends}
+                    includeWeekends={includeWeekends}
+                    start={chartStartDate}
+                    end={chartEndDate}
+                  />
+                </div>
+              </Box>
             </Box>
-          </Box>
-        </InfoCard>
-      </Grid>
-      <Grid item md={6}>
-        <InfoCard title="Change Failure Rate">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
-                <ChangeFailureRate
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                />
-              </div>
+          </InfoCard>
+        </Grid>
+        <Grid item md={6}>
+          <InfoCard title="Change Lead Time">
+            <Box position="relative">
+              <Box display="flex" justifyContent="flex-end">
+                <div style={{ width: '800px', height: '400px' }}>
+                  <ChangeLeadTime
+                    data={data}
+                    loading={loading}
+                    showDetails={showDetails}
+                    showWeekends={showWeekends}
+                    includeWeekends={includeWeekends}
+                    start={chartStartDate}
+                    end={chartEndDate}
+                  />
+                </div>
+              </Box>
             </Box>
-          </Box>
-        </InfoCard>
-      </Grid>
-      <Grid item md={6}>
-        <InfoCard title="Recover Time">
-          <Box position="relative">
-            <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
-                <RecoverTime
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                />
-              </div>
+          </InfoCard>
+        </Grid>
+        <Grid item md={6}>
+          <InfoCard title="Change Failure Rate">
+            <Box position="relative">
+              <Box display="flex" justifyContent="flex-end">
+                <div style={{ width: '800px', height: '400px' }}>
+                  <ChangeFailureRate
+                    data={data}
+                    loading={loading}
+                    showDetails={showDetails}
+                    showWeekends={showWeekends}
+                    includeWeekends={includeWeekends}
+                    start={chartStartDate}
+                    end={chartEndDate}
+                  />
+                </div>
+              </Box>
             </Box>
-          </Box>
-        </InfoCard>
+          </InfoCard>
+        </Grid>
+        <Grid item md={6}>
+          <InfoCard title="Recover Time">
+            <Box position="relative">
+              <Box display="flex" justifyContent="flex-end">
+                <div style={{ width: '800px', height: '400px' }}>
+                  <RecoverTime
+                    data={data}
+                    loading={loading}
+                    showDetails={showDetails}
+                    showWeekends={showWeekends}
+                    includeWeekends={includeWeekends}
+                    start={chartStartDate}
+                    end={chartEndDate}
+                  />
+                </div>
+              </Box>
+            </Box>
+          </InfoCard>
+        </Grid>
       </Grid>
     </Grid>
-  </>)
+  )
 }
