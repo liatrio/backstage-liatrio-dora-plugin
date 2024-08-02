@@ -5,7 +5,6 @@ import {
 import { Box, Grid } from '@material-ui/core'
 
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast } from 'liatrio-react-dora'
-import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { fetchTeams, genAuthHeaderValueLookup } from '../helper'
 
@@ -22,7 +21,6 @@ const addDynamicStyles = (className: string, styles: string) => {
 };
 
 export const TeamView = () => {
-  const entity = useEntity()
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
@@ -115,8 +113,8 @@ export const TeamView = () => {
       fetchTeams(teamListUrl, getAuthHeaderValue,
         (data: any) => {
           let newList: any[] = []
-  
-          for(var entry of data) {
+
+          for(var entry of data.teams) {
             let newEntry = {
               label: entry.name,
               value: entry.repositories
@@ -135,10 +133,6 @@ export const TeamView = () => {
 
     fetch()
   }, []);
-
-  if(teamIndex === 0) {
-    return (<div>Please select a team</div>)
-  }
 
   return (<>
     <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
