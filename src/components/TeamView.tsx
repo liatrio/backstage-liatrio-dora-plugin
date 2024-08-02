@@ -131,7 +131,7 @@ export const TeamView = () => {
   }, []);
 
   return (
-    <Grid container spacing={3} alignItems="stretch">
+    <Grid container spacing={3} alignItems="stretch" style={{padding: "35px 10px 10px 35px", width: "100%"}} >
       <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
         <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
           <InfoCard title="Options" className="doraOptions">
