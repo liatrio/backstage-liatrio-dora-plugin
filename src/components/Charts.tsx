@@ -103,8 +103,6 @@ export const Charts = () => {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  console.log(chartStartDate, chartEndDate)
-
   return (<>
     <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>

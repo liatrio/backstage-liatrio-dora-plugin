@@ -5,7 +5,8 @@ export interface Config {
    * @deepVisibility frontend
    */
   dora: {
-    endpoint: string
+    dataEndpoint: string
+    teamListEndpoint: string
     showWeekends: boolean
     includeWeekends: boolean
     showDetails: boolean
