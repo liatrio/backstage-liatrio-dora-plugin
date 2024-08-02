@@ -22,14 +22,14 @@ export const Charts = () => {
   const entity = useEntity()
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
-  const endpoint = configApi.getString("dora.endpoint")
+  const dataEndpoint = configApi.getString("dora.dataEndpoint")
   const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
-  const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
+  const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
 
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()

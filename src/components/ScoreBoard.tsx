@@ -12,14 +12,14 @@ export const ScoreBoard = () => {
   const entity = useEntity();
   const configApi = useApi(configApiRef);
   const backendUrl = configApi.getString('backend.baseUrl');
-  const endpoint = configApi.getString("dora.endpoint");
+  const dataEndpoint = configApi.getString("dora.dataEndpoint");
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
   
   const repoName = getRepoName(entity)
-  const apiUrl = `${backendUrl}/api/proxy/dora/api/${endpoint}`
+  const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
 
   return (
     <InfoCard title="DORA: 30 Days At a Glance">
