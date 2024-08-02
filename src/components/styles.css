@@ -1,0 +1,7 @@
+.Dropdown-root {
+  width: 50%;
+}
+
+.react-datepicker__input-container input {
+  padding: 10px;
+}

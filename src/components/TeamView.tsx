@@ -14,6 +14,8 @@ import "react-datepicker/dist/react-datepicker.css"
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
+import './styles.css'
+
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
   styleElement.innerHTML = `.${className} { ${styles} }`;
@@ -36,7 +38,7 @@ export const TeamView = () => {
 
   const [teamIndex, setTeamIndex] = useState<number>(0)
   const [teams, setTeams] = useState<any[]>([{
-      value: "", label: "Select a Team"
+      value: "", label: ""
     }])
   const [data, setData] = useState<any>()
   const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
@@ -59,7 +61,7 @@ export const TeamView = () => {
     await fetchData({
         api: dataUrl,
         getAuthHeaderValue: getAuthHeaderValue,
-        team: teams[newIndex].value,
+        repositories: teams[newIndex].value,
         start: startDate,
         end: endDate,
       }, (data: any) => {
@@ -85,7 +87,7 @@ export const TeamView = () => {
     await fetchData({
         api: dataUrl,
         getAuthHeaderValue: getAuthHeaderValue,
-        team: teams[teamIndex].value,
+        repositories: teams[teamIndex].value,
         start: newStartDate,
         end: newEndDate,
       }, (data: any) => {
@@ -112,7 +114,7 @@ export const TeamView = () => {
     let fetch = async () => {
       fetchTeams(teamListUrl, getAuthHeaderValue,
         (data: any) => {
-          let newList: any[] = []
+          let newList: any[] = [{label: "", value: ""}]
 
           for(var entry of data.teams) {
             let newEntry = {
@@ -140,7 +142,7 @@ export const TeamView = () => {
         <InfoCard title="Options" className="doraOptions">
           <Box overflow="visible" position="relative">
             <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
-              <div>
+              <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <label style={{paddingRight: "10px"}}>Select Date Range:</label>
                 <DatePicker
                   selected={startDate}
@@ -150,7 +152,7 @@ export const TeamView = () => {
                   selectsRange
                 />
               </div>
-              <div>
+              <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <label style={{paddingRight: "10px"}}>Select Team:</label>
                 <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
               </div>
