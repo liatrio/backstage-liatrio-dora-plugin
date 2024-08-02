@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## v0.3.0 (2024-08-02)
+
+### Feature
+
+* feat: Add Team View Component ([`bcbe2b5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bcbe2b50fe506b922859e880523566b6e9ffd77d))
+
+### Fix
+
+* fix: add root styling ([`c48d8fb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c48d8fb8f88ba74dbab8aff82982968bad48b105))
+
+* fix: give default drop down a label ([`794f5bb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/794f5bb55ce56e652a11e376078b627486cec978))
+
+* fix: add root container, remove stylesheet ([`fdedb0a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fdedb0a9cd17792850437d5ce9861ff0c430035b))
+
+* fix: change to dynamic styles ([`658a1b2`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/658a1b28ce1f81dd9e1d83bdf8f92ec040621a8b))
+
+* fix: change default selection to have an array as the value ([`08fc14b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/08fc14b46625c148b004c95306d7166634bf52ef))
+
+* fix: add styling for calendar and teams drop down ([`3f7ceb8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/3f7ceb886028d43bb7a4e3bbe8233849881f120d))
+
+* fix: remove dead path, fix loop for teams ([`637f455`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/637f4553cc670b884b7f23b7f15f8bc93ba469e7))
+
+* fix: add DoraPage to exports ([`44d9bf9`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/44d9bf9a480c022f54324a7e6e9c1e1857b529b8))
+
+* fix: fill in the teams dropd own properly ([`5887d38`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5887d38f7365fc595c3f7d354718a4aa66688c76))
+
+### Unknown
+
+* Merge pull request #32 from liatrio/TeamView
+
+feat: Add Team View Page ([`a655b54`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/a655b54290697cd3bcb76fca7893d401d89355ae))
+
 ## v0.2.8 (2024-07-30)
 
 ### Fix
