@@ -114,7 +114,7 @@ export const TeamView = () => {
     let fetch = async () => {
       fetchTeams(teamListUrl, getAuthHeaderValue,
         (data: any) => {
-          let newList: any[] = [{label: "", value: ""}]
+          let newList: any[] = [{label: "", value: []}]
 
           for(var entry of data.teams) {
             let newEntry = {
