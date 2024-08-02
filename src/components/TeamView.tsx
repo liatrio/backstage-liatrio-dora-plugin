@@ -36,7 +36,7 @@ export const TeamView = () => {
 
   const [teamIndex, setTeamIndex] = useState<number>(0)
   const [teams, setTeams] = useState<any[]>([{
-      value: "", label: ""
+      value: [], label: "Please Select"
     }])
   const [data, setData] = useState<any>()
   const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
@@ -108,7 +108,7 @@ export const TeamView = () => {
     let fetch = async () => {
       fetchTeams(teamListUrl, getAuthHeaderValue,
         (data: any) => {
-          let newList: any[] = [{label: "", value: []}]
+          let newList: any[] = [{label: "Please Select", value: []}]
 
           for(var entry of data.teams) {
             let newEntry = {
