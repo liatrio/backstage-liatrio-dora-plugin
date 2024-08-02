@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.1 (2024-08-02)
+
+### Fix
+
+* fix: adjust data endpoint url for components that were missed ([`aeacf18`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/aeacf18b2784b1b7e43958b00451966e64fe5c62))
+
+### Unknown
+
+* Merge pull request #33 from liatrio/BugFix
+
+fix: adjust data endpoint url for components that were missed ([`c84f0bc`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c84f0bc15f7110182b63b9042dab6d4a150a9c88))
+
 ## v0.3.0 (2024-08-02)
 
 ### Feature
