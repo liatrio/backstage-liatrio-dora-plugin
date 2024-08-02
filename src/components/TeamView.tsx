@@ -101,13 +101,9 @@ export const TeamView = () => {
   }
 
   useEffect(() => {
-    // Define your styles as a string
-    const styles = `
-      overflow: visible;
-    `;
-
-    // Add the styles to the document
-    addDynamicStyles('doraOptions', styles);
+    addDynamicStyles('doraOptions', `overflow: visible`);
+    addDynamicStyles('Dropdown-root', `width: 50%`);
+    addDynamicStyles('react-datepicker__input-container input', `padding: 10px;`);
 
     setLoading(true)
 
