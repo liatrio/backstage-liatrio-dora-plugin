@@ -180,7 +180,7 @@ export const TeamView = () => {
           <InfoCard title="Deployment Frequency">
             <Box position="relative">
               <Box display="flex" justifyContent="flex-end">
-                <div style={{ width: '800px', height: '400px' }}>
+                <div style={{ width: '800px', height: '200px' }}>
                   <DeploymentFrequency
                     data={data}
                     loading={loading}
@@ -199,7 +199,7 @@ export const TeamView = () => {
           <InfoCard title="Change Lead Time">
             <Box position="relative">
               <Box display="flex" justifyContent="flex-end">
-                <div style={{ width: '800px', height: '400px' }}>
+                <div style={{ width: '800px', height: '200px' }}>
                   <ChangeLeadTime
                     data={data}
                     loading={loading}
@@ -218,7 +218,7 @@ export const TeamView = () => {
           <InfoCard title="Change Failure Rate">
             <Box position="relative">
               <Box display="flex" justifyContent="flex-end">
-                <div style={{ width: '800px', height: '400px' }}>
+                <div style={{ width: '800px', height: '200px' }}>
                   <ChangeFailureRate
                     data={data}
                     loading={loading}
@@ -237,7 +237,7 @@ export const TeamView = () => {
           <InfoCard title="Recover Time">
             <Box position="relative">
               <Box display="flex" justifyContent="flex-end">
-                <div style={{ width: '800px', height: '400px' }}>
+                <div style={{ width: '800px', height: '200px' }}>
                   <RecoverTime
                     data={data}
                     loading={loading}
