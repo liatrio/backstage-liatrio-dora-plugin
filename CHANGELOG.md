@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.3 (2024-08-06)
+
+### Fix
+
+* fix: change size of graphs in charts ([`011baac`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/011baac8d713d05e6d3dc600977f459bdcdfc43e))
+
+### Unknown
+
+* Merge pull request #35 from liatrio/ShrinkCharts
+
+fix: change size of graphs in charts ([`b5c7788`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b5c778894169f819eb8b006c3801f9ba3ad12cda))
+
 ## v0.3.2 (2024-08-03)
 
 ### Fix
