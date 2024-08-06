@@ -90,13 +90,9 @@ export const Charts = () => {
   }, [])
 
   useEffect(() => {
-    // Define your styles as a string
-    const styles = `
-      overflow: visible;
-    `;
-
-    // Add the styles to the document
-    addDynamicStyles('doraOptions', styles);
+    addDynamicStyles('doraOptions', `overflow: visible`);
+    addDynamicStyles('Dropdown-root', `width: 50%`);
+    addDynamicStyles('react-datepicker__input-container input', `padding: 10px;`);
   }, []);
 
   if(repoName === "") {
@@ -146,7 +142,7 @@ export const Charts = () => {
         <InfoCard title="Deployment Frequency">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
+              <div style={{ width: '800px', height: '200px' }}>
                 <DeploymentFrequency
                   data={data}
                   loading={loading}
@@ -165,7 +161,7 @@ export const Charts = () => {
         <InfoCard title="Change Lead Time">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
+              <div style={{ width: '800px', height: '200px' }}>
                 <ChangeLeadTime
                   data={data}
                   loading={loading}
@@ -184,7 +180,7 @@ export const Charts = () => {
         <InfoCard title="Change Failure Rate">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
+              <div style={{ width: '800px', height: '200px' }}>
                 <ChangeFailureRate
                   data={data}
                   loading={loading}
@@ -203,7 +199,7 @@ export const Charts = () => {
         <InfoCard title="Recover Time">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '800px', height: '400px' }}>
+              <div style={{ width: '800px', height: '200px' }}>
                 <RecoverTime
                   data={data}
                   loading={loading}
