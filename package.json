@@ -34,6 +34,7 @@
     "liatrio-react-dora": "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.3/liatrio-react-dora-1.0.3.tgz",
     "react-datepicker": "^7.3.0",
     "react-dropdown": "^1.11.0",
+    "react-tooltip": "^5.28.0",
     "react-use": "^17.2.4",
     "recharts": "^2.12.7"
   },
