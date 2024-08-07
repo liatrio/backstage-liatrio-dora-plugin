@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.5 (2024-08-07)
+
+### Fix
+
+* fix: bump dora version ([`f9ccffc`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/f9ccffcd77b531aa90e22b4cfd15565fdecc9dcb))
+
+### Unknown
+
+* Merge pull request #37 from liatrio/DoraVerBump
+
+fix: bump dora version ([`b734a8f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b734a8f41a8564088b7ca70ce42357d20bc98cf0))
+
 ## v0.3.4 (2024-08-07)
 
 ### Fix
