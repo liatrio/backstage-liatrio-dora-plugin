@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.4 (2024-08-07)
+
+### Fix
+
+* fix: add tooltips to the charts for explanations ([`5a8accf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5a8accfafd7192cb0137bbf0e12ea714f10b0046))
+
+### Unknown
+
+* Merge pull request #36 from liatrio/ChartInfo
+
+fix: add tooltips to the charts for explanations ([`4392f8d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4392f8d32559e719107037d4365af5ea06cba199))
+
 ## v0.3.3 (2024-08-06)
 
 ### Fix
