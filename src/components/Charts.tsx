@@ -11,6 +11,7 @@ import { genAuthHeaderValueLookup, getRepoName } from '../helper'
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import { ChartTitle } from './ChartTitle'
 
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
@@ -93,11 +94,17 @@ export const Charts = () => {
     addDynamicStyles('doraOptions', `overflow: visible`);
     addDynamicStyles('Dropdown-root', `width: 50%`);
     addDynamicStyles('react-datepicker__input-container input', `padding: 10px;`);
+    addDynamicStyles('chartHeader', `display: flex; justify-content: space-between; align-items: center; align-content: center;`);
   }, []);
 
   if(repoName === "") {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
+
+  const dfTitle = (<ChartTitle title='Deployment Frequency' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
   return (<>
     <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
@@ -139,7 +146,7 @@ export const Charts = () => {
     </Grid>
     <Grid container spacing={3} alignItems="stretch">
       <Grid item md={6}>
-        <InfoCard title="Deployment Frequency">
+        <InfoCard title={dfTitle}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -158,7 +165,7 @@ export const Charts = () => {
         </InfoCard>
       </Grid>
       <Grid item md={6}>
-        <InfoCard title="Change Lead Time">
+        <InfoCard title={cltTitle}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -177,7 +184,7 @@ export const Charts = () => {
         </InfoCard>
       </Grid>
       <Grid item md={6}>
-        <InfoCard title="Change Failure Rate">
+        <InfoCard title={cfrTitle}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -196,7 +203,7 @@ export const Charts = () => {
         </InfoCard>
       </Grid>
       <Grid item md={6}>
-        <InfoCard title="Recover Time">
+        <InfoCard title={rtTitle}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
