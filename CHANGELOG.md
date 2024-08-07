@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.7 (2024-08-07)
+
+### Fix
+
+* fix: ver bump ([`a1793b8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/a1793b848d579ac83fa81afb3585593170ae97d6))
+
+### Unknown
+
+* Merge pull request #39 from liatrio/VerBump
+
+fix: ver bump ([`0be655c`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/0be655cc6e5fdbec0d4bbd1c6d0a59a0a98e5fa5))
+
 ## v0.3.6 (2024-08-07)
 
 ### Fix
