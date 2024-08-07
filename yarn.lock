@@ -8899,9 +8899,9 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.3/liatrio-react-dora-1.0.3.tgz":
-  version "1.0.3"
-  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.3/liatrio-react-dora-1.0.3.tgz#af9da3c2ae0a8383212d6c836fcd16073a416ae6"
+"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.4/liatrio-react-dora-1.0.4.tgz":
+  version "1.0.4"
+  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.4/liatrio-react-dora-1.0.4.tgz#b0e1fbe767b185e61e0152a090c06a9a67e9b455"
   dependencies:
     react-tiny-popover "^8.0.4"
     recharts "^2.12.7"
