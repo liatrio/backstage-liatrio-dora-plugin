@@ -73,6 +73,8 @@ export const Charts = () => {
   const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(31))
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
+  const classes = useStyles()
+
 
   const updateDateRange = async ( dates: any ) => {
     const [newStartDate, newEndDate] = dates;
@@ -139,7 +141,6 @@ export const Charts = () => {
   const cfrTitle = (<ChartTitle title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
   const cltTitle = (<ChartTitle title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
   const rtTitle = (<ChartTitle title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
-  const classes = useStyles();
 
   return (<>
     <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
@@ -148,14 +149,15 @@ export const Charts = () => {
           <Box overflow="visible" position="relative">
             <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
               <label style={{paddingRight: "10px"}}>Select Date Range:</label>
-              <DatePicker
-                selected={startDate}
-                onChange={updateDateRange}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-                className={classes.doraCalendar}
-              />
+              <div className={classes.doraCalendar}>
+                <DatePicker
+                  selected={startDate}
+                  onChange={updateDateRange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                />
+              </div>
             </Box>
           </Box>
         </InfoCard>
