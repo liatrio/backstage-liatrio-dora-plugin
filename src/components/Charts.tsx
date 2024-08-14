@@ -68,7 +68,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 export const Charts = (showTeamSelection: boolean) => {
-  const entity = useEntity()
+  const entity = !showTeamSelection ? useEntity() : null
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
@@ -175,8 +175,6 @@ console.log(rankThresholds)
   }
 
   useEffect(() => {
-    const repoName = getRepoName(entity)
-    setRepoName(repoName)
     setLoading(true)
 
     let fetch = showTeamSelection ?
@@ -203,6 +201,9 @@ console.log(rankThresholds)
       }
     :
       async () => {
+        const repoName = getRepoName(entity)
+        setRepoName(repoName)
+
         fetchData({
           api: apiUrl,
           getAuthHeaderValue: getAuthHeaderValue,
