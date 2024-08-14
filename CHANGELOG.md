@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## v0.3.11 (2024-08-14)
+
+### Fix
+
+* fix: update styling ([`292625d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/292625de6738c535f3367e51d310c61f201a7a6e))
+
+* fix: adjust padding on score card box ([`ce7d38f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/ce7d38fbed0fd2a78f178aaef990c841b8afb04b))
+
+* fix: adjust grid padding ([`4c93213`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4c93213e32e927d83e02b52de94002ca71928ac7))
+
+* fix: add master container ([`8558553`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/85585531e2db9354249291cb7638b58b3250ecc5))
+
+* fix: try to adjust header padding ([`fd5bc4e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fd5bc4e4cde44dad55232556b082dad2637045f7))
+
+* fix: move useStyles to correct position ([`129af7c`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/129af7c0bbe120277457218b924692862c55583c))
+
+* fix: use makeStyles ([`9fb1785`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/9fb17850d236063a6ed768f3f5161db0c1901be0))
+
+* fix: try to add a CSS file again ([`2028d6c`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/2028d6c67106b1b03ad68ad11575c80790177cd2))
+
+### Unknown
+
+* Merge pull request #47 from liatrio/UpdateStyling
+
+fix: update styling ([`46bea32`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/46bea326ff1b24f77a7d5b8a4251c46c68b75da9))
+
 ## v0.3.10 (2024-08-10)
 
 ### Fix
