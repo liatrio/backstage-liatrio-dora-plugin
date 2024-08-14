@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { ChartTitle } from './ChartTitle'
 
+import "./general.css"
+
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
   styleElement.innerHTML = `.${className} { ${styles} }`;
