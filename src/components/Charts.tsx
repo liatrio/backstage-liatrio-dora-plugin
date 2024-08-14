@@ -175,7 +175,7 @@ export const Charts = () => {
       </Grid>
       <Grid item md={6} className='doraGrid'>
         <InfoCard title="DORA: At a Glance" className="doraCard">
-          <Box position="relative">
+          <Box position="relative" padding="0px">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '100%' }}>
                 <ScoreBoard
@@ -232,7 +232,7 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6} className='doraGrid'>
+      <Grid item md={6}>
         <InfoCard title={cfrTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
@@ -251,7 +251,7 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6} className='doraGrid'>
+      <Grid item md={6}>
         <InfoCard title={rtTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
