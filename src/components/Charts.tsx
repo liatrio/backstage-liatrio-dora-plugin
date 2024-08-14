@@ -8,12 +8,44 @@ import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, Sc
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { genAuthHeaderValueLookup, getRepoName } from '../helper'
-
+import {makeStyles} from '@material-ui/core/styles'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { ChartTitle } from './ChartTitle'
 
-import "./general.css"
+const useStyles = makeStyles((theme) => ({
+  doraCalendar: {
+    '& .react-datepicker__header': {
+      backgroundColor: 'black',
+    },
+    '& .react-datepicker__month-container': {
+      backgroundColor: 'black',
+    },
+    '& .react-datepicker__current-month': {
+      color: 'white',
+    },
+    '& .react-datepicker__day': {
+      backgroundColor: 'black',
+      color: 'white',
+      '&:hover': {
+        backgroundColor: 'rgb(92, 92, 92)',
+      },
+    },
+    '& .react-datepicker__day-name': {
+      color: 'white',
+    },
+    '& .react-datepicker__day--in-range': {
+      backgroundColor: 'green',
+      '&:hover': {
+        backgroundColor: 'rgb(0, 161, 0)',
+      },
+    },
+    '& .react-datepicker__input-container input': {
+      backgroundColor: 'black',
+      color: 'white',
+    },
+  },
+}))
 
 const addDynamicStyles = (className: string, styles: string) => {
   const styleElement = document.createElement('style');
@@ -107,6 +139,7 @@ export const Charts = () => {
   const cfrTitle = (<ChartTitle title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
   const cltTitle = (<ChartTitle title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
   const rtTitle = (<ChartTitle title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const classes = useStyles();
 
   return (<>
     <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
@@ -121,6 +154,7 @@ export const Charts = () => {
                 startDate={startDate}
                 endDate={endDate}
                 selectsRange
+                className={classes.doraCalendar}
               />
             </Box>
           </Box>
