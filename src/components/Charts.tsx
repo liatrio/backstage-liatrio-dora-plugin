@@ -67,8 +67,12 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export const Charts = (showTeamSelection: boolean) => {
-  const entity = !showTeamSelection ? useEntity() : null
+export interface ChartProps {
+  showTeamSelection?: boolean
+}
+
+export const Charts = (props: ChartProps) => {
+  const entity = !props.showTeamSelection ? useEntity() : null
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
@@ -177,7 +181,7 @@ console.log(rankThresholds)
   useEffect(() => {
     setLoading(true)
 
-    let fetch = showTeamSelection ?
+    let fetch = props.showTeamSelection ?
       async () => {
         fetchTeams(teamListUrl, getAuthHeaderValue,
           (data: any) => {
@@ -260,7 +264,7 @@ console.log(rankThresholds)
                   selectsRange
                 />
               </div>
-              {showTeamSelection && 
+              {props.showTeamSelection && 
                 <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                   <label style={{paddingRight: "10px"}}>Select Team:</label>
                   <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
