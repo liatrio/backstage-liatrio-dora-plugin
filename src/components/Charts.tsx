@@ -65,6 +65,9 @@ const useStyles = makeStyles(() => ({
       overflow: 'visible'
     }
   },
+  pageView: {
+    padding: '10px'
+  }
 }))
 
 export interface ChartProps {
@@ -248,7 +251,9 @@ console.log(rankThresholds)
   const cltTitle = (<ChartTitle score={scores.CLTScore} scorePostfix="hrs" color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
   const rtTitle = (<ChartTitle score={scores.RTScore} scorePostfix="hrs" color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
-  return (<div className={classes.doraContainer}>
+  const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
+
+  return (<div className={containerClass}>
     <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
