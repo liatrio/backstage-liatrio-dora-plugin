@@ -103,7 +103,7 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-  
+
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -311,6 +311,7 @@ export const Charts = (props: ChartProps) => {
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
                   end={chartEndDate}
+                  measures={rankThresholds}
                 />
               </div>
             </Box>
