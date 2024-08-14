@@ -76,7 +76,8 @@ export const Charts = (showTeamSelection: boolean) => {
   const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
-
+  const rankThresholds = configApi.getOptional("dora.rankThresholds")
+console.log(rankThresholds)
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
