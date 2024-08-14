@@ -131,10 +131,10 @@ export const TeamView = () => {
     fetch()
   }, []);
   
-  const dfTitle = (<ChartTitle title='Deployment Frequency' info='How often an organization successfully releases to production' />)
-  const cfrTitle = (<ChartTitle title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
-  const cltTitle = (<ChartTitle title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
-  const rtTitle = (<ChartTitle title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const dfTitle = (<ChartTitle title='Deployment Frequency' score={0} color="" scorePostfix='' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle title='Change Failure Rate' score={0} color="" scorePostfix='' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle title='Change Lead Time' score={0} color="" scorePostfix='' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle title='Recovery Time' score={0} color="" scorePostfix='' info='How long it takes an organization to recover from a failure in production' />)
 
 
   return (

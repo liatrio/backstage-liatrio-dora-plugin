@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { ChartTitle } from './ChartTitle'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   doraCalendar: {
     '& .react-datepicker__header': {
       backgroundColor: 'black',
