@@ -3,7 +3,7 @@ import {
   InfoCard,
 } from '@backstage/core-components';
 import { Box } from '@material-ui/core';
-import { ScoreBoard as SB } from 'liatrio-react-dora';
+import { RankThresholds, ScoreBoard as SB } from 'liatrio-react-dora';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import { genAuthHeaderValueLookup, getRepoName } from '../helper';
@@ -15,6 +15,7 @@ export const ScoreBoard = () => {
   const dataEndpoint = configApi.getString("dora.dataEndpoint");
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
+  const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
   
@@ -35,6 +36,7 @@ export const ScoreBoard = () => {
                 repositories={[repoName]}
                 showDetails={showDetails}
                 includeWeekends={includeWeekends}
+                measures={rankThresholds}
               />
             }
           </div>
