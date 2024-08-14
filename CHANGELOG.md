@@ -1,8 +1,20 @@
 # CHANGELOG
 
+## v0.3.12 (2024-08-14)
+
+### Unknown
+
+* Merge pull request #48 from liatrio/UpdateStyling
+
+Update styling ([`feb8e82`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/feb8e822fcc84a653ccc6aa415e9cc61eeb08384))
+
+* Merge branch &#39;main&#39; into UpdateStyling ([`3b181dd`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/3b181ddd3c72b0d997b4485addc9ec550a2fe2a4))
+
 ## v0.3.11 (2024-08-14)
 
 ### Fix
+
+* fix: fix build errors ([`27cfb8a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/27cfb8a4dc80a92882f1d4160dc62eac42a4d62e))
 
 * fix: update styling ([`292625d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/292625de6738c535f3367e51d310c61f201a7a6e))
 
