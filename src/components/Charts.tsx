@@ -239,7 +239,7 @@ console.log(rankThresholds)
     fetch()
   }, [])
 
-  if(repoName === "") {
+  if(repoName === "" && !props.showTeamSelection) {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
