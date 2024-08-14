@@ -61,6 +61,25 @@ const useStyles = makeStyles(() => ({
     '& .Dropdown-root': {
       width: '50%'
     },
+    '& .Dropdown-control': {
+      backgroundColor: 'black',
+      color: 'white'
+    },
+    '& .Dropdown-option is-selected': {
+      backgroundColor: 'green',
+      color: 'black'
+    },
+    '& .Dropdown-option': {
+      backgroundColor: 'black',
+      color: 'white'
+    },
+    '& .Dropdown-option:hover': {
+      backgroundColor: 'green',
+      color: 'white'
+    },
+    '& .Dropdown-menu': {
+      backgroundColor: 'black'
+    },
     '& .doraOptions': {
       overflow: 'visible'
     }
