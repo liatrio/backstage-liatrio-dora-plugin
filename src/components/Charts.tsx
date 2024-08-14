@@ -4,7 +4,7 @@ import {
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
 
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor } from 'liatrio-react-dora'
+import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { fetchTeams, genAuthHeaderValueLookup, getRepoName } from '../helper'
@@ -102,7 +102,7 @@ export const Charts = (props: ChartProps) => {
   const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
-  const rankThresholds = configApi.getOptional("dora.rankThresholds")
+  const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
 console.log(rankThresholds)
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
@@ -183,7 +183,7 @@ console.log(rankThresholds)
         setLoading(false)
 
         const scores = calculateScores({includeWeekends: includeWeekends}, data)
-        const ranks = calculateDoraRanks({}, scores)
+        const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
         setScores({
           DFScore: scores.df,
@@ -241,7 +241,7 @@ console.log(rankThresholds)
           setLoading(false)
 
           const scores = calculateScores({includeWeekends: includeWeekends}, data)
-          const ranks = calculateDoraRanks({}, scores)
+          const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
           setScores({
             DFScore: scores.df,
