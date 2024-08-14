@@ -49,8 +49,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   doraContainer: {
-    '& .customHeader > :first-child': {
+    '& .doraCard > :first-child': {
       padding: '6px 16px 6px 20px'
+    },
+    '& .doraGrid': {
+      paddingBottom: '0px'
     }
   }
 }))
@@ -153,7 +156,7 @@ export const Charts = () => {
   return (<div className={classes.doraContainer}>
     <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
-        <InfoCard title="Options" className="doraOptions customHeader">
+        <InfoCard title="Options" className="doraOptions doraCard">
           <Box overflow="visible" position="relative">
             <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
               <label style={{paddingRight: "10px"}}>Select Date Range:</label>
@@ -170,8 +173,8 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6}>
-        <InfoCard title="DORA: At a Glance">
+      <Grid item md={6} className='doraGrid'>
+        <InfoCard title="DORA: At a Glance" className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '100%' }}>
@@ -191,8 +194,8 @@ export const Charts = () => {
       </Grid>
     </Grid>
     <Grid container spacing={3} alignItems="stretch">
-      <Grid item md={6}>
-        <InfoCard title={dfTitle}>
+      <Grid item md={6} className='doraGrid'>
+        <InfoCard title={dfTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -210,8 +213,8 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6}>
-        <InfoCard title={cltTitle}>
+      <Grid item md={6} className='doraGrid'>
+        <InfoCard title={cltTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -229,8 +232,8 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6}>
-        <InfoCard title={cfrTitle}>
+      <Grid item md={6} className='doraGrid'>
+        <InfoCard title={cfrTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
@@ -248,8 +251,8 @@ export const Charts = () => {
           </Box>
         </InfoCard>
       </Grid>
-      <Grid item md={6}>
-        <InfoCard title={rtTitle}>
+      <Grid item md={6} className='doraGrid'>
+        <InfoCard title={rtTitle} className="doraCard">
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
