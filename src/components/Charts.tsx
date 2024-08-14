@@ -176,13 +176,13 @@ export const Charts = (props: ChartProps) => {
         repositories: [repoName],
         start: newStartDate,
         end: newEndDate,
-      }, (data: any) => {
-        setData(data)
+      }, (dora_data: any) => {
+        setData(dora_data)
         setChartStartDate(newStartDate)
         setChartEndDate(newEndDate)
         setLoading(false)
 
-        const scores = calculateScores({includeWeekends: includeWeekends}, data)
+        const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
         const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
         setScores({
@@ -206,10 +206,10 @@ export const Charts = (props: ChartProps) => {
     let fetch = props.showTeamSelection ?
       async () => {
         fetchTeams(teamListUrl, getAuthHeaderValue,
-          (data: any) => {
+          (teams_data: any) => {
             let newList: any[] = [{label: "Please Select", value: []}]
 
-            for(var entry of data.teams) {
+            for(var entry of teams_data.teams) {
               let newEntry = {
                 label: entry.name,
                 value: entry.repositories
@@ -236,11 +236,11 @@ export const Charts = (props: ChartProps) => {
           repositories: [repoName],
           start: startDate,
           end: endDate,
-        }, (data: any) => {
-          setData(data)
+        }, (dora_data: any) => {
+          setData(dora_data)
           setLoading(false)
 
-          const scores = calculateScores({includeWeekends: includeWeekends}, data)
+          const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
           const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
           setScores({
