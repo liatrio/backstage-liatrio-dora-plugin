@@ -44,7 +44,15 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'black',
       color: 'white',
     },
+    '& .react-datepicker': {
+      borderWidth: '2px'
+    },
   },
+  doraContainer: {
+    '& .customHeader > :first-child': {
+      padding: '6px 16px 6px 20px'
+    }
+  }
 }))
 
 const addDynamicStyles = (className: string, styles: string) => {
@@ -143,9 +151,9 @@ export const Charts = () => {
   const rtTitle = (<ChartTitle title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
   return (<>
-    <Grid container style={{marginBottom: "10px"}} spacing={3} alignItems="stretch">
+    <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
-        <InfoCard title="Options" className="doraOptions">
+        <InfoCard title="Options" className="doraOptions customHeader">
           <Box overflow="visible" position="relative">
             <Box overflow="visible" display="flex" justifyContent="center" alignItems="center">
               <label style={{paddingRight: "10px"}}>Select Date Range:</label>
