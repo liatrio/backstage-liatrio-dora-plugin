@@ -8899,11 +8899,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.12/liatrio-react-dora-1.0.12.tgz":
-  version "1.0.12"
-  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.12/liatrio-react-dora-1.0.12.tgz#f1c7b4eb74d8a90a8d06e649fb1b59084b223bf0"
+"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.27/liatrio-react-dora-1.0.27.tgz":
+  version "1.0.27"
+  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.27/liatrio-react-dora-1.0.27.tgz#702dfcdda870e50f44ec49511ef9c5da86a98918"
   dependencies:
-    react-tiny-popover "^8.0.4"
     react-tooltip "^5.28.0"
     recharts "^2.12.7"
 
@@ -11094,11 +11093,6 @@ react-syntax-highlighter@^15.4.5:
     lowlight "^1.17.0"
     prismjs "^1.27.0"
     refractor "^3.6.0"
-
-react-tiny-popover@^8.0.4:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/react-tiny-popover/-/react-tiny-popover-8.0.4.tgz#bf76f1db8a9b62f4eb10fe0dc770a65c52d59560"
-  integrity sha512-pn0Y/G0gyMdYTBEWSKCCnaZsXAa54PkfnRE4fnMM5633SSClYrXxwXKc6vPYgJ9shLatGginxMjnhXq6guZmng==
 
 react-tooltip@^5.28.0:
   version "5.28.0"

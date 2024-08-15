@@ -1,6 +1,6 @@
 {
   "name": "@liatrio/backstage-plugin-liatrio-dora",
-  "version": "8.0.38",
+  "version": "8.0.73",
   "main": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.61",
-    "liatrio-react-dora": "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.12/liatrio-react-dora-1.0.12.tgz",
+    "liatrio-react-dora": "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.27/liatrio-react-dora-1.0.27.tgz",
     "react-datepicker": "^7.3.0",
     "react-dropdown": "^1.11.0",
     "react-tooltip": "^5.28.0",

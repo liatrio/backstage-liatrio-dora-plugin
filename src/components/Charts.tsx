@@ -3,15 +3,17 @@ import {
   InfoCard,
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
-
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateScoreColors, unknownFilter } from 'liatrio-react-dora'
+import { Tooltip } from "react-tooltip";
+import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds, getScoreDisplay } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
-import { genAuthHeaderValueLookup, getRepoName } from '../helper'
+import { fetchTeams, genAuthHeaderValueLookup, getRepoName } from '../helper'
 import {makeStyles} from '@material-ui/core/styles'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { ChartTitle } from './ChartTitle'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 const useStyles = makeStyles(() => ({
   doraCalendar: {
@@ -43,6 +45,7 @@ const useStyles = makeStyles(() => ({
     '& .react-datepicker__input-container input': {
       backgroundColor: 'black',
       color: 'white',
+      padding: '10px',
     },
     '& .react-datepicker': {
       borderWidth: '2px'
@@ -54,29 +57,62 @@ const useStyles = makeStyles(() => ({
     },
     '& .doraGrid': {
       paddingBottom: '0px'
+    },
+    '& .Dropdown-root': {
+      width: '50%'
+    },
+    '& .Dropdown-control': {
+      backgroundColor: 'black',
+      color: 'white'
+    },
+    '& .Dropdown-option is-selected': {
+      backgroundColor: 'green',
+      color: 'black'
+    },
+    '& .Dropdown-option': {
+      backgroundColor: 'black',
+      color: 'white'
+    },
+    '& .Dropdown-option:hover': {
+      backgroundColor: 'green',
+      color: 'white'
+    },
+    '& .Dropdown-menu': {
+      backgroundColor: 'black'
+    },
+    '& .doraOptions': {
+      overflow: 'visible'
     }
+  },
+  pageView: {
+    padding: '10px'
   }
 }))
 
-const addDynamicStyles = (className: string, styles: string) => {
-  const styleElement = document.createElement('style');
-  styleElement.innerHTML = `.${className} { ${styles} }`;
-  document.head.appendChild(styleElement);
-};
+export interface ChartProps {
+  showTeamSelection?: boolean
+}
 
-export const Charts = () => {
-  const entity = useEntity()
+export const Charts = (props: ChartProps) => {
+  const entity = !props.showTeamSelection ? useEntity() : null
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
+  const teamListEndpoint = configApi.getString("dora.teamListEndpoint")
   const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
-
+  const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
+  
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
+  const teamListUrl = `${backendUrl}/api/proxy/dora/api/${teamListEndpoint}`
 
+  const [teamIndex, setTeamIndex] = useState<number>(0)
+  const [teams, setTeams] = useState<any[]>([{
+      value: [], label: "Please Select"
+    }])
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
   const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
@@ -85,16 +121,46 @@ export const Charts = () => {
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
   const [scores, setScores] = useState<any>({
-    DFColor: unknownFilter,
-    CLTColor: unknownFilter,
-    CFRColor: unknownFilter,
-    RTColor: unknownFilter,
-    DFRate: 0,
-    CLTRate: 0,
-    CFRRate: 0,
-    RTRate: 0,
+    DFColor: convertRankToColor(10),
+    CLTColor: convertRankToColor(10),
+    CFRColor: convertRankToColor(10),
+    RTColor: convertRankToColor(10),
+    DFScore: NaN,
+    CLTScore: NaN,
+    CFRScore: NaN,
+    RTScore: NaN,
+    DFDisplay: '?',
+    RTDisplay: '?',
+    CFRDisplay: '?',
+    CLTDisplay: '?',
   })
+
   const classes = useStyles()
+
+  const updateTeam = async ( value: any) => {
+    const newIndex = teams.findIndex((range: { value: string; label: string }) => range.label === value.label)
+
+    setTeamIndex(newIndex)
+
+    if(!startDate || !endDate || newIndex === 0) {
+      return
+    }
+
+    setLoading(true)
+
+    await fetchData({
+        api: apiUrl,
+        getAuthHeaderValue: getAuthHeaderValue,
+        repositories: teams[newIndex].value,
+        start: startDate,
+        end: endDate,
+      }, (data: any) => {
+        setData(data)
+        setLoading(false)
+      }, (_) => {
+        setLoading(false)
+      })
+  }
 
   const updateDateRange = async ( dates: any ) => {
     const [newStartDate, newEndDate] = dates;
@@ -114,24 +180,28 @@ export const Charts = () => {
         repositories: [repoName],
         start: newStartDate,
         end: newEndDate,
-      }, (data: any) => {
-        setData(data)
+      }, (dora_data: any) => {
+        setData(dora_data)
         setChartStartDate(newStartDate)
         setChartEndDate(newEndDate)
         setLoading(false)
 
-        const scores = calculateScores({includeWeekends: includeWeekends}, data)
-        const colors = calculateScoreColors({}, scores)
+        const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
+        const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
         setScores({
-          DFRate: scores.df,
-          CFRRate: scores.cfr,
-          CLTRate: scores.clt,
-          RTRate: scores.rt,
-          DFColor: colors.df,
-          CLTColor: colors.clt,
-          CFRColor: colors.cfr,
-          RTColor: colors.rt
+          DFScore: scores.df,
+          CFRScore: scores.cfr,
+          CLTScore: scores.clt,
+          RTScore: scores.rt,
+          DFColor: convertRankToColor(ranks.df),
+          CLTColor: convertRankToColor(ranks.clt),
+          CFRColor: convertRankToColor(ranks.cfr),
+          RTColor: convertRankToColor(ranks.rt),
+          DFDisplay: getScoreDisplay(scores.df),
+          RTDisplay: getScoreDisplay(scores.rt),
+          CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+          CLTDisplay: getScoreDisplay(scores.clt),
         })
       }, (_) => {
         setLoading(false)
@@ -139,59 +209,89 @@ export const Charts = () => {
   }
 
   useEffect(() => {
-    const repoName = getRepoName(entity)
-    setRepoName(repoName)
     setLoading(true)
 
-    let fetch = async () => {
-      fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: [repoName],
-        start: startDate,
-        end: endDate,
-      }, (data: any) => {
-        setData(data)
-        setLoading(false)
+    let fetch = props.showTeamSelection ?
+      async () => {
+        fetchTeams(teamListUrl, getAuthHeaderValue,
+          (teams_data: any) => {
+            let newList: any[] = [{label: "Please Select", value: []}]
 
-        const scores = calculateScores({includeWeekends: includeWeekends}, data)
-        const colors = calculateScoreColors({}, scores)
+            for(var entry of teams_data.teams) {
+              let newEntry = {
+                label: entry.name,
+                value: entry.repositories
+              }
 
-        setScores({
-          DFRate: scores.df,
-          CFRRate: scores.cfr,
-          CLTRate: scores.clt,
-          RTRate: scores.rt,
-          DFColor: colors.df,
-          CLTColor: colors.clt,
-          CFRColor: colors.cfr,
-          RTColor: colors.rt
+              newList.push(newEntry)
+            }
+
+            setTeams(newList)
+            setLoading(false)
+          },(_) => {
+            setLoading(false)
+          }
+        )
+      }
+    :
+      async () => {
+        const repoName = getRepoName(entity)
+        setRepoName(repoName)
+
+        fetchData({
+          api: apiUrl,
+          getAuthHeaderValue: getAuthHeaderValue,
+          repositories: [repoName],
+          start: startDate,
+          end: endDate,
+        }, (dora_data: any) => {
+          setData(dora_data)
+          setLoading(false)
+
+          const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
+          const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
+
+          setScores({
+            DFScore: scores.df,
+            CFRScore: scores.cfr,
+            CLTScore: scores.clt,
+            RTScore: scores.rt,
+            DFColor: convertRankToColor(ranks.df),
+            CLTColor: convertRankToColor(ranks.clt),
+            CFRColor: convertRankToColor(ranks.cfr),
+            RTColor: convertRankToColor(ranks.rt),
+            DFDisplay: getScoreDisplay(scores.df),
+            RTDisplay: getScoreDisplay(scores.rt),
+            CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+            CLTDisplay: getScoreDisplay(scores.clt),
+          })
+        }, (_) => {
+          setLoading(false)
         })
-      }, (_) => {
-        setLoading(false)
-      })
-    }
+      }
 
     fetch()
   }, [])
 
-  useEffect(() => {
-    addDynamicStyles('doraOptions', `overflow: visible`);
-    addDynamicStyles('Dropdown-root', `width: 50%`);
-    addDynamicStyles('react-datepicker__input-container input', `padding: 10px;`);
-    addDynamicStyles('chartHeader', `display: flex; justify-content: space-between; align-items: center; align-content: center;`);
-  }, []);
-
-  if(repoName === "") {
+  if(repoName === "" && !props.showTeamSelection) {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  const dfTitle = (<ChartTitle score={scores.DFRate} scorePostfix="hrs" color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
-  const cfrTitle = (<ChartTitle score={scores.CFRRate} scorePostfix="%" color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
-  const cltTitle = (<ChartTitle score={scores.CLTRate} scorePostfix="hrs" color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
-  const rtTitle = (<ChartTitle score={scores.RTRate} scorePostfix="hrs" color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const dfTitle = (<ChartTitle scoreDisplay={scores.DFDisplay} color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle scoreDisplay={scores.CFRDisplay} color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle scoreDisplay={scores.CLTDisplay} color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle scoreDisplay={scores.RTDisplay} color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
-  return (<div className={classes.doraContainer}>
+  const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
+
+  return (<div className={containerClass}>
+    <Tooltip
+      id="metric_tooltip"
+      place="bottom"
+      border="1px solid white"
+      opacity="1"
+      style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
+    />
     <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
@@ -207,6 +307,12 @@ export const Charts = () => {
                   selectsRange
                 />
               </div>
+              {props.showTeamSelection && 
+                <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                  <label style={{paddingRight: "10px"}}>Select Team:</label>
+                  <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
+                </div>
+              }
             </Box>
           </Box>
         </InfoCard>
@@ -224,6 +330,7 @@ export const Charts = () => {
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
                   end={chartEndDate}
+                  measures={rankThresholds}
                 />
               </div>
             </Box>
