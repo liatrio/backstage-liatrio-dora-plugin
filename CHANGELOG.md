@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## v0.3.13 (2024-08-15)
+
+### Chore
+
+* chore: ver bump ([`16df2a2`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/16df2a27b3bf60ae5fb348218b37625f8f36bdc8))
+
+### Fix
+
+* fix: update tooltip id ([`8518c25`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8518c254983aeb8a5812e0c87c53ee1a76a7878b))
+
+* fix: invert check ([`fdc8310`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fdc831062c71742501ac7ca6077245c2d8a1e5fa))
+
+* fix: only show tooltip if we aren&#39;t showing details ([`dcfaaf5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dcfaaf54bdffa5b79617abe777c4b9f38468929b))
+
+* fix: correct variable name ([`f71b8bf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/f71b8bfde14b1c39a38085c53d84e6a4dbac37f3))
+
+* fix: update score display in title bars ([`a3fe33a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/a3fe33a89681de85a08b5d22d78ae364dd1da351))
+
+* fix: updating the box title ([`70456c8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/70456c876cc1974952fd4e03b1e0d05c4cb1ad2b))
+
+* fix: missed a few property names ([`78728ac`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/78728acc34f2485a5e0bcfd8d2b620e176e39957))
+
+* fix: correct property names ([`f0d6dee`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/f0d6dee491b83a8fb9f5027be05a6000f2ff5c6b))
+
+* fix: be more clear in var names ([`83ab8ba`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/83ab8ba44fea8c112354e681944d93aa990f6f11))
+
+* fix: add some debug logging ([`8cd051f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8cd051f4095edc3586abe831781342006ee871da))
+
+* fix: use rank thresholds in score board ([`dfc06e3`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dfc06e3628752971eb0b48212df49f6e9c5f3398))
+
+* fix: use thresholds in scoreboard ([`96534cd`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/96534cddf15d4adaa7f7c323d04c57362113e8c7))
+
+* fix: actually use the thresholds ([`d6260ba`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d6260baf1fd7a090998a129e12d7f27ae1679bce))
+
+* fix: style team drop down ([`6e057c5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/6e057c5e15f3d88dbbf0c801a039145456064266))
+
+* fix: adding padding to team view ([`96b2080`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/96b2080d35c0106e520677474c98107a46840461))
+
+* fix: doesn&#39;t disable teamview on missing repo name ([`464d2ca`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/464d2caa51745c7482f06e385a65f7dda6415034))
+
+* fix: use props obj ([`c6d6301`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c6d6301bec7b69dd6c7aacf9c7af8b4f932ce2e7))
+
+* fix: only access entity context when not showing team list ([`469d5a8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/469d5a84c7325ceed3df4e9952f6cb741ac9a49b))
+
+* fix: pull thresholds from bs config ([`53885a4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/53885a44cd6b584a4bd409e91ec3f33f8d05cb99))
+
+* fix: condense TeamView back into Charts ([`15a4335`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/15a4335baa1ab54eb2c5784ea4268b4e4886dfaa))
+
+### Unknown
+
+* Merge pull request #49 from liatrio/CondenseTeamView
+
+Condense team view ([`cfa356a`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/cfa356a48f1e002cf9e0e7920943e1e135b352cd))
+
 ## v0.3.12 (2024-08-14)
 
 ### Unknown
