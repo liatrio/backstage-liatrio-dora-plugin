@@ -98,7 +98,7 @@ To Install this plugin you'll need to do the following:
 			* `showWeekends`: This boolean will toggle the `Deployment Frequency Chart` to hide weekends or show them.  The default is to hide them.
 			* `includeWeekends`: This boolean will toggle whether weekends are included in scoring your `Deployment Frequency` and `Change Lead Time`.  The default is to exclude them.
 			* `showDetails`: This boolean will toggle whether or not the `DORA Score Board` shows the exact scores on hover or as static text.  The default is to show them on hover.
-			* `rankThresholds`: This is an object to override the default rank thresholds for DORA scoring and is fully optional all the way down to the individual ranks.
+			* `rankThresholds`: This is an object to override the default rank thresholds for DORA Score Board and is fully optional all the way down to the individual ranks.
 
 		      There are 4 scores, all are optional:
 			  * `deployment_frequency` measured in hours
