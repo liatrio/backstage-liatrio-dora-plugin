@@ -29,7 +29,7 @@ export const ChartTitle = (props: Props) => {
             {props.scoreDisplay}
           </span>
         </span>
-        <svg viewBox="0,0,128,128" width="32px" height="32px" data-tooltip-id="score_tooltip" data-tooltip-content={props.info}>
+        <svg viewBox="0,0,128,128" width="32px" height="32px" data-tooltip-id="metric_tooltip" data-tooltip-content={props.info}>
           <g
             fill="none"
             fillRule="nonzero"

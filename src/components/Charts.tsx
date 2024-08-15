@@ -103,7 +103,7 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-  console.log(rankThresholds)
+  
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -285,13 +285,13 @@ export const Charts = (props: ChartProps) => {
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 
   return (<div className={containerClass}>
-    {!showDetails && <Tooltip
-      id="score_tooltip"
+    <Tooltip
+      id="metric_tooltip"
       place="bottom"
       border="1px solid white"
       opacity="1"
       style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
-    />}
+    />
     <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
