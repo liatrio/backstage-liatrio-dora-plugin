@@ -285,7 +285,7 @@ export const Charts = (props: ChartProps) => {
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 
   return (<div className={containerClass}>
-    {showDetails && <Tooltip
+    {!showDetails && <Tooltip
       id="score_tooltip"
       place="bottom"
       border="1px solid white"
