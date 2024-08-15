@@ -4,7 +4,7 @@ import {
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
 
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds } from 'liatrio-react-dora'
+import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds, getScoreDisplay } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { fetchTeams, genAuthHeaderValueLookup, getRepoName } from '../helper'
@@ -125,10 +125,14 @@ export const Charts = (props: ChartProps) => {
     CLTColor: convertRankToColor(10),
     CFRColor: convertRankToColor(10),
     RTColor: convertRankToColor(10),
-    DFScore: 0,
-    CLTScore: 0,
-    CFRScore: 0,
-    RTScore: 0,
+    DFScore: NaN,
+    CLTScore: NaN,
+    CFRScore: NaN,
+    RTScore: NaN,
+    DFDisplay: '?',
+    RTDisplay: '?',
+    CFRDisplay: '?',
+    CLTDisplay: '?',
   })
 
   const classes = useStyles()
@@ -187,13 +191,17 @@ export const Charts = (props: ChartProps) => {
 
         setScores({
           DFScore: scores.df,
-          CFRScore: scores.cfr * 100,
+          CFRScore: scores.cfr,
           CLTScore: scores.clt,
           RTScore: scores.rt,
           DFColor: convertRankToColor(ranks.df),
           CLTColor: convertRankToColor(ranks.clt),
           CFRColor: convertRankToColor(ranks.cfr),
-          RTColor: convertRankToColor(ranks.rt)
+          RTColor: convertRankToColor(ranks.rt),
+          DFDisplay: getScoreDisplay(scores.df),
+          RTDisplay: getScoreDisplay(scores.rt),
+          CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+          CLTDisplay: getScoreDisplay(scores.clt),
         })
       }, (_) => {
         setLoading(false)
@@ -245,13 +253,17 @@ export const Charts = (props: ChartProps) => {
 
           setScores({
             DFScore: scores.df,
-            CFRScore: scores.cfr * 100,
+            CFRScore: scores.cfr,
             CLTScore: scores.clt,
             RTScore: scores.rt,
             DFColor: convertRankToColor(ranks.df),
             CLTColor: convertRankToColor(ranks.clt),
             CFRColor: convertRankToColor(ranks.cfr),
-            RTColor: convertRankToColor(ranks.rt)
+            RTColor: convertRankToColor(ranks.rt),
+            DFDisplay: getScoreDisplay(scores.df),
+            RTDisplay: getScoreDisplay(scores.rt),
+            CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+            CLTDisplay: getScoreDisplay(scores.clt),
           })
         }, (_) => {
           setLoading(false)
@@ -265,10 +277,10 @@ export const Charts = (props: ChartProps) => {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  const dfTitle = (<ChartTitle score={scores.DFScore} scorePostfix="hrs" color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
-  const cfrTitle = (<ChartTitle score={scores.CFRScore} scorePostfix="%" color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
-  const cltTitle = (<ChartTitle score={scores.CLTScore} scorePostfix="hrs" color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
-  const rtTitle = (<ChartTitle score={scores.RTScore} scorePostfix="hrs" color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const dfTitle = (<ChartTitle scoreDisplay={scores.DFScoreDisplay} color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle scoreDisplay={scores.CFRScoreDisplay} color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle scoreDisplay={scores.CLTScoreDisplay} color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle scoreDisplay={scores.RTScoreDisplay} color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 

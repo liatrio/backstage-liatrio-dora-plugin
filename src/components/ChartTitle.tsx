@@ -5,9 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 export interface Props {
   title: string;
   info: string;
-  score: number;
   color: string;
-  scorePostfix: string;
+  scoreDisplay: string;
 }
 
 const useStyles = makeStyles(() => ({
@@ -29,8 +28,7 @@ export const ChartTitle = (props: Props) => {
         <span>
           {props.title}:{" "}
           <span style={{ filter: props.color }}>
-            {props.score.toFixed(2)}&nbsp;
-            {props.scorePostfix}
+            {props.scoreDisplay}
           </span>
         </span>
         <svg viewBox="0,0,128,128" width="32px" height="32px" data-tooltip-id={toolTipId}>
