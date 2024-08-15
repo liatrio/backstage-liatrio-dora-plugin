@@ -29,7 +29,7 @@ export const ChartTitle = (props: Props) => {
         <span>
           {props.title}:{" "}
           <span style={{ filter: props.color }}>
-            {props.score.toFixed(2)}
+            {props.score.toFixed(2)}&nbsp;
             {props.scorePostfix}
           </span>
         </span>
