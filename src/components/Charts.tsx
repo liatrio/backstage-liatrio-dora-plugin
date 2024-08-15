@@ -3,7 +3,7 @@ import {
   InfoCard,
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
-
+import { Tooltip } from "react-tooltip";
 import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds, getScoreDisplay } from 'liatrio-react-dora'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
@@ -285,6 +285,13 @@ export const Charts = (props: ChartProps) => {
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 
   return (<div className={containerClass}>
+    {showDetails && <Tooltip
+      id="score_tooltip"
+      place="bottom"
+      border="1px solid white"
+      opacity="1"
+      style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
+    />}
     <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">

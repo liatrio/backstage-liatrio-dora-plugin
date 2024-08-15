@@ -1,5 +1,4 @@
 import React from "react";
-import { Tooltip } from "react-tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
 export interface Props {
@@ -19,7 +18,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const ChartTitle = (props: Props) => {
-  const toolTipId = props.title.replaceAll(" ", "-") + "-tooltip";
   const classes = useStyles();
 
   return (
@@ -31,7 +29,7 @@ export const ChartTitle = (props: Props) => {
             {props.scoreDisplay}
           </span>
         </span>
-        <svg viewBox="0,0,128,128" width="32px" height="32px" data-tooltip-id={toolTipId}>
+        <svg viewBox="0,0,128,128" width="32px" height="32px" data-tooltip-id="score_tooltip" data-tooltip-content={props.info}>
           <g
             fill="none"
             fillRule="nonzero"
@@ -75,14 +73,6 @@ export const ChartTitle = (props: Props) => {
             </g>
           </g>
         </svg>
-        <Tooltip
-          id={toolTipId}
-          place="bottom"
-          border="1px solid white"
-          opacity="1"
-          content={props.info}
-          style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
-        />
       </div>
     </>
   );
