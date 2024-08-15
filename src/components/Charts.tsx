@@ -277,10 +277,10 @@ export const Charts = (props: ChartProps) => {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  const dfTitle = (<ChartTitle scoreDisplay={scores.DFScoreDisplay} color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
-  const cfrTitle = (<ChartTitle scoreDisplay={scores.CFRScoreDisplay} color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
-  const cltTitle = (<ChartTitle scoreDisplay={scores.CLTScoreDisplay} color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
-  const rtTitle = (<ChartTitle scoreDisplay={scores.RTScoreDisplay} color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const dfTitle = (<ChartTitle scoreDisplay={scores.DFDisplay} color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle scoreDisplay={scores.CFRDisplay} color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle scoreDisplay={scores.CLTDisplay} color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle scoreDisplay={scores.RTDisplay} color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 
