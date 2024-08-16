@@ -159,7 +159,7 @@ export const Charts = (props: ChartProps) => {
     })
   }
 
-  const makeFetchOptions = (start: Date, end: Date) => {
+  const makeFetchOptions = (start: Date, end: Date, team?: String, repo?: String) => {
     let fetchOptions: any = {
       api: apiUrl,
       getAuthHeaderValue: getAuthHeaderValue,
@@ -168,9 +168,9 @@ export const Charts = (props: ChartProps) => {
     }
 
     if(!props.showTeamSelection) {
-      fetchOptions.repositories = [repoName]
+      fetchOptions.repositories = [repo]
     } else {
-      fetchOptions.team = teams[teamIndex].value
+      fetchOptions.team = team
     }
 
     return fetchOptions
@@ -191,7 +191,7 @@ export const Charts = (props: ChartProps) => {
       return
     }
 
-    const fetchOptions = makeFetchOptions(startDate, endDate)
+    const fetchOptions = makeFetchOptions(startDate, endDate, teams[newIndex]?.value, repoName)
 
     setLoading(true)
 
@@ -213,7 +213,7 @@ export const Charts = (props: ChartProps) => {
       return
     }
     
-    const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
+    const fetchOptions = makeFetchOptions(newStartDate, newEndDate, teams[teamIndex]?.value, repoName)
 
     setLoading(true)
 
@@ -267,7 +267,7 @@ export const Charts = (props: ChartProps) => {
       }
     :
       async () => {
-        const fetchOptions = makeFetchOptions(startDate, endDate)
+        const fetchOptions = makeFetchOptions(startDate, endDate, teams[teamIndex]?.value, repoName)
 
         fetchData(fetchOptions, (dora_data: any) => {
           setData(dora_data)
