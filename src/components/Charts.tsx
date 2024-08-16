@@ -167,7 +167,7 @@ export const Charts = (props: ChartProps) => {
       end: end,
     }
 
-    if(props.showTeamSelection) {
+    if(!props.showTeamSelection) {
       fetchOptions.repositories = [repoName]
     } else {
       fetchOptions.team = teams[teamIndex].value
