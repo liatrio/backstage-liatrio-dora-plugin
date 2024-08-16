@@ -213,13 +213,8 @@ export const Charts = (props: ChartProps) => {
     if(!newStartDate || !newEndDate || (props.showTeamSelection && teamIndex === 0)) {
       return
     }
-<<<<<<< Updated upstream
-    
-    const fetchOptions = makeFetchOptions(newStartDate, newEndDate, teams[teamIndex]?.value, repoName)
-=======
 
     const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
->>>>>>> Stashed changes
 
     setLoading(true)
 
