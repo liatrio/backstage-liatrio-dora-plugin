@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.18 (2024-08-16)
+
+### Fix
+
+* fix: fix merge conflict ([`8a656a3`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8a656a375ae96d975a3b9fa0d67ea721d886b980))
+
+### Unknown
+
+* Merge pull request #56 from liatrio/BugFix
+
+fix: fix merge conflict ([`29cfcc5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/29cfcc544540d31d6739566624dd157bc4fc7c14))
+
 ## v0.3.17 (2024-08-16)
 
 ### Fix
