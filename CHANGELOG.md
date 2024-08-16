@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.3.15 (2024-08-16)
+
+### Fix
+
+* fix: invert check ([`0079928`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/0079928ca948dba207640873b983a1f33863ef31))
+
+* fix: send team_name when using teams, minor refactors ([`d1fed80`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d1fed80d94c2d30d23a45be40c09377159554cf5))
+
+### Unknown
+
+* Merge pull request #52 from liatrio/BugFix
+
+Bug fix ([`5bade94`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5bade94761cc937ba0ef6f5c00924367d51f2fb0))
+
 ## v0.3.14 (2024-08-15)
 
 ### Fix
