@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.3.17 (2024-08-16)
+
+### Fix
+
+* fix: recalc scores on team change ([`e0dd16f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e0dd16f90080c5491843cb95ff13e32f600409ab))
+
+* fix: account for state not being updated immediately ([`7489ddf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7489ddff0e7f90b82e4b054a4e3d42e288832bcd))
+
+### Unknown
+
+* Merge pull request #55 from liatrio/BugFix
+
+fix: recalc scores on team change ([`dc4b4e9`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dc4b4e902dd5f411e11b1cece6bfd08c1efd74d4))
+
+* Merge pull request #53 from liatrio/BugFix
+
+fix: account for state not being updated immediately ([`0220535`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/02205351e9e35e3dec7630ae355ff351fde8c1ab))
+
 ## v0.3.16 (2024-08-16)
 
 ### Fix
