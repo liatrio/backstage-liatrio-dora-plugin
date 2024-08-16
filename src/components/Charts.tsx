@@ -118,7 +118,7 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-  
+
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -198,6 +198,7 @@ export const Charts = (props: ChartProps) => {
     await fetchData(fetchOptions, (data: any) => {
         setData(data)
         setLoading(false)
+        getScores(data)
       }, (_) => {
         setLoading(false)
       })
@@ -212,8 +213,13 @@ export const Charts = (props: ChartProps) => {
     if(!newStartDate || !newEndDate || (props.showTeamSelection && teamIndex === 0)) {
       return
     }
+<<<<<<< Updated upstream
     
     const fetchOptions = makeFetchOptions(newStartDate, newEndDate, teams[teamIndex]?.value, repoName)
+=======
+
+    const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
+>>>>>>> Stashed changes
 
     setLoading(true)
 
@@ -316,7 +322,7 @@ export const Charts = (props: ChartProps) => {
                   selectsRange
                 />
               </div>
-              {props.showTeamSelection && 
+              {props.showTeamSelection &&
                 <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                   <label style={{paddingRight: "10px"}}>Select Team:</label>
                   <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
