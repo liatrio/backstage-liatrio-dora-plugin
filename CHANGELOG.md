@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.3.16 (2024-08-16)
+
+### Fix
+
+* fix: account for state not being updated immediately ([`1151362`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/1151362b9a091b583d96063aee4d122a33e724e5))
+
 ## v0.3.15 (2024-08-16)
 
 ### Fix
