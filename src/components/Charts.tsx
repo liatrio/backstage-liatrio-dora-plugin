@@ -93,6 +93,21 @@ export interface ChartProps {
   showTeamSelection?: boolean
 }
 
+const defaultScores = {
+  DFColor: convertRankToColor(10),
+  CLTColor: convertRankToColor(10),
+  CFRColor: convertRankToColor(10),
+  RTColor: convertRankToColor(10),
+  DFScore: NaN,
+  CLTScore: NaN,
+  CFRScore: NaN,
+  RTScore: NaN,
+  DFDisplay: '?',
+  RTDisplay: '?',
+  CFRDisplay: '?',
+  CLTDisplay: '?',
+}
+
 export const Charts = (props: ChartProps) => {
   const entity = !props.showTeamSelection ? useEntity() : null
   const configApi = useApi(configApiRef)
@@ -120,41 +135,67 @@ export const Charts = (props: ChartProps) => {
   const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(31))
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
-  const [scores, setScores] = useState<any>({
-    DFColor: convertRankToColor(10),
-    CLTColor: convertRankToColor(10),
-    CFRColor: convertRankToColor(10),
-    RTColor: convertRankToColor(10),
-    DFScore: NaN,
-    CLTScore: NaN,
-    CFRScore: NaN,
-    RTScore: NaN,
-    DFDisplay: '?',
-    RTDisplay: '?',
-    CFRDisplay: '?',
-    CLTDisplay: '?',
-  })
+  const [scores, setScores] = useState<any>({...defaultScores})
 
   const classes = useStyles()
+
+  const getScores = (data: any) => {
+    const scores = calculateScores({includeWeekends: includeWeekends}, data)
+    const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
+
+    setScores({
+      DFScore: scores.df,
+      CFRScore: scores.cfr,
+      CLTScore: scores.clt,
+      RTScore: scores.rt,
+      DFColor: convertRankToColor(ranks.df),
+      CLTColor: convertRankToColor(ranks.clt),
+      CFRColor: convertRankToColor(ranks.cfr),
+      RTColor: convertRankToColor(ranks.rt),
+      DFDisplay: getScoreDisplay(scores.df),
+      RTDisplay: getScoreDisplay(scores.rt),
+      CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+      CLTDisplay: getScoreDisplay(scores.clt),
+    })
+  }
+
+  const makeFetchOptions = (start: Date, end: Date) => {
+    let fetchOptions: any = {
+      api: apiUrl,
+      getAuthHeaderValue: getAuthHeaderValue,
+      start: start,
+      end: end,
+    }
+
+    if(!props.showTeamSelection) {
+      fetchOptions.repositories = [repoName]
+    } else {
+      fetchOptions.team = teams[teamIndex].value
+    }
+
+    return fetchOptions
+  }
 
   const updateTeam = async ( value: any) => {
     const newIndex = teams.findIndex((range: { value: string; label: string }) => range.label === value.label)
 
     setTeamIndex(newIndex)
 
-    if(!startDate || !endDate || newIndex === 0) {
+    if(!startDate || !endDate) {
       return
     }
 
+    if(newIndex === 0) {
+      setData([])
+      setScores({...defaultScores})
+      return
+    }
+
+    const fetchOptions = makeFetchOptions(startDate, endDate)
+
     setLoading(true)
 
-    await fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: teams[newIndex].value,
-        start: startDate,
-        end: endDate,
-      }, (data: any) => {
+    await fetchData(fetchOptions, (data: any) => {
         setData(data)
         setLoading(false)
       }, (_) => {
@@ -168,41 +209,21 @@ export const Charts = (props: ChartProps) => {
     setStartDate(newStartDate)
     setEndDate(newEndDate)
 
-    if(!newStartDate || !newEndDate) {
+    if(!newStartDate || !newEndDate || (props.showTeamSelection && teamIndex === 0)) {
       return
     }
+    
+    const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
 
     setLoading(true)
 
-    await fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: [repoName],
-        start: newStartDate,
-        end: newEndDate,
-      }, (dora_data: any) => {
+    await fetchData(fetchOptions, (dora_data: any) => {
         setData(dora_data)
         setChartStartDate(newStartDate)
         setChartEndDate(newEndDate)
         setLoading(false)
 
-        const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
-        const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
-
-        setScores({
-          DFScore: scores.df,
-          CFRScore: scores.cfr,
-          CLTScore: scores.clt,
-          RTScore: scores.rt,
-          DFColor: convertRankToColor(ranks.df),
-          CLTColor: convertRankToColor(ranks.clt),
-          CFRColor: convertRankToColor(ranks.cfr),
-          RTColor: convertRankToColor(ranks.rt),
-          DFDisplay: getScoreDisplay(scores.df),
-          RTDisplay: getScoreDisplay(scores.rt),
-          CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
-          CLTDisplay: getScoreDisplay(scores.clt),
-        })
+        getScores(dora_data)
       }, (_) => {
         setLoading(false)
       })
@@ -210,6 +231,17 @@ export const Charts = (props: ChartProps) => {
 
   useEffect(() => {
     setLoading(true)
+    let repoName = ""
+
+    if(!props.showTeamSelection) {
+      repoName = getRepoName(entity)
+      setRepoName(repoName)
+
+      if(!repoName) {
+        setLoading(false)
+        return
+      }
+    }
 
     let fetch = props.showTeamSelection ?
       async () => {
@@ -219,8 +251,8 @@ export const Charts = (props: ChartProps) => {
 
             for(var entry of teams_data.teams) {
               let newEntry = {
-                label: entry.name,
-                value: entry.repositories
+                label: entry,
+                value: entry
               }
 
               newList.push(newEntry)
@@ -235,36 +267,13 @@ export const Charts = (props: ChartProps) => {
       }
     :
       async () => {
-        const repoName = getRepoName(entity)
-        setRepoName(repoName)
+        const fetchOptions = makeFetchOptions(startDate, endDate)
 
-        fetchData({
-          api: apiUrl,
-          getAuthHeaderValue: getAuthHeaderValue,
-          repositories: [repoName],
-          start: startDate,
-          end: endDate,
-        }, (dora_data: any) => {
+        fetchData(fetchOptions, (dora_data: any) => {
           setData(dora_data)
           setLoading(false)
 
-          const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
-          const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
-
-          setScores({
-            DFScore: scores.df,
-            CFRScore: scores.cfr,
-            CLTScore: scores.clt,
-            RTScore: scores.rt,
-            DFColor: convertRankToColor(ranks.df),
-            CLTColor: convertRankToColor(ranks.clt),
-            CFRColor: convertRankToColor(ranks.cfr),
-            RTColor: convertRankToColor(ranks.rt),
-            DFDisplay: getScoreDisplay(scores.df),
-            RTDisplay: getScoreDisplay(scores.rt),
-            CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
-            CLTDisplay: getScoreDisplay(scores.clt),
-          })
+          getScores(dora_data)
         }, (_) => {
           setLoading(false)
         })
