@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.3.21 (2024-08-19)
+
+### Fix
+
+* fix: missing parameters in this scenario ([`5fefd88`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5fefd8849c274b5778747a2a6a9da72e59064a63))
+
+### Unknown
+
+* Merge pull request #59 from liatrio/BugFix
+
+fix: missing parameters in this scenario ([`7ffdec8`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7ffdec87e38d40d72555ce1c87dd0c81d99041e0))
+
+* Update README.md ([`cb83374`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/cb83374e9c67c8258b57a891bf9c9c2616543ca5))
+
+* Merge pull request #51 from liatrio/UpdateReadme
+
+chore: update readme ([`8ebc5c3`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8ebc5c372578b93165bf5dbfc84f8f2a81286872))
+
+* Merge branch &#39;main&#39; into UpdateReadme ([`3dde470`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/3dde470031d773f7f84b982c24e3ffb15802fb1e))
+
 ## v0.3.20 (2024-08-19)
 
 ### Fix
@@ -63,6 +83,12 @@ fix: account for state not being updated immediately ([`0220535`](https://github
 * fix: account for state not being updated immediately ([`1151362`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/1151362b9a091b583d96063aee4d122a33e724e5))
 
 ## v0.3.15 (2024-08-16)
+
+### Chore
+
+* chore: change score to score board ([`860298d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/860298d6a4bd3e62782d76d51c8b36300c4e58b8))
+
+* chore: update readme ([`b78cf2b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b78cf2beeb389773320b94c382078794eb4fc8c7))
 
 ### Fix
 
