@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.3.20 (2024-08-19)
+
+### Fix
+
+* fix: horiztonal scroll bar showing up, unable to switch teams if default option selected ([`13ddccb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/13ddccb8b6bd552c6e852563a4c2433aa414f565))
+
+* fix: allow preset list of teams ([`e08e9ee`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e08e9eefb8c9553d81e71f5282b7c1239ee0d916))
+
+### Unknown
+
+* Merge pull request #58 from liatrio/ImproveUX
+
+fix: Improve UX ([`bbfd833`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bbfd833d8de246b073cd8e48644b9e296e4e4740))
+
 ## v0.3.19 (2024-08-17)
 
 ### Fix
