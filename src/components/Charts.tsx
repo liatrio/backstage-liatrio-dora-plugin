@@ -118,6 +118,7 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
+  const teamsList = configApi.getOptional("dora.teams") as string[]
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
@@ -126,7 +127,7 @@ export const Charts = (props: ChartProps) => {
 
   const [teamIndex, setTeamIndex] = useState<number>(0)
   const [teams, setTeams] = useState<any[]>([{
-      value: [], label: "Please Select"
+      value: "", label: "Please Select"
     }])
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
@@ -232,6 +233,7 @@ export const Charts = (props: ChartProps) => {
 
   useEffect(() => {
     setLoading(true)
+    
     let repoName = ""
 
     if(!props.showTeamSelection) {
@@ -246,25 +248,39 @@ export const Charts = (props: ChartProps) => {
 
     let fetch = props.showTeamSelection ?
       async () => {
-        fetchTeams(teamListUrl, getAuthHeaderValue,
-          (teams_data: any) => {
-            let newList: any[] = [{label: "Please Select", value: []}]
+        if(teamsList && teamsList.length > 0) {
+          let teamsEntires = [{
+            value: "", label: "Please Select"
+          }];
+    
+          for(const team of teamsList) {
+            teamsEntires.push({
+              value: team, label: team
+            })
+          }
+    
+          setTeams(teamsEntires)
+        } else {
+          fetchTeams(teamListUrl, getAuthHeaderValue,
+            (teams_data: any) => {
+              let newList: any[] = [{label: "Please Select", value: ""}]
 
-            for(var entry of teams_data.teams) {
-              let newEntry = {
-                label: entry,
-                value: entry
+              for(var entry of teams_data.teams) {
+                let newEntry = {
+                  label: entry,
+                  value: entry
+                }
+
+                newList.push(newEntry)
               }
 
-              newList.push(newEntry)
+              setTeams(newList)
+              setLoading(false)
+            },(_) => {
+              setLoading(false)
             }
-
-            setTeams(newList)
-            setLoading(false)
-          },(_) => {
-            setLoading(false)
-          }
-        )
+          )
+        }
       }
     :
       async () => {
