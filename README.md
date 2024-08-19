@@ -115,18 +115,18 @@ To Install this plugin you'll need to do the following:
 
 			  The default rank thresholds are:
 			  * deployment_frequency
-			  	* elite: 24
-				* high: 168
-				* medium: 720
+			  	* elite: 24 (1 day or less)
+				* high: 168 (1 week or less)
+				* medium: 720 (1 month or less)
 			  * change_lead_time
-			  	* elite: 24
-				* high: 168
-				* medium: 720
+			  	* elite: 24 (1 day or less)
+				* high: 168 (1 week or less)
+				* medium: 720 (1 month or less)
 			  * change_failure_rate
 			  	* elite: 5
 				* high: 10
 				* medium: 45
 			  * recover_time
-			  	* elite: 1
-				* high: 24
-				* medium: 168
+			  	* elite: 1 (1 hr or less)
+				* high: 24 (1 day or less)
+				* medium: 168 (1 week or less)
