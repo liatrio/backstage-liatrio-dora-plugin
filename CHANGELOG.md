@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.3.22 (2024-08-19)
+
+### Fix
+
+* fix: bump dora ver ([`4dec9b6`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4dec9b65e727e5f6f0cdfc7cb9434bd850cf133d))
+
+* fix: set message when no team is selected ([`b58278d`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b58278da4df0650d43cc4649ee832f81cbbbe12b))
+
+### Unknown
+
+* Merge pull request #60 from liatrio/BugFix
+
+fix: bump dora ver ([`5b8f111`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5b8f1118a6bd51e7477ea01413861ca214fcebbc))
+
 ## v0.3.21 (2024-08-19)
 
 ### Fix
