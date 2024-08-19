@@ -216,7 +216,7 @@ console.log(teamsList)
       return
     }
 
-    const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
+    const fetchOptions = makeFetchOptions(newStartDate, newEndDate, teams[teamIndex]?.value, repoName)
 
     setLoading(true)
 
