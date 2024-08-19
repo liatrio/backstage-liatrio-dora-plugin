@@ -119,7 +119,7 @@ export const Charts = (props: ChartProps) => {
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
   const teamsList = configApi.getOptional("dora.teams") as string[]
-
+console.log(teamsList)
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -187,7 +187,8 @@ export const Charts = (props: ChartProps) => {
     }
 
     if(newIndex === 0) {
-      setData([])
+      setLoading(true)
+      setData(null)
       setScores({...defaultScores})
       return
     }
@@ -318,7 +319,7 @@ export const Charts = (props: ChartProps) => {
       opacity="1"
       style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
     />
-    <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
+    <Grid container style={{marginBottom: "12px", width: 'calc(100% + 22px)'}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
           <Box overflow="visible" position="relative">
@@ -364,7 +365,7 @@ export const Charts = (props: ChartProps) => {
         </InfoCard>
       </Grid>
     </Grid>
-    <Grid container spacing={3} alignItems="stretch">
+    <Grid container spacing={3} alignItems="stretch" style={{width: 'calc(100% + 22px)'}}>
       <Grid item md={6} className='doraGrid'>
         <InfoCard title={dfTitle} className="doraCard">
           <Box position="relative">
