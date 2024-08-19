@@ -1,5 +1,81 @@
 # CHANGELOG
 
+## v0.3.20 (2024-08-19)
+
+### Fix
+
+* fix: horiztonal scroll bar showing up, unable to switch teams if default option selected ([`13ddccb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/13ddccb8b6bd552c6e852563a4c2433aa414f565))
+
+* fix: allow preset list of teams ([`e08e9ee`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e08e9eefb8c9553d81e71f5282b7c1239ee0d916))
+
+### Unknown
+
+* Merge pull request #58 from liatrio/ImproveUX
+
+fix: Improve UX ([`bbfd833`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bbfd833d8de246b073cd8e48644b9e296e4e4740))
+
+## v0.3.19 (2024-08-17)
+
+### Fix
+
+* fix: ver bump ([`bd43642`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/bd4364298b047c330dba02a18a3f51192c8d636d))
+
+### Unknown
+
+* Merge pull request #57 from liatrio/VerBump
+
+fix: ver bump ([`7f46b2e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7f46b2e886740b63c8c3d78b1d862c060cce4620))
+
+## v0.3.18 (2024-08-16)
+
+### Fix
+
+* fix: fix merge conflict ([`8a656a3`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8a656a375ae96d975a3b9fa0d67ea721d886b980))
+
+### Unknown
+
+* Merge pull request #56 from liatrio/BugFix
+
+fix: fix merge conflict ([`29cfcc5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/29cfcc544540d31d6739566624dd157bc4fc7c14))
+
+## v0.3.17 (2024-08-16)
+
+### Fix
+
+* fix: recalc scores on team change ([`e0dd16f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e0dd16f90080c5491843cb95ff13e32f600409ab))
+
+* fix: account for state not being updated immediately ([`7489ddf`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7489ddff0e7f90b82e4b054a4e3d42e288832bcd))
+
+### Unknown
+
+* Merge pull request #55 from liatrio/BugFix
+
+fix: recalc scores on team change ([`dc4b4e9`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dc4b4e902dd5f411e11b1cece6bfd08c1efd74d4))
+
+* Merge pull request #53 from liatrio/BugFix
+
+fix: account for state not being updated immediately ([`0220535`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/02205351e9e35e3dec7630ae355ff351fde8c1ab))
+
+## v0.3.16 (2024-08-16)
+
+### Fix
+
+* fix: account for state not being updated immediately ([`1151362`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/1151362b9a091b583d96063aee4d122a33e724e5))
+
+## v0.3.15 (2024-08-16)
+
+### Fix
+
+* fix: invert check ([`0079928`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/0079928ca948dba207640873b983a1f33863ef31))
+
+* fix: send team_name when using teams, minor refactors ([`d1fed80`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d1fed80d94c2d30d23a45be40c09377159554cf5))
+
+### Unknown
+
+* Merge pull request #52 from liatrio/BugFix
+
+Bug fix ([`5bade94`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5bade94761cc937ba0ef6f5c00924367d51f2fb0))
+
 ## v0.3.14 (2024-08-15)
 
 ### Fix

@@ -93,6 +93,21 @@ export interface ChartProps {
   showTeamSelection?: boolean
 }
 
+const defaultScores = {
+  DFColor: convertRankToColor(10),
+  CLTColor: convertRankToColor(10),
+  CFRColor: convertRankToColor(10),
+  RTColor: convertRankToColor(10),
+  DFScore: NaN,
+  CLTScore: NaN,
+  CFRScore: NaN,
+  RTScore: NaN,
+  DFDisplay: '?',
+  RTDisplay: '?',
+  CFRDisplay: '?',
+  CLTDisplay: '?',
+}
+
 export const Charts = (props: ChartProps) => {
   const entity = !props.showTeamSelection ? useEntity() : null
   const configApi = useApi(configApiRef)
@@ -103,7 +118,8 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-  
+  const teamsList = configApi.getOptional("dora.teams") as string[]
+console.log(teamsList)
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -111,7 +127,7 @@ export const Charts = (props: ChartProps) => {
 
   const [teamIndex, setTeamIndex] = useState<number>(0)
   const [teams, setTeams] = useState<any[]>([{
-      value: [], label: "Please Select"
+      value: "", label: "Please Select"
     }])
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
@@ -120,43 +136,71 @@ export const Charts = (props: ChartProps) => {
   const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(31))
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
-  const [scores, setScores] = useState<any>({
-    DFColor: convertRankToColor(10),
-    CLTColor: convertRankToColor(10),
-    CFRColor: convertRankToColor(10),
-    RTColor: convertRankToColor(10),
-    DFScore: NaN,
-    CLTScore: NaN,
-    CFRScore: NaN,
-    RTScore: NaN,
-    DFDisplay: '?',
-    RTDisplay: '?',
-    CFRDisplay: '?',
-    CLTDisplay: '?',
-  })
+  const [scores, setScores] = useState<any>({...defaultScores})
 
   const classes = useStyles()
+
+  const getScores = (data: any) => {
+    const scores = calculateScores({includeWeekends: includeWeekends}, data)
+    const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
+
+    setScores({
+      DFScore: scores.df,
+      CFRScore: scores.cfr,
+      CLTScore: scores.clt,
+      RTScore: scores.rt,
+      DFColor: convertRankToColor(ranks.df),
+      CLTColor: convertRankToColor(ranks.clt),
+      CFRColor: convertRankToColor(ranks.cfr),
+      RTColor: convertRankToColor(ranks.rt),
+      DFDisplay: getScoreDisplay(scores.df),
+      RTDisplay: getScoreDisplay(scores.rt),
+      CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
+      CLTDisplay: getScoreDisplay(scores.clt),
+    })
+  }
+
+  const makeFetchOptions = (start: Date, end: Date, team?: String, repo?: String) => {
+    let fetchOptions: any = {
+      api: apiUrl,
+      getAuthHeaderValue: getAuthHeaderValue,
+      start: start,
+      end: end,
+    }
+
+    if(!props.showTeamSelection) {
+      fetchOptions.repositories = [repo]
+    } else {
+      fetchOptions.team = team
+    }
+
+    return fetchOptions
+  }
 
   const updateTeam = async ( value: any) => {
     const newIndex = teams.findIndex((range: { value: string; label: string }) => range.label === value.label)
 
     setTeamIndex(newIndex)
 
-    if(!startDate || !endDate || newIndex === 0) {
+    if(!startDate || !endDate) {
       return
     }
 
+    if(newIndex === 0) {
+      setLoading(true)
+      setData(null)
+      setScores({...defaultScores})
+      return
+    }
+
+    const fetchOptions = makeFetchOptions(startDate, endDate, teams[newIndex]?.value, repoName)
+
     setLoading(true)
 
-    await fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: teams[newIndex].value,
-        start: startDate,
-        end: endDate,
-      }, (data: any) => {
+    await fetchData(fetchOptions, (data: any) => {
         setData(data)
         setLoading(false)
+        getScores(data)
       }, (_) => {
         setLoading(false)
       })
@@ -168,41 +212,21 @@ export const Charts = (props: ChartProps) => {
     setStartDate(newStartDate)
     setEndDate(newEndDate)
 
-    if(!newStartDate || !newEndDate) {
+    if(!newStartDate || !newEndDate || (props.showTeamSelection && teamIndex === 0)) {
       return
     }
 
+    const fetchOptions = makeFetchOptions(newStartDate, newEndDate)
+
     setLoading(true)
 
-    await fetchData({
-        api: apiUrl,
-        getAuthHeaderValue: getAuthHeaderValue,
-        repositories: [repoName],
-        start: newStartDate,
-        end: newEndDate,
-      }, (dora_data: any) => {
+    await fetchData(fetchOptions, (dora_data: any) => {
         setData(dora_data)
         setChartStartDate(newStartDate)
         setChartEndDate(newEndDate)
         setLoading(false)
 
-        const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
-        const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
-
-        setScores({
-          DFScore: scores.df,
-          CFRScore: scores.cfr,
-          CLTScore: scores.clt,
-          RTScore: scores.rt,
-          DFColor: convertRankToColor(ranks.df),
-          CLTColor: convertRankToColor(ranks.clt),
-          CFRColor: convertRankToColor(ranks.cfr),
-          RTColor: convertRankToColor(ranks.rt),
-          DFDisplay: getScoreDisplay(scores.df),
-          RTDisplay: getScoreDisplay(scores.rt),
-          CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
-          CLTDisplay: getScoreDisplay(scores.clt),
-        })
+        getScores(dora_data)
       }, (_) => {
         setLoading(false)
       })
@@ -210,61 +234,64 @@ export const Charts = (props: ChartProps) => {
 
   useEffect(() => {
     setLoading(true)
+    
+    let repoName = ""
+
+    if(!props.showTeamSelection) {
+      repoName = getRepoName(entity)
+      setRepoName(repoName)
+
+      if(!repoName) {
+        setLoading(false)
+        return
+      }
+    }
 
     let fetch = props.showTeamSelection ?
       async () => {
-        fetchTeams(teamListUrl, getAuthHeaderValue,
-          (teams_data: any) => {
-            let newList: any[] = [{label: "Please Select", value: []}]
+        if(teamsList && teamsList.length > 0) {
+          let teamsEntires = [{
+            value: "", label: "Please Select"
+          }];
+    
+          for(const team of teamsList) {
+            teamsEntires.push({
+              value: team, label: team
+            })
+          }
+    
+          setTeams(teamsEntires)
+        } else {
+          fetchTeams(teamListUrl, getAuthHeaderValue,
+            (teams_data: any) => {
+              let newList: any[] = [{label: "Please Select", value: ""}]
 
-            for(var entry of teams_data.teams) {
-              let newEntry = {
-                label: entry.name,
-                value: entry.repositories
+              for(var entry of teams_data.teams) {
+                let newEntry = {
+                  label: entry,
+                  value: entry
+                }
+
+                newList.push(newEntry)
               }
 
-              newList.push(newEntry)
+              setTeams(newList)
+              setLoading(false)
+            },(_) => {
+              setLoading(false)
             }
-
-            setTeams(newList)
-            setLoading(false)
-          },(_) => {
-            setLoading(false)
-          }
-        )
+          )
+        }
       }
     :
       async () => {
-        const repoName = getRepoName(entity)
-        setRepoName(repoName)
+        const fetchOptions = makeFetchOptions(startDate, endDate, teams[teamIndex]?.value, repoName)
 
-        fetchData({
-          api: apiUrl,
-          getAuthHeaderValue: getAuthHeaderValue,
-          repositories: [repoName],
-          start: startDate,
-          end: endDate,
-        }, (dora_data: any) => {
+        fetchData(fetchOptions, (dora_data: any) => {
           setData(dora_data)
           setLoading(false)
 
-          const scores = calculateScores({includeWeekends: includeWeekends}, dora_data)
-          const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
-
-          setScores({
-            DFScore: scores.df,
-            CFRScore: scores.cfr,
-            CLTScore: scores.clt,
-            RTScore: scores.rt,
-            DFColor: convertRankToColor(ranks.df),
-            CLTColor: convertRankToColor(ranks.clt),
-            CFRColor: convertRankToColor(ranks.cfr),
-            RTColor: convertRankToColor(ranks.rt),
-            DFDisplay: getScoreDisplay(scores.df),
-            RTDisplay: getScoreDisplay(scores.rt),
-            CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
-            CLTDisplay: getScoreDisplay(scores.clt),
-          })
+          getScores(dora_data)
         }, (_) => {
           setLoading(false)
         })
@@ -292,7 +319,7 @@ export const Charts = (props: ChartProps) => {
       opacity="1"
       style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
     />
-    <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
+    <Grid container style={{marginBottom: "12px", width: 'calc(100% + 22px)'}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
           <Box overflow="visible" position="relative">
@@ -307,7 +334,7 @@ export const Charts = (props: ChartProps) => {
                   selectsRange
                 />
               </div>
-              {props.showTeamSelection && 
+              {props.showTeamSelection &&
                 <div style={{width: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                   <label style={{paddingRight: "10px"}}>Select Team:</label>
                   <Dropdown options={teams} onChange={updateTeam} value={teams[teamIndex]} />
@@ -338,7 +365,7 @@ export const Charts = (props: ChartProps) => {
         </InfoCard>
       </Grid>
     </Grid>
-    <Grid container spacing={3} alignItems="stretch">
+    <Grid container spacing={3} alignItems="stretch" style={{width: 'calc(100% + 22px)'}}>
       <Grid item md={6} className='doraGrid'>
         <InfoCard title={dfTitle} className="doraCard">
           <Box position="relative">

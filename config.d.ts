@@ -10,6 +10,7 @@ export interface Config {
     showWeekends: boolean
     includeWeekends: boolean
     showDetails: boolean
+    teams: string[]
     rankThresholds: {
       deployment_frequency: {
         elite: number,
