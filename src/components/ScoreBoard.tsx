@@ -16,7 +16,7 @@ export const ScoreBoard = () => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-console.log(rankThresholds)
+
   const getAuthHeaderValue = genAuthHeaderValueLookup()
   
   const repoName = getRepoName(entity)

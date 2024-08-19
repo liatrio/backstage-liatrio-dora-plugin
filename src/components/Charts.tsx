@@ -119,7 +119,7 @@ export const Charts = (props: ChartProps) => {
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
   const teamsList = configApi.getOptional("dora.teams") as string[]
-console.log(teamsList)
+
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -137,6 +137,7 @@ console.log(teamsList)
   const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
   const [loading, setLoading] = useState<boolean>(true)
   const [scores, setScores] = useState<any>({...defaultScores})
+  const [message, setMessage] = useState<string>("")
 
   const classes = useStyles()
 
@@ -190,6 +191,7 @@ console.log(teamsList)
       setLoading(true)
       setData(null)
       setScores({...defaultScores})
+      setMessage("Please select a Team")
       return
     }
 
@@ -201,6 +203,7 @@ console.log(teamsList)
         setData(data)
         setLoading(false)
         getScores(data)
+        setMessage('')
       }, (_) => {
         setLoading(false)
       })
@@ -260,6 +263,7 @@ console.log(teamsList)
             })
           }
     
+          setMessage("Please select a Team")
           setTeams(teamsEntires)
         } else {
           fetchTeams(teamListUrl, getAuthHeaderValue,
@@ -358,6 +362,7 @@ console.log(teamsList)
                   start={chartStartDate}
                   end={chartEndDate}
                   measures={rankThresholds}
+                  message={message}
                 />
               </div>
             </Box>
@@ -379,6 +384,7 @@ console.log(teamsList)
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
                   end={chartEndDate}
+                  message={message}
                 />
               </div>
             </Box>
@@ -397,6 +403,7 @@ console.log(teamsList)
                   showWeekends={showWeekends}
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
+                  message={message}
                   end={chartEndDate}
                 />
               </div>
@@ -417,6 +424,7 @@ console.log(teamsList)
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
                   end={chartEndDate}
+                  message={message}
                 />
               </div>
             </Box>
@@ -436,6 +444,7 @@ console.log(teamsList)
                   includeWeekends={includeWeekends}
                   start={chartStartDate}
                   end={chartEndDate}
+                  message={message}
                 />
               </div>
             </Box>
