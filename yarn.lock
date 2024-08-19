@@ -8899,9 +8899,9 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.31/liatrio-react-dora-1.0.31.tgz":
-  version "1.0.31"
-  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.31/liatrio-react-dora-1.0.31.tgz#1591c894227ac038008b4fa58123571b142cfc45"
+"liatrio-react-dora@https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.33/liatrio-react-dora-1.0.33.tgz":
+  version "1.0.33"
+  resolved "https://github.com/liatrio/liatrio-react-dora/releases/download/v1.0.33/liatrio-react-dora-1.0.33.tgz#dcf5637a7063b0ad141d4d7c1b0e928b2abd2200"
   dependencies:
     react-tooltip "^5.28.0"
     recharts "^2.12.7"

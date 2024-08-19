@@ -262,8 +262,9 @@ export const Charts = (props: ChartProps) => {
               value: team, label: team
             })
           }
-    
+          
           setMessage("Please select a Team")
+          setLoading(false)
           setTeams(teamsEntires)
         } else {
           fetchTeams(teamListUrl, getAuthHeaderValue,
