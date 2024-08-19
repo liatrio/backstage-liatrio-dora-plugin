@@ -118,7 +118,8 @@ export const Charts = (props: ChartProps) => {
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
-
+  const teamsList = configApi.getOptional("dora.teams") as string[]
+console.log(teamsList)
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
   const apiUrl = `${backendUrl}/api/proxy/dora/api/${dataEndpoint}`
@@ -126,7 +127,7 @@ export const Charts = (props: ChartProps) => {
 
   const [teamIndex, setTeamIndex] = useState<number>(0)
   const [teams, setTeams] = useState<any[]>([{
-      value: [], label: "Please Select"
+      value: "", label: "Please Select"
     }])
   const [repoName, setRepoName] = useState<string>("")
   const [data, setData] = useState<any>()
@@ -186,7 +187,8 @@ export const Charts = (props: ChartProps) => {
     }
 
     if(newIndex === 0) {
-      setData([])
+      setLoading(true)
+      setData(null)
       setScores({...defaultScores})
       return
     }
@@ -232,6 +234,7 @@ export const Charts = (props: ChartProps) => {
 
   useEffect(() => {
     setLoading(true)
+    
     let repoName = ""
 
     if(!props.showTeamSelection) {
@@ -246,25 +249,39 @@ export const Charts = (props: ChartProps) => {
 
     let fetch = props.showTeamSelection ?
       async () => {
-        fetchTeams(teamListUrl, getAuthHeaderValue,
-          (teams_data: any) => {
-            let newList: any[] = [{label: "Please Select", value: []}]
+        if(teamsList && teamsList.length > 0) {
+          let teamsEntires = [{
+            value: "", label: "Please Select"
+          }];
+    
+          for(const team of teamsList) {
+            teamsEntires.push({
+              value: team, label: team
+            })
+          }
+    
+          setTeams(teamsEntires)
+        } else {
+          fetchTeams(teamListUrl, getAuthHeaderValue,
+            (teams_data: any) => {
+              let newList: any[] = [{label: "Please Select", value: ""}]
 
-            for(var entry of teams_data.teams) {
-              let newEntry = {
-                label: entry,
-                value: entry
+              for(var entry of teams_data.teams) {
+                let newEntry = {
+                  label: entry,
+                  value: entry
+                }
+
+                newList.push(newEntry)
               }
 
-              newList.push(newEntry)
+              setTeams(newList)
+              setLoading(false)
+            },(_) => {
+              setLoading(false)
             }
-
-            setTeams(newList)
-            setLoading(false)
-          },(_) => {
-            setLoading(false)
-          }
-        )
+          )
+        }
       }
     :
       async () => {
@@ -302,7 +319,7 @@ export const Charts = (props: ChartProps) => {
       opacity="1"
       style={{ borderRadius: "10px", maxWidth: "300px", padding: "10px", zIndex: "100", backgroundColor: "#000000" }}
     />
-    <Grid container style={{marginBottom: "12px"}} spacing={3} alignItems="stretch">
+    <Grid container style={{marginBottom: "12px", width: 'calc(100% + 22px)'}} spacing={3} alignItems="stretch">
       <Grid item md={6} style={{paddingBottom: "25px", overflow: "visible"}}>
         <InfoCard title="Options" className="doraOptions doraCard">
           <Box overflow="visible" position="relative">
@@ -348,7 +365,7 @@ export const Charts = (props: ChartProps) => {
         </InfoCard>
       </Grid>
     </Grid>
-    <Grid container spacing={3} alignItems="stretch">
+    <Grid container spacing={3} alignItems="stretch" style={{width: 'calc(100% + 22px)'}}>
       <Grid item md={6} className='doraGrid'>
         <InfoCard title={dfTitle} className="doraCard">
           <Box position="relative">
