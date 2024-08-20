@@ -6,14 +6,7 @@ services:
     platform: linux/amd64
     ports:
       - "${PORT:-3030}:3030"
-    environment:
-      LOKI_URL: "http://loki:3100/loki/api/v1/query_range"  # Reference Loki service by its name
-      LOKI_TOKEN: "${LOKI_TOKEN}"
-      LOKI_USER: "${LOKI_USER}"
-      PORT: "${PORT:-3030}"
-      GITHUB_ORG: "${GITHUB_ORG}"
-      GITHUB_TOKEN: "${GITHUB_TOKEN}"
-      LOKI_DAYS_BATCH_SIZE: "${LOKI_DAYS_BATCH_SIZE:-5}"
+    env_file: .env
 
   loki:
     image: grafana/loki:2.9.1
@@ -33,6 +26,26 @@ services:
       - /var/log:/var/log
       - ./promtail-config.yaml:/etc/promtail/config.yaml
     command: -config.file=/etc/promtail/config.yaml
+
+  otelcol:
+    image: ghcr.io/liatrio/liatrio-otel-collector:0.61.0-arm64
+    container_name: otel-col
+    deploy:
+      resources:
+        limits:
+          memory: 125M
+    env_file: .env
+    restart: unless-stopped
+    command: ['--config=/etc/otelcol-config.yml']
+    volumes:
+      - ./otelcol-config.yml:/etc/otelcol-config.yml
+    ports:
+      - '4317:4317' # OTLP over gRPC receiver
+      - '4318:4318' # OTLP over HTTP receiver
+    logging:
+      *logging
+    profiles:
+      - 'telemetry'
 
 volumes:
   loki_data:

@@ -33,6 +33,10 @@ schema_config:
         prefix: index_
         period: 24h
 
+limits_config:
+  split_queries_by_interval: 24h
+  max_query_length: 0
+
 ruler:
   alertmanager_url: http://localhost:9093
 
