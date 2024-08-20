@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.23 (2024-08-20)
+
+### Fix
+
+* fix: update yarn add command to include package prefix, failing for me locally without it ([`5a2f537`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5a2f5378ac5d24fcf3f75be5fff57eb43eb8460e))
+
+### Unknown
+
+* Merge pull request #61 from liatrio/readme-update
+
+fix: update yarn add command to include package prefix, failing for m… ([`e99d70c`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/e99d70c52bdcf00f4ecfd69b09fff126b6297862))
+
 ## v0.3.22 (2024-08-19)
 
 ### Fix
