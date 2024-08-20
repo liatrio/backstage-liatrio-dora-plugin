@@ -36,7 +36,7 @@ To Install this plugin you'll need to do the following:
     ```
 	npm install https://github.com/liatrio/backstage-liatrio-dora-plugin/releases/download/v0.3.14/liatrio-backstage-plugin-liatrio-dora-v0.3.14.tgz
 
-	yarn add https://github.com/liatrio/backstage-liatrio-dora-plugin/releases/download/v0.3.14/liatrio-backstage-plugin-liatrio-dora-v0.3.14.tgz
+	yarn add backstage-liatrio-dora-plugin@https://github.com/liatrio/backstage-liatrio-dora-plugin/releases/download/v0.3.14/liatrio-backstage-plugin-liatrio-dora-v0.3.14.tgz
 	```
 
 2. Update the `/packages/app/src/App.tsx` file:
