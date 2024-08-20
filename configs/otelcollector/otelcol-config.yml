@@ -1,0 +1,46 @@
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+        cors:
+          allowed_origins:
+            - 'http://*'
+            - 'https://*'
+
+exporters:
+  debug:
+  otlp:
+    endpoint: 'jaeger:4317'
+    tls:
+      insecure: true
+  otlphttp/prometheus:
+    endpoint: 'http://prometheus:9090/api/v1/otlp'
+    tls:
+      insecure: true
+  loki:
+    endpoint: 'http://loki:3100/loki/api/v1/push'
+
+processors:
+  batch:
+
+connectors:
+  spanmetrics:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, debug, spanmetrics]
+    metrics:
+      receivers: [otlp, spanmetrics]
+      processors: [batch]
+      exporters: [otlphttp/prometheus, debug]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [loki, debug]
