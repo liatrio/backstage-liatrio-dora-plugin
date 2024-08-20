@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  liatrio-dora-api:
+    image: ghcr.io/liatrio/liatrio-dora-api:v1.1.13
+    platform: linux/amd64
+    ports:
+      - "${PORT:-3030}:3030"
+    environment:
+      LOKI_URL: "http://loki:3100/loki/api/v1/query_range"  # Reference Loki service by its name
+      LOKI_TOKEN: "${LOKI_TOKEN}"
+      LOKI_USER: "${LOKI_USER}"
+      PORT: "${PORT:-3030}"
+      GITHUB_ORG: "${GITHUB_ORG}"
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      LOKI_DAYS_BATCH_SIZE: "${LOKI_DAYS_BATCH_SIZE:-5}"
+
+  loki:
+    image: grafana/loki:2.9.1
+    platform: linux/amd64
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    environment:
+      LOKI_STORAGE_PATH: /loki
+
+  promtail:
+    image: grafana/promtail:2.9.1
+    platform: linux/amd64
+    volumes:
+      - /var/log:/var/log
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+
+volumes:
+  loki_data:
