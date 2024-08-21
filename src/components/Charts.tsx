@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   InfoCard,
 } from '@backstage/core-components'
@@ -130,11 +130,11 @@ export const Charts = (props: ChartProps) => {
       value: "", label: "Please Select"
     }])
   const [repoName, setRepoName] = useState<string>("")
-  const [data, setData] = useState<any>()
-  const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(31))
-  const [endDate, setEndDate] = useState<Date>(getDateDaysInPast(1))
-  const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(31))
-  const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(1))
+  const [data, setData] = useState<any>(null)
+  const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(30))
+  const [endDate, setEndDate] = useState<Date>(getDateDaysInPast(0))
+  const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(30))
+  const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(0))
   const [loading, setLoading] = useState<boolean>(true)
   const [scores, setScores] = useState<any>({...defaultScores})
   const [message, setMessage] = useState<string>("")
@@ -142,6 +142,11 @@ export const Charts = (props: ChartProps) => {
   const classes = useStyles()
 
   const getScores = (data: any) => {
+    if(!data || data.length === 0) {
+      setScores({...defaultScores})
+      return
+    }
+
     const scores = calculateScores({includeWeekends: includeWeekends}, data)
     const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
 
@@ -160,6 +165,28 @@ export const Charts = (props: ChartProps) => {
       CLTDisplay: getScoreDisplay(scores.clt),
     })
   }
+
+  const updateData = useCallback((data: any, start?: Date, end?: Date, message?: string) => {
+    if(data && data.length > 0) {
+      setData(data)
+    } else {
+      setData(null)
+    }
+
+    getScores(data)
+
+    if(message !== undefined) {
+      setMessage(message)
+    }
+    
+    if(start) {
+      setChartStartDate(start)
+    }
+
+    if(end) {
+      setChartEndDate(end)
+    }
+  }, [data, setData, scores, setScores, chartEndDate, setChartEndDate, chartStartDate, setChartStartDate])
 
   const makeFetchOptions = (start: Date, end: Date, team?: String, repo?: String) => {
     let fetchOptions: any = {
@@ -189,9 +216,7 @@ export const Charts = (props: ChartProps) => {
 
     if(newIndex === 0) {
       setLoading(true)
-      setData(null)
-      setScores({...defaultScores})
-      setMessage("Please select a Team")
+      updateData(null, undefined, undefined, "Please select a Team")
       return
     }
 
@@ -200,10 +225,8 @@ export const Charts = (props: ChartProps) => {
     setLoading(true)
 
     await fetchData(fetchOptions, (data: any) => {
-        setData(data)
+        updateData(data, undefined, undefined, "")
         setLoading(false)
-        getScores(data)
-        setMessage('')
       }, (_) => {
         setLoading(false)
       })
@@ -223,13 +246,9 @@ export const Charts = (props: ChartProps) => {
 
     setLoading(true)
 
-    await fetchData(fetchOptions, (dora_data: any) => {
-        setData(dora_data)
-        setChartStartDate(newStartDate)
-        setChartEndDate(newEndDate)
+    await fetchData(fetchOptions, (data: any) => {
+        updateData(data, newStartDate, newEndDate, "")
         setLoading(false)
-
-        getScores(dora_data)
       }, (_) => {
         setLoading(false)
       })
@@ -292,11 +311,9 @@ export const Charts = (props: ChartProps) => {
       async () => {
         const fetchOptions = makeFetchOptions(startDate, endDate, teams[teamIndex]?.value, repoName)
 
-        fetchData(fetchOptions, (dora_data: any) => {
-          setData(dora_data)
+        fetchData(fetchOptions, (data: any) => {
+          updateData(data, undefined, undefined, "")
           setLoading(false)
-
-          getScores(dora_data)
         }, (_) => {
           setLoading(false)
         })
@@ -337,6 +354,7 @@ export const Charts = (props: ChartProps) => {
                   startDate={startDate}
                   endDate={endDate}
                   selectsRange
+                  popperPlacement="bottom"
                 />
               </div>
               {props.showTeamSelection &&
