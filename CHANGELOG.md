@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.3.24 (2024-08-21)
+
+### Fix
+
+* fix: update dora ver, cleanup some code ([`fe5d068`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fe5d068b274019d8604122a895cdbd10485956c2))
+
+### Unknown
+
+* Merge pull request #63 from liatrio/BugFix
+
+fix: update dora ver, cleanup some code ([`4c952f7`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4c952f7f9a66cd25d1764646392ef53c3d3bf0eb))
+
 ## v0.3.23 (2024-08-20)
 
 ### Fix
