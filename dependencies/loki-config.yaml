@@ -1,6 +1,7 @@
 auth_enabled: false
 
 server:
+  # log_level: warn
   http_listen_port: 3100
   grpc_listen_port: 9096
 
@@ -36,6 +37,7 @@ schema_config:
 limits_config:
   split_queries_by_interval: 24h
   max_query_length: 0
+  allow_structured_metadata: true
 
 ruler:
   alertmanager_url: http://localhost:9093
