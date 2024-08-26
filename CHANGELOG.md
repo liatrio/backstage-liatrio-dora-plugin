@@ -1,16 +1,48 @@
 # CHANGELOG
 
+## v0.3.25 (2024-08-26)
+
+### Chore
+
+* chore: delete old compose ([`988b4a6`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/988b4a699e5e2c662c9ba0be5c1930d14dec8a2c))
+
+### Fix
+
+* fix: update otel collector config ([`7065815`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/70658156aa37410dc6331ffda3bc84e0708f01db))
+
+### Unknown
+
+* Merge pull request #62 from liatrio/ReadMeUpdates
+
+Update README.md ([`8f4271e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8f4271ec839dd2858312ff61af2e0c4369f127ff))
+
+* Merge branch &#39;main&#39; into ReadMeUpdates ([`41e1dfc`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/41e1dfccf91b203492463b60f5a88e1e58cfdccf))
+
 ## v0.3.24 (2024-08-21)
+
+### Chore
+
+* chore: merge compose files ([`0b9a48f`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/0b9a48f15c926aff8ecca8788a351bf688a5b6d8))
+
+* chore: add dependency docker compose ([`70d63a4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/70d63a44aa1b530fc878ecea883baf1516e4ca17))
 
 ### Fix
 
 * fix: update dora ver, cleanup some code ([`fe5d068`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fe5d068b274019d8604122a895cdbd10485956c2))
+
+* fix: updates to compose, otel, loki ([`5afd1df`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5afd1df0b07996980e4521fc84f57129a66a2c8b))
 
 ### Unknown
 
 * Merge pull request #63 from liatrio/BugFix
 
 fix: update dora ver, cleanup some code ([`4c952f7`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4c952f7f9a66cd25d1764646392ef53c3d3bf0eb))
+
+* Merge branch &#39;ReadMeUpdates&#39; of github.com:liatrio/backstage-liatrio-dora-plugin into ReadMeUpdates ([`d865fd2`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/d865fd2f961182a3d316037e78054bc240552b6d))
+
+* feature: add otel collector to docker compose ([`29615a5`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/29615a512e4fc505f1a65b2bf68c89e3ca7ff9d6))
+
+* Update README.md ([`adbd268`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/adbd268e8362fe970f0b3825636dd3a452dbe12c))
 
 ## v0.3.23 (2024-08-20)
 
