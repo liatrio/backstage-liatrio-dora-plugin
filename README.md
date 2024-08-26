@@ -15,7 +15,6 @@ Our goal is to provide an Open Source plugin that works with the Open Telemetry 
 
 This plugin relies on the following dependencies:
 
-* [Liatrio DORA API](https://github.com/liatrio/liatrio-dora-api)
 * [Liatrio DORA React Components](https://github.com/liatrio/liatrio-react-dora)
 * [Liatrio Otel Collector](https://github.com/liatrio/liatrio-otel-collector)
 * An instance of Loki DB
@@ -25,7 +24,13 @@ This plugin relies on the following dependencies:
 
 # Installation of Dependencies
 
-**TODO**
+## Docker
+
+TODO
+
+## Kubernetes
+
+If you have a Kubernetes Cluster, we have a quick start guide that installs `Loki DB` and `Liatrio OTEL Collector` (among a few other tools) that can be found [here](https://github.com/liatrio/tag-o11y-quick-start-manifests)
 
 # Installation into BackStage
 
