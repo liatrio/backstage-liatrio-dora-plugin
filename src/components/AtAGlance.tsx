@@ -13,7 +13,6 @@ export const ScoreBoard = () => {
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
-  const daysToFetch = configApi.getNumber("dora.daysToFetch")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as MetricThresholdSet

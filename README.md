@@ -8,8 +8,36 @@ Our goal is to provide an Open Source plugin that works with the Open Telemetry 
 
 # Components
 
-* DORA Score Board - This is a DORA Score Board for the last 30 days that appears in your Component entries Overview Tab
+* DORA At A Glance - This is either a representation of each individual DORA Metric and how well you are doing or a trend graph depending on how you configure it
+
+	Metric View:
+	![Metrics](/screenshots/ranked/atAGlance.png?raw=true "Metrics")
+
+	Overlall Trend View:
+	![Trend](/screenshots/trend/atAGlance.png?raw=true "Trend")
+
+	Overall Trend View with Individual Metric Trends:
+	![Trend](/screenshots/trend/atAGlanceIndividual.png?raw=true "Trend")
+
 * DORA Charts - This is a set of charts that for the DORA metrics.  It has the option of showing an individual components metrics, or an entire teams metrics
+
+	Component View with Metrics:
+	![Metrics](/screenshots/ranked/tab.png?raw=true "Metrics")
+
+	Component View with Overall Trend:
+	![Trend](/screenshots/trend/tab.png?raw=true "Trend")
+
+	Component View with Overall Trend and Individual Metric Trends:
+	![Trend](/screenshots/trend/tabIndividual.png?raw=true "Trend")
+
+	Team View with Metrics:
+	![Metrics](/screenshots/ranked/teamView.png?raw=true "Metrics")
+
+	Team View with Overall Trend:
+	![Trend](/screenshots/trend/teamView.png?raw=true "Trend")
+
+	Team View with Overall Trend and Individual Metric Trends:
+	![Trend](/screenshots/trend/teamViewIndividual.png?raw=true "Trend")
 
 # Dependencies
 
