@@ -22,8 +22,6 @@ export const genAuthHeaderValueLookup = () => {
   }
 }
 
-string
-
 export const fetchTeams = async (url: string, getAuthHeaderValue: () => Promise<string | undefined>, onSuccess: (data: any) => void, onFailure?: (data: any) => void) => {
   if(!url) {
     return
