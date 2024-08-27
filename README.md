@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml/badge.svg?branch=codeql)](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml)
+
 # Introduction
 
 This is a plugin for the [BackStage](https://backstage.io/) Project that provides a seamless way to display DORA Metrics in your developer portals.
