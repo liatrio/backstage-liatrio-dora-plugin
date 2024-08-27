@@ -1,5 +1,5 @@
 // This is our entry point
 export {
-  EntityDORAScoreBoard,
+  EntityDORAAtAGlance,
   EntityDORACharts
 } from './plugin';

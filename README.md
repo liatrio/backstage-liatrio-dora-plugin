@@ -15,7 +15,7 @@ Our goal is to provide an Open Source plugin that works with the Open Telemetry 
 
 This plugin relies on the following dependencies:
 
-* [Liatrio DORA React Components](https://github.com/liatrio/liatrio-react-dora)
+* [Liatrio DORA React Components](https://github.com/liatrio/react-dora-charts)
 * [Liatrio Otel Collector](https://github.com/liatrio/liatrio-otel-collector)
 * An instance of Loki DB
   * **You can swap out for any Time Series DB, but you will need to fork and modify the `Liatrio DORA API` to do so**

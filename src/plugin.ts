@@ -15,12 +15,12 @@ export const DORAMetricsPlugin = createPlugin({
   },
 });
 
-export const EntityDORAScoreBoard = DORAMetricsPlugin.provide(
+export const EntityDORAAtAGlance = DORAMetricsPlugin.provide(
   createComponentExtension({
-    name: 'EntityDORAScoreBoard',
+    name: 'EntityDORAAtAGlance',
     component: {
       lazy: () =>
-        import('./components/ScoreBoard').then(
+        import('./components/AtAGlance').then(
           m => m.ScoreBoard,
         ),
     },
