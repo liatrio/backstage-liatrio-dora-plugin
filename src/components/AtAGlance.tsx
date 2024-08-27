@@ -7,6 +7,7 @@ import { TrendGraph, Board, MetricThresholdSet, getDateDaysInPastUtc, fetchData 
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { genAuthHeaderValueLookup, getRepositoryName } from '../helper'
+import { ChartTitle } from './ChartTitle'
 
 export const ScoreBoard = () => {
   const entity = useEntity()
@@ -39,8 +40,8 @@ export const ScoreBoard = () => {
       let fetchOptions: any = {
         api: apiUrl,
         getAuthHeaderValue: getAuthHeaderValue,
-        start: startDate,
-        end: endDate,
+        start: getDateDaysInPastUtc(daysToFetch),
+        end: getDateDaysInPastUtc(0),
         repositories: [repositoryName]
       }
 
@@ -57,14 +58,17 @@ export const ScoreBoard = () => {
     fetch()
   }, [])
 
+  const tTitle = (<ChartTitle title='DORA: 30 Days At a Glance' info='You DORA Trend, week over week, for the period selected' />)
+  const bTitle = (<ChartTitle title='DORA: 30 Days At a Glance' info='How well you are doing in each of the DORA Metrics' />)
+
   return (
-    <InfoCard title="DORA: 30 Days At a Glance">
+    <InfoCard title={showTrendGraph ? tTitle : bTitle}>
       <Box position="relative">
         <Box display="flex" justifyContent="flex-end">
           { repositoryName === "" ?
             <div>DORA Metrics are not available for Non-GitHub repos currently</div>
           : 
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '750px', height: '200px' }}>
               {showTrendGraph ? 
                 <TrendGraph
                   showIndividualTrends={showIndividualTrends}

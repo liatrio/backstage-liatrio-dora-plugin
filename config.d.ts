@@ -7,10 +7,12 @@ export interface Config {
   dora: {
     dataEndpoint: string
     teamListEndpoint: string
-    showWeekends: boolean
     includeWeekends: boolean
     showDetails: boolean
     teams: string[]
+    showTrendGraph: boolean
+    showIndividualTrends: boolean
+    daysToFetch: number
     rankThresholds: {
       deployment_frequency: {
         elite: number,

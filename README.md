@@ -88,7 +88,7 @@ To Install this plugin you'll need to do the following:
 	```
 	import {
 		EntityDORACharts,
-		EntityDORAScoreBoard,
+		EntityDORAAtAGlance,
 	} from '@liatrio/backstage-plugin-liatrio-dora';
 	```
 
@@ -112,7 +112,7 @@ To Install this plugin you'll need to do the following:
 	* Add this into the `overviewContent` `Grid`:
 	```
 	<Grid item md={6}>
-      <EntityDORAScoreBoard />
+      <EntityDORAAtAGlance />
     </Grid>
 	```
 

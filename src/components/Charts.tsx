@@ -312,6 +312,8 @@ export const Charts = (props: ChartProps) => {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
+  const tTitle = (<ChartTitle title='DORA: At a Glance' info='You DORA Trend, week over week, for the period selected' />)
+  const bTitle = (<ChartTitle title='DORA: At a Glance' info='How well you are doing in each of the DORA Metrics' />)
   const dfTitle = (<ChartTitle scoreDisplay={metrics.deploymentFrequency.display} color={metrics.deploymentFrequency.color} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
   const cfrTitle = (<ChartTitle scoreDisplay={metrics.changeFailureRate.display} color={metrics.changeFailureRate.color} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
   const cltTitle = (<ChartTitle scoreDisplay={metrics.changeLeadTime.display} color={metrics.changeLeadTime.color} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
@@ -354,10 +356,10 @@ export const Charts = (props: ChartProps) => {
         </InfoCard>
       </Grid>
       <Grid item md={6} className='doraGrid'>
-        <InfoCard title="DORA: At a Glance" className="doraCard" noPadding={true}>
+        <InfoCard title={showTrendGraph ? tTitle : bTitle} className="doraCard" noPadding={true}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%' }}>
+              <div style={{ width: '800px', height: '200px', paddingBottom: showIndividualTrends ? "10px" : "" }}>
                 {showTrendGraph ? 
                   <TrendGraph
                     showIndividualTrends={showIndividualTrends}
