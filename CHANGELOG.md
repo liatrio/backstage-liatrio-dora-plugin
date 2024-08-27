@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.3.26 (2024-08-27)
+
+### Chore
+
+* chore: add screenshots ([`c3c851e`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c3c851ea283a6a6f6d2c8e12a7af00efb1be2df6))
+
+### Fix
+
+* fix: minor tweaks to titles and other small details ([`c474298`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c474298f9e4ec7aaeb56d740dc8c6ce060a97b2b))
+
+* fix: update to work with new version of react components ([`fa73c92`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/fa73c9223d29d0b46286213335d6331a15b17ed1))
+
+### Unknown
+
+* Merge pull request #66 from liatrio/UpgradeDoraCharts
+
+fix: upgrade dora charts ([`c270ef9`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/c270ef94257cca4d553224b1b34cbfb13cf9e501))
+
 ## v0.3.25 (2024-08-26)
 
 ### Chore
