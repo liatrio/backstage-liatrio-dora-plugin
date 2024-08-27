@@ -1,7 +1,7 @@
-import { EntityDORAScoreBoard } from './plugin';
+import { EntityDORAAtAGlance } from './plugin';
 
 describe('liatrio-dora', () => {
   it('should export plugin', () => {
-    expect(EntityDORAScoreBoard).toBeDefined();
+    expect(EntityDORAAtAGlance).toBeDefined();
   });
 });

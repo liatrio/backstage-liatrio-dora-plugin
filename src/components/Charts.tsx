@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   InfoCard,
 } from '@backstage/core-components'
 import { Box, Grid } from '@material-ui/core'
-import { Tooltip } from "react-tooltip";
-import { RecoverTime, ChangeFailureRate, ChangeLeadTime, DeploymentFrequency, ScoreBoard, fetchData, getDateDaysInPast, calculateScores, calculateDoraRanks, convertRankToColor, RankThresholds, getScoreDisplay } from 'liatrio-react-dora'
+import { Tooltip } from "react-tooltip"
+import { RecoverTimeGraph, ChangeFailureRateGraph, ChangeLeadTimeGraph, DeploymentFrequencyGraph, Board, TrendGraph, fetchData, getDateDaysInPast, buildDoraStateForPeriod, MetricThresholdSet, DoraState, getDateDaysInPastUtc, DoraRecord } from 'react-dora-charts'
 import { useEntity } from '@backstage/plugin-catalog-react'
 import { useApi, configApiRef } from '@backstage/core-plugin-api'
-import { fetchTeams, genAuthHeaderValueLookup, getRepoName } from '../helper'
+import { fetchTeams, genAuthHeaderValueLookup, getRepositoryName } from '../helper'
 import {makeStyles} from '@material-ui/core/styles'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -93,19 +93,19 @@ export interface ChartProps {
   showTeamSelection?: boolean
 }
 
-const defaultScores = {
-  DFColor: convertRankToColor(10),
-  CLTColor: convertRankToColor(10),
-  CFRColor: convertRankToColor(10),
-  RTColor: convertRankToColor(10),
-  DFScore: NaN,
-  CLTScore: NaN,
-  CFRScore: NaN,
-  RTScore: NaN,
-  DFDisplay: '?',
-  RTDisplay: '?',
-  CFRDisplay: '?',
-  CLTDisplay: '?',
+const defaultMetric =  {
+  average: 0,
+  display: "",
+  color: "",
+  trend: 0,
+  rank: 0,
+}
+
+const defaultMetrics: DoraState = {
+  deploymentFrequency: defaultMetric,
+  changeLeadTime: defaultMetric,
+  changeFailureRate: defaultMetric,
+  recoverTime: defaultMetric,
 }
 
 export const Charts = (props: ChartProps) => {
@@ -114,11 +114,13 @@ export const Charts = (props: ChartProps) => {
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
   const teamListEndpoint = configApi.getString("dora.teamListEndpoint")
-  const showWeekends = configApi.getOptionalBoolean("dora.showWeekends")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
-  const rankThresholds = configApi.getOptional("dora.rankThresholds") as RankThresholds
   const teamsList = configApi.getOptional("dora.teams") as string[]
+  const showTrendGraph = configApi.getOptionalBoolean("dora.showTrendGraph")
+  const showIndividualTrends = configApi.getOptionalBoolean("dora.showIndividualTrends")
+  const daysToFetch = configApi.getNumber("dora.daysToFetch")
+  const rankThresholds = configApi.getOptional("dora.rankThresholds") as MetricThresholdSet
 
   const getAuthHeaderValue = genAuthHeaderValueLookup()
 
@@ -129,80 +131,88 @@ export const Charts = (props: ChartProps) => {
   const [teams, setTeams] = useState<any[]>([{
       value: "", label: "Please Select"
     }])
-  const [repoName, setRepoName] = useState<string>("")
-  const [data, setData] = useState<any>(null)
+  const [repository, setRepository] = useState<string>("")
+  const [data, setData] = useState<DoraRecord[]>([])
   const [startDate, setStartDate] = useState<Date>(getDateDaysInPast(30))
   const [endDate, setEndDate] = useState<Date>(getDateDaysInPast(0))
-  const [chartStartDate, setChartStartDate] = useState<Date>(getDateDaysInPast(30))
-  const [chartEndDate, setChartEndDate] = useState<Date>(getDateDaysInPast(0))
+  const [calendarStartDate, setCalendarStartDate] = useState<Date>(getDateDaysInPast(30))
+  const [calendarEndDate, setCalendarEndDate] = useState<Date>(getDateDaysInPast(0))
   const [loading, setLoading] = useState<boolean>(true)
-  const [scores, setScores] = useState<any>({...defaultScores})
+  const [metrics, setMetrics] = useState<DoraState>({...defaultMetrics})
   const [message, setMessage] = useState<string>("")
 
   const classes = useStyles()
 
-  const getScores = (data: any) => {
+  const getMetrics = (data: any) => {
     if(!data || data.length === 0) {
-      setScores({...defaultScores})
+      setMetrics({...defaultMetrics})
       return
     }
 
-    const scores = calculateScores({includeWeekends: includeWeekends}, data)
-    const ranks = calculateDoraRanks({measures: rankThresholds}, scores)
+    const metrics = buildDoraStateForPeriod({
+      data: [],
+      metricThresholdSet: rankThresholds,
+      holidays: [],
+      includeWeekendsInCalculations: includeWeekends,
+      graphEnd: endDate,
+      graphStart: startDate,
+    }, data, startDate, endDate)
 
-    setScores({
-      DFScore: scores.df,
-      CFRScore: scores.cfr,
-      CLTScore: scores.clt,
-      RTScore: scores.rt,
-      DFColor: convertRankToColor(ranks.df),
-      CLTColor: convertRankToColor(ranks.clt),
-      CFRColor: convertRankToColor(ranks.cfr),
-      RTColor: convertRankToColor(ranks.rt),
-      DFDisplay: getScoreDisplay(scores.df),
-      RTDisplay: getScoreDisplay(scores.rt),
-      CFRDisplay: getScoreDisplay(scores.cfr, 'cfr'),
-      CLTDisplay: getScoreDisplay(scores.clt),
-    })
+    setMetrics(metrics)
   }
 
-  const updateData = useCallback((data: any, start?: Date, end?: Date, message?: string) => {
-    if(data && data.length > 0) {
-      setData(data)
+  const updateData = (data: any, start?: Date, end?: Date, message?: string) => {
+    if(!data && data.length < 1) {
+      setData([])
+      setMetrics({...defaultMetrics})
+      setMessage('')
     } else {
-      setData(null)
+      setData(data)
     }
 
-    getScores(data)
+    getMetrics(data)
 
     if(message !== undefined) {
       setMessage(message)
     }
     
     if(start) {
-      setChartStartDate(start)
+      setStartDate(start)
     }
 
     if(end) {
-      setChartEndDate(end)
+      setEndDate(end)
     }
-  }, [data, setData, scores, setScores, chartEndDate, setChartEndDate, chartStartDate, setChartStartDate])
+  }
 
-  const makeFetchOptions = (start: Date, end: Date, team?: String, repo?: String) => {
+  const makeFetchOptions = (team?: string, repositories?: string[]) => {
     let fetchOptions: any = {
       api: apiUrl,
       getAuthHeaderValue: getAuthHeaderValue,
-      start: start,
-      end: end,
+      start: getDateDaysInPast(daysToFetch),
+      end: getDateDaysInPastUtc(0),
     }
 
     if(!props.showTeamSelection) {
-      fetchOptions.repositories = [repo]
+      fetchOptions.repositories = repositories!
     } else {
       fetchOptions.team = team
     }
 
     return fetchOptions
+  }
+
+  const callFetchData = async (teamIndex: number, repository: string) => {
+    const fetchOptions = makeFetchOptions(teams[teamIndex]?.value, [repository])
+
+    setLoading(true)
+
+    await fetchData(fetchOptions, (data: any) => {
+        updateData(data, undefined, undefined, "")
+        setLoading(false)
+      }, (_) => {
+        setLoading(false)
+      })
   }
 
   const updateTeam = async ( value: any) => {
@@ -220,50 +230,33 @@ export const Charts = (props: ChartProps) => {
       return
     }
 
-    const fetchOptions = makeFetchOptions(startDate, endDate, teams[newIndex]?.value, repoName)
-
-    setLoading(true)
-
-    await fetchData(fetchOptions, (data: any) => {
-        updateData(data, undefined, undefined, "")
-        setLoading(false)
-      }, (_) => {
-        setLoading(false)
-      })
+    await callFetchData(newIndex, repository)
   }
 
-  const updateDateRange = async ( dates: any ) => {
-    const [newStartDate, newEndDate] = dates;
+  const updateDateRange = async (dates: any) => {
+    const [newStartDate, newEndDate] = dates
 
-    setStartDate(newStartDate)
-    setEndDate(newEndDate)
+    setCalendarStartDate(newStartDate)
+    setCalendarEndDate(newEndDate)
 
     if(!newStartDate || !newEndDate || (props.showTeamSelection && teamIndex === 0)) {
       return
     }
 
-    const fetchOptions = makeFetchOptions(newStartDate, newEndDate, teams[teamIndex]?.value, repoName)
-
-    setLoading(true)
-
-    await fetchData(fetchOptions, (data: any) => {
-        updateData(data, newStartDate, newEndDate, "")
-        setLoading(false)
-      }, (_) => {
-        setLoading(false)
-      })
+    setStartDate(newStartDate)
+    setCalendarEndDate(newEndDate)
   }
 
   useEffect(() => {
     setLoading(true)
     
-    let repoName = ""
+    let repositoryName = ""
 
     if(!props.showTeamSelection) {
-      repoName = getRepoName(entity)
-      setRepoName(repoName)
+      repositoryName = getRepositoryName(entity)
+      setRepository(repositoryName)
 
-      if(!repoName) {
+      if(!repositoryName) {
         setLoading(false)
         return
       }
@@ -274,7 +267,7 @@ export const Charts = (props: ChartProps) => {
         if(teamsList && teamsList.length > 0) {
           let teamsEntires = [{
             value: "", label: "Please Select"
-          }];
+          }]
     
           for(const team of teamsList) {
             teamsEntires.push({
@@ -309,27 +302,22 @@ export const Charts = (props: ChartProps) => {
       }
     :
       async () => {
-        const fetchOptions = makeFetchOptions(startDate, endDate, teams[teamIndex]?.value, repoName)
-
-        fetchData(fetchOptions, (data: any) => {
-          updateData(data, undefined, undefined, "")
-          setLoading(false)
-        }, (_) => {
-          setLoading(false)
-        })
+        callFetchData(teamIndex, repositoryName)
       }
 
     fetch()
   }, [])
 
-  if(repoName === "" && !props.showTeamSelection) {
+  if(repository === "" && !props.showTeamSelection) {
     return (<div>DORA Metrics are not available for Non-GitHub repos currently</div>)
   }
 
-  const dfTitle = (<ChartTitle scoreDisplay={scores.DFDisplay} color={scores.DFColor} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
-  const cfrTitle = (<ChartTitle scoreDisplay={scores.CFRDisplay} color={scores.CFRColor} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
-  const cltTitle = (<ChartTitle scoreDisplay={scores.CLTDisplay} color={scores.CLTColor} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
-  const rtTitle = (<ChartTitle scoreDisplay={scores.RTDisplay} color={scores.RTColor} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
+  const tTitle = (<ChartTitle title='DORA: At a Glance' info='You DORA Trend, week over week, for the period selected' />)
+  const bTitle = (<ChartTitle title='DORA: At a Glance' info='How well you are doing in each of the DORA Metrics' />)
+  const dfTitle = (<ChartTitle scoreDisplay={metrics.deploymentFrequency.display} color={metrics.deploymentFrequency.color} title='Deployment Frequency' info='How often an organization successfully releases to production' />)
+  const cfrTitle = (<ChartTitle scoreDisplay={metrics.changeFailureRate.display} color={metrics.changeFailureRate.color} title='Change Failure Rate' info='The percentage of deployments causing a failure in production' />)
+  const cltTitle = (<ChartTitle scoreDisplay={metrics.changeLeadTime.display} color={metrics.changeLeadTime.color} title='Change Lead Time' info='The amount of time it takes a commit to get into production' />)
+  const rtTitle = (<ChartTitle scoreDisplay={metrics.recoverTime.display} color={metrics.recoverTime.color} title='Recovery Time' info='How long it takes an organization to recover from a failure in production' />)
 
   const containerClass = props.showTeamSelection ? `${classes.doraContainer} ${classes.pageView}` : classes.doraContainer
 
@@ -349,10 +337,10 @@ export const Charts = (props: ChartProps) => {
               <label style={{paddingRight: "10px"}}>Select Date Range:</label>
               <div className={classes.doraCalendar}>
                 <DatePicker
-                  selected={startDate}
+                  selected={calendarStartDate}
                   onChange={updateDateRange}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={calendarStartDate}
+                  endDate={calendarEndDate}
                   selectsRange
                   popperPlacement="bottom"
                 />
@@ -368,21 +356,32 @@ export const Charts = (props: ChartProps) => {
         </InfoCard>
       </Grid>
       <Grid item md={6} className='doraGrid'>
-        <InfoCard title="DORA: At a Glance" className="doraCard" noPadding={true}>
+        <InfoCard title={showTrendGraph ? tTitle : bTitle} className="doraCard" noPadding={true}>
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
-              <div style={{ width: '100%' }}>
-                <ScoreBoard
-                  data={data}
-                  loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
-                  measures={rankThresholds}
-                  message={message}
-                />
+              <div style={{ width: '800px', height: '200px', paddingBottom: showIndividualTrends ? "10px" : "" }}>
+                {showTrendGraph ? 
+                  <TrendGraph
+                    showIndividualTrends={showIndividualTrends}
+                    data={data}
+                    loading={loading}
+                    graphStart={startDate}
+                    graphEnd={endDate}
+                    metricThresholdSet={rankThresholds}
+                    message={message}
+                  />
+                :
+                  <Board
+                    data={data}
+                    loading={loading}
+                    alwaysShowDetails={showDetails}
+                    includeWeekendsInCalculations={includeWeekends}
+                    graphStart={startDate}
+                    graphEnd={endDate}
+                    metricThresholdSet={rankThresholds}
+                    message={message}
+                  />
+                }
               </div>
             </Box>
           </Box>
@@ -395,14 +394,12 @@ export const Charts = (props: ChartProps) => {
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
-                <DeploymentFrequency
+                <DeploymentFrequencyGraph
                   data={data}
                   loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
+                  includeWeekendsInCalculations={includeWeekends}
+                  graphStart={startDate}
+                  graphEnd={endDate}
                   message={message}
                 />
               </div>
@@ -415,15 +412,13 @@ export const Charts = (props: ChartProps) => {
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
-                <ChangeLeadTime
+                <ChangeLeadTimeGraph
                   data={data}
                   loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
+                  includeWeekendsInCalculations={includeWeekends}
+                  graphStart={startDate}
+                  graphEnd={endDate}
                   message={message}
-                  end={chartEndDate}
                 />
               </div>
             </Box>
@@ -435,14 +430,12 @@ export const Charts = (props: ChartProps) => {
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
-                <ChangeFailureRate
+                <ChangeFailureRateGraph
                   data={data}
                   loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
+                  includeWeekendsInCalculations={includeWeekends}
+                  graphStart={startDate}
+                  graphEnd={endDate}
                   message={message}
                 />
               </div>
@@ -455,14 +448,12 @@ export const Charts = (props: ChartProps) => {
           <Box position="relative">
             <Box display="flex" justifyContent="flex-end">
               <div style={{ width: '800px', height: '200px' }}>
-                <RecoverTime
+                <RecoverTimeGraph
                   data={data}
                   loading={loading}
-                  showDetails={showDetails}
-                  showWeekends={showWeekends}
-                  includeWeekends={includeWeekends}
-                  start={chartStartDate}
-                  end={chartEndDate}
+                  includeWeekendsInCalculations={includeWeekends}
+                  graphStart={startDate}
+                  graphEnd={endDate}
                   message={message}
                 />
               </div>
