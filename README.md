@@ -1,4 +1,4 @@
-[![CodeQL](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml/badge.svg?branch=codeql)](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml)
+[![CodeQL](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/liatrio/backstage-liatrio-dora-plugin/actions/workflows/codeql.yml)
 
 # Introduction
 
