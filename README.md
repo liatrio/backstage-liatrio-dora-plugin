@@ -67,15 +67,15 @@ To Install this plugin you'll need to do the following:
 1. Install the `backstage-plugin-liatrio-dora` package into the `/packages/app` folder
 
     ```
-	npm install https://github.com/liatrio/backstage-liatrio-dora-plugin/releases/download/v0.3.14/liatrio-backstage-plugin-liatrio-dora-v0.3.14.tgz
+	npm install https://github.com/liatrio/backstage-dora-plugin/releases/download/v0.3.14/backstage-dora-plugin-v0.3.14.tgz
 
-	yarn add backstage-liatrio-dora-plugin@https://github.com/liatrio/backstage-liatrio-dora-plugin/releases/download/v0.3.14/liatrio-backstage-plugin-liatrio-dora-v0.3.14.tgz
+	yarn add backstage-dora-plugin@https://github.com/liatrio/backstage-dora-plugin/releases/download/v0.3.14/backstage-dora-plugin-v0.3.14.tgz
 	```
 
 2. Update the `/packages/app/src/App.tsx` file:
     * Add this to your imports:
 	```
-	import { EntityDORACharts } from '@liatrio/backstage-plugin-liatrio-dora';
+	import { EntityDORACharts } from 'backstage-dora-plugin';
 	```
 
 	* Add this into the `FlatRoutes` element as a child:
@@ -89,7 +89,7 @@ To Install this plugin you'll need to do the following:
 	import {
 		EntityDORACharts,
 		EntityDORAAtAGlance,
-	} from '@liatrio/backstage-plugin-liatrio-dora';
+	} from 'backstage-dora-plugin';
 	```
 
 	* Define this constant:

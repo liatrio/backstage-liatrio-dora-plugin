@@ -9,11 +9,12 @@ import { useApi, configApiRef } from '@backstage/core-plugin-api'
 import { genAuthHeaderValueLookup, getRepositoryName } from '../helper'
 import { ChartTitle } from './ChartTitle'
 
-export const ScoreBoard = () => {
+export const AtAGlance = () => {
   const entity = useEntity()
   const configApi = useApi(configApiRef)
   const backendUrl = configApi.getString('backend.baseUrl')
   const dataEndpoint = configApi.getString("dora.dataEndpoint")
+  const daysToFetch = configApi.getNumber("dora.daysToFetch")
   const includeWeekends = configApi.getOptionalBoolean("dora.includeWeekends")
   const showDetails = configApi.getOptionalBoolean("dora.showDetails")
   const rankThresholds = configApi.getOptional("dora.rankThresholds") as MetricThresholdSet

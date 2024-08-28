@@ -21,7 +21,7 @@ export const EntityDORAAtAGlance = DORAMetricsPlugin.provide(
     component: {
       lazy: () =>
         import('./components/AtAGlance').then(
-          m => m.ScoreBoard,
+          m => m.AtAGlance,
         ),
     },
   }),
