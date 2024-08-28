@@ -26,8 +26,7 @@
     "test": "backstage-cli package test",
     "clean": "backstage-cli package clean",
     "prepack": "backstage-cli package prepack",
-    "postpack": "backstage-cli package postpack",
-    "fix": "backstage-cli repo fix --publish"
+    "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
     "@backstage/core-components": "^0.14.3",
