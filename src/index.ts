@@ -1,5 +1,2 @@
 // This is our entry point
-export {
-  EntityDORAAtAGlance,
-  EntityDORACharts
-} from './plugin';
+export { EntityDORAAtAGlance, EntityDORACharts } from './plugin';

@@ -70,7 +70,6 @@ processors:
         statements:
           - set(attributes["created_at"], attributes["closed_at"]) where attributes["closed_at"] != nil
 
-
   attributes/issues:
     actions:
       - action: upsert

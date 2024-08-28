@@ -11,14 +11,14 @@ services:
     image: ghcr.io/liatrio/liatrio-dora-api:v1.1.13
     platform: linux/amd64
     ports:
-      - "${PORT:-3030}:3030"
+      - '${PORT:-3030}:3030'
     env_file: .env
 
   loki:
     image: grafana/loki:3.0.1
     platform: linux/amd64
     ports:
-      - "3100:3100"
+      - '3100:3100'
     volumes:
       - ./loki-config.yaml:/etc/loki/local-config.yaml
       - loki_data:/loki
@@ -48,8 +48,7 @@ services:
       - '4317:4317' # OTLP over gRPC receiver
       - '4318:4318' # OTLP over HTTP receiver
       - '8088:8088' # OTLP over HTTP receiver
-    logging:
-      *logging
+    logging: *logging
 
   grafana:
     image: grafana/grafana-enterprise
