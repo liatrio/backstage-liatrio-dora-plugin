@@ -225,10 +225,11 @@ export const Charts = (props: ChartProps) => {
     }
 
     if(newIndex === 0) {
-      setLoading(true)
       updateData(null, undefined, undefined, "Please select a Team")
       return
     }
+    
+    setMessage('')
 
     await callFetchData(newIndex, repository)
   }
