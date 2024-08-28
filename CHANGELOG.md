@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v0.3.27 (2024-08-28)
+
+### Ci
+
+* ci: remove unessesary comments ([`dcaad81`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/dcaad81ff34c72a9141c8c665e9a1715e600fa6c))
+
+* ci: remove branch from codeql workflow ([`8ef064b`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/8ef064b69297dcf0e906706da3e39f7c82a04dbd))
+
+* ci: triggering failed scan ([`b628a58`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/b628a585aa42a33347a0b3fed95c109df3a72465))
+
+* ci: add testing for codeql branch ([`4570420`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/457042091e09813452d9cb6aa153c343374d382a))
+
+* ci: add code scanning with codeql ([`307c1ff`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/307c1ffb979e3bea1d0a590cdf2ce5a86ced3372))
+
+### Documentation
+
+* docs: fix spacing in readme ([`6ed6bb7`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/6ed6bb7dee67a77e04a7207ed6c9d1b8ceda71af))
+
+* docs: at badge header to readme ([`5e7ceba`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/5e7cebac573b81f8dedad599127abfc779c6c447))
+
+* docs: add badge to readme ([`446fdfb`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/446fdfb89790efea9bb7e65c4e92d33e51e05dcf))
+
+### Fix
+
+* fix: change target branch for badge to main ([`7235fe3`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/7235fe381a8c934882ea9b8c878fcfb42bb93554))
+
+* fix: removed pointless string ([`9c6a199`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/9c6a199292368c71035615ec2bcf64acd6c2d7e6))
+
+### Unknown
+
+* Merge pull request #71 from liatrio/codeql
+
+ci: add code scanning (codeql) and badge ([`4b909e4`](https://github.com/liatrio/backstage-liatrio-dora-plugin/commit/4b909e4cdf9656555fda1a8a587b6647bc172651))
+
 ## v0.3.26 (2024-08-27)
 
 ### Chore
