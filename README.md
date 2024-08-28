@@ -68,12 +68,12 @@ If you have a Kubernetes Cluster, we have a quick start guide that installs `Lok
 
 To Install this plugin you'll need to do the following:
 
-1. Install the `backstage-plugin-liatrio-dora` package into the `/packages/app` folder
+1. Install the `backstage-dora-plugin` package into the `/packages/app` folder
 
     ```
-	npm install https://github.com/liatrio/backstage-dora-plugin/releases/download/v0.3.14/backstage-dora-plugin-v0.3.14.tgz
+	npm install https://github.com/liatrio/backstage-dora-plugin/releases/download/v1.0.0/backstage-dora-plugin-v1.0.0.tgz
 
-	yarn add backstage-dora-plugin@https://github.com/liatrio/backstage-dora-plugin/releases/download/v0.3.14/backstage-dora-plugin-v0.3.14.tgz
+	yarn add backstage-dora-plugin@https://github.com/liatrio/backstage-dora-plugin/releases/download/v1.0.0/backstage-dora-plugin-v1.0.0.tgz
 	```
 
 2. Update the `/packages/app/src/App.tsx` file:
@@ -131,10 +131,14 @@ To Install this plugin you'll need to do the following:
 		* Required:
 			* `dataEndpoint`: This the endpoint on the proxy that provides the deployment data.  If you are using the `liatrio-dora-api` this will be `data`
 			* `teamListEndpiont`: This the endpoint on the proxy that provides the team and repo owndership data.  If you are using the `liatrio-dora-api` this will be `teams`
+			* `daysToFetch`: This is the number of days worth of data that will be fetched for the charts to have available for display
+
 		* Optional:
 			* `showWeekends`: This boolean will toggle the `Deployment Frequency Chart` to hide weekends or show them.  The default is to hide them.
 			* `includeWeekends`: This boolean will toggle whether weekends are included in scoring your `Deployment Frequency` and `Change Lead Time`.  The default is to exclude them.
-			* `showDetails`: This boolean will toggle whether or not the `DORA Score Board` shows the exact scores on hover or as static text.  The default is to show them on hover.
+			* `showDetails`: This boolean will toggle whether or not the `DORA At a Glance` shows the exact scores on hover or as static text.  The default is to show them on hover.
+			* `showTrendGraph`: Enabling this field will change the `DORA At a Glance` to be a Trend Graph rather than have Metric indicators
+			* `showIndividualTrends`: Enabling this field will add individual Metric Trends to the Trend Graph in the `DORA At a Glance` component
 			* `rankThresholds`: This is an object to override the default rank thresholds for DORA Score Board and is fully optional all the way down to the individual ranks.
 
 		      There are 4 scores, all are optional:
